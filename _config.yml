@@ -26,7 +26,9 @@
 
 title: No pain, no gain
 email: innerpyg@gmail.com
-author: innerpyg
+author:
+  name   : innerpyg
+  bio    : test
 
 # Copyright setting
 # You can use any html code, currently below placeholders are available:
