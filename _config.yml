@@ -28,6 +28,13 @@ title: No pain, no gain
 email: innerpyg@gmail.com
 author: innerpyg
 
+footer:
+  links:
+    - label: "Github"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/innerpyg"
+
+
 # Copyright setting
 # You can use any html code, currently below placeholders are available:
 # * current year: {currentYear}
@@ -180,7 +187,7 @@ yat:
 # excerpt_size: 350
 
 # Pagination setting
-# paginate: 5
+paginate: 5
 
 # Disqus comments
 # disqus:
