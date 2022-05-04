@@ -24,16 +24,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: No pain, no gain
+title: No pain, No gain
 email: innerpyg@gmail.com
 author: innerpyg
-
-footer:
-  links:
-    - label: "Github"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/innerpyg"
-
 
 # Copyright setting
 # You can use any html code, currently below placeholders are available:
@@ -47,7 +40,7 @@ footer:
 #   "Copyright (c) 2017-{currentYear} <a href="https://example.com">{author}</a>"
 #   "Copyright © 2017-2021 Foobar"
 #
-copyright: "Unpublished Work (cleft) 2022-{currentYear} {author}"
+copyright: "Unpublished Work (cleft) 2017-{currentYear} {author}"
 
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -187,7 +180,7 @@ yat:
 # excerpt_size: 350
 
 # Pagination setting
-paginate: 5
+paginate: 10
 
 # Disqus comments
 # disqus:
