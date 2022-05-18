@@ -933,7 +933,7 @@ function googleTranslateElementInit() {
   <li>결과는 예측 class에 따른 confidence(class) score와 bounding box의 좌표값을 출력</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-1.png" alt="Chapter1-1"></p>
+<p><img src="/assets/images/CV/ObjectDetection-1.png" alt="ObjectDetection-1"></p>
 <blockquote>
   <p>softmax와 같은 분류기를 FC layer에 포함시켜서 설명하는 경우도 있음</p>
 </blockquote>
@@ -962,7 +962,7 @@ function googleTranslateElementInit() {
 
 <h4 id="sliding-window">Sliding Window</h4>
 
-<p><img src="/assets/images/CV/Chapter1-2.png" alt="Chapter1-2"></p>
+<p><img src="/assets/images/CV/ObjectDetection-2.png" alt="ObjectDetection-2"></p>
 
 <ol>
   <li>다양한 크기의 window를 sliding하는 방식</li>
@@ -991,7 +991,7 @@ function googleTranslateElementInit() {
   <li>이미지의 컬러나 무늬, 크기에 따라 유사한 영역을 반복적으로 grouping 하는 region proposal</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-3.png" alt="Chapter1-3"></p>
+<p><img src="/assets/images/CV/ObjectDetection-3.png" alt="ObjectDetection-3"></p>
 
 <p><br></p>
 
@@ -1007,7 +1007,7 @@ function googleTranslateElementInit() {
   </li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-4.png" alt="Chapter1-4" width="50%" class="center"></p>
+<p><img src="/assets/images/CV/ObjectDetection-4.png" alt="ObjectDetection-4" width="50%" class="center"></p>
 
 <p><br></p>
 
@@ -1038,13 +1038,13 @@ function googleTranslateElementInit() {
   </li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-5.png" alt="Chapter1-5" width="70%"></p>
+<p><img src="/assets/images/CV/ObjectDetection-5.png" alt="ObjectDetection-5" width="70%"></p>
 
 <blockquote>
   <p>예측을 했냐? P(positive) 안했냐? N(negative), 그 예측 결과가 실제값과 일치하냐? T(true) 일치하지 않느냐? F(false)</p>
 </blockquote>
 
-<p><img src="/assets/images/CV/Chapter1-6.png" alt="Chapter1-6"></p>
+<p><img src="/assets/images/CV/ObjectDetection-6.png" alt="ObjectDetection-6"></p>
 
 <ol>
   <li>Precision-Recall curve(binary classification에서 잘 활용)</li>
@@ -1055,9 +1055,9 @@ function googleTranslateElementInit() {
   <li>Recall(재현율) = $TP/(FN+TP)$</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-7.png" alt="Chapter1-7" width="50%"></p>
+<p><img src="/assets/images/CV/ObjectDetection-7.png" alt="ObjectDetection-7" width="50%"></p>
 
-<p><img src="/assets/images/CV/Chapter1-9.png" alt="Chapter1-9" width="50%"></p>
+<p><img src="/assets/images/CV/ObjectDetection-9.png" alt="ObjectDetection-9" width="50%"></p>
 
 <blockquote>
   <p>일반적으로 Precision-Recall curve는 지그재그 형태로 나타남</p>
@@ -1068,7 +1068,7 @@ function googleTranslateElementInit() {
   <li>=~ Sensitivity &amp; Specificity</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-8.png" alt="Chapter1-8"></p>
+<p><img src="/assets/images/CV/ObjectDetection-8.png" alt="ObjectDetection-8"></p>
 
 <p><br></p>
 
@@ -1129,7 +1129,7 @@ function googleTranslateElementInit() {
   <li>SegmentationObject : Instance Segmentation에 사용될 이미지(object가 존재)</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-10.png" alt="Chapter1-10" width="26%"> <img src="/assets/images/CV/Chapter1-11.png" alt="Chapter1-11" width="30%"></p>
+<p><img src="/assets/images/CV/ObjectDetection-10.png" alt="ObjectDetection-10" width="26%"> <img src="/assets/images/CV/ObjectDetection-11.png" alt="ObjectDetection-11" width="30%"></p>
 
 <p><a href="https://velog.io/@cha-suyeon/%EB%94%A5%EB%9F%AC%EB%8B%9D-Segmentation1-%EA%B0%9C%EB%85%90-%EC%9A%A9%EC%96%B4-%EC%A2%85%EB%A5%98Semantic-Instance-segmentation">Figure reference site</a></p>
 
@@ -1173,11 +1173,11 @@ function googleTranslateElementInit() {
 
 <p><br></p>
 
-<p><img src="https://github.com/innerpyg/innerpyg.github.io/tree/main/_posts/figs/CherryBlossom.jpeg" alt="RGB" width="60%"></p>
+<p><img src="/assets/images/CV/CherryBlossom.jpeg" alt="RGB" width="60%"></p>
 
 <p><br></p>
 
-<p><img src="https://github.com/innerpyg/innerpyg.github.io/tree/main/_posts/figs/CherryBlossom-BGR.png" alt="BGR" width="70%"></p>
+<p><img src="/assets/images/CV/CherryBlossom-BGR.png" alt="BGR" width="70%"></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -1206,8 +1206,9 @@ function googleTranslateElementInit() {
 <div class="post-related">
       <div>Related Articles</div>
       <ul>
-        <li><a class="post-link" href="/computervision/2022/04/30/Chapter1.html" title="RCNN, Fast-RCNN, Faster-RCNN">Object Detection과 Segmentation</a></li>
-<li><a class="post-link" href="/computervision/2022/04/30/Chapter2.html" title="RCNN, Fast-RCNN, Faster-RCNN">RCNN, Fast-RCNN, Faster-RCNN</a></li>
+        <li><a class="post-link" href="/computervision/2022/04/30/Chapter2.html" title="RCNN, Fast-RCNN, Faster-RCNN">RCNN, Fast-RCNN, Faster-RCNN</a></li>
+<li><a class="post-link" href="/computervision/2022/04/30/Chapter1.html" title="RCNN, Fast-RCNN, Faster-RCNN">Object Detection과 Segmentation</a></li>
+<li><a class="post-link" href="/computervision/2022/05/19/Chapter3.html" title="RCNN, Fast-RCNN, Faster-RCNN">SSD</a></li>
 </ul>
     </div>
 <div class="post-comments"></div></section>

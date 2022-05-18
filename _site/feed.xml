@@ -1,4 +1,107 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-04T14:56:06+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">No pain, No gain</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>innerpyg</name></author><entry><title type="html">Object Detection과 Segmentation</title><link href="http://localhost:4000/computervision/2022/04/30/Chapter1.html" rel="alternate" type="text/html" title="Object Detection과 Segmentation" /><published>2022-04-30T00:00:00+09:00</published><updated>2022-04-30T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2022/04/30/Chapter1</id><content type="html" xml:base="http://localhost:4000/computervision/2022/04/30/Chapter1.html"><![CDATA[<h2 id="0-dependancy">0. Dependancy</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-19T08:39:03+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">No pain, No gain</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>innerpyg</name></author><entry><title type="html">SSD</title><link href="http://localhost:4000/computervision/2022/05/19/Chapter3.html" rel="alternate" type="text/html" title="SSD" /><published>2022-05-19T00:00:00+09:00</published><updated>2022-05-19T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2022/05/19/Chapter3</id><content type="html" xml:base="http://localhost:4000/computervision/2022/05/19/Chapter3.html"><![CDATA[<hr />
+
+<h2 id="1-ssd">1. SSD</h2>
+
+<p><br /></p>
+
+<h4 id="background">background</h4>
+
+<p><img src="/assets/images/CV/SSD-1.png" alt="SSD-1" /></p>
+
+<ul>
+  <li>one stage vs two stage : Resion proposal이 별도로 구성되어있느냐 없느냐의 차이.</li>
+  <li>two stage detector 중 Faster RCNN이 비교적 빠른 속도임에도 불구하고 실시간으로 사용하기에는 무리가 있음.</li>
+  <li>object detection의 inference time을 줄이기 위해 one stage에 대해 학습.</li>
+  <li>YOLO로 인해 inference time은 향상되었으나 mAP가 떨어짐.</li>
+  <li>뒤이어 나온 SSD가 inference time도 좋고 mAP가 Faster RCNN보다 좋은 모델.</li>
+</ul>
+
+<p><br /><br /></p>
+
+<h4 id="ssd-주요-구성-요소">SSD 주요 구성 요소</h4>
+
+<h5 id="--feature-map-기반-multi-scale-feature-layer">- <strong>Feature Map 기반 Multi Scale Feature Layer</strong></h5>
+
+<p><br /></p>
+
+<p><img src="/assets/images/CV/SSD-2.png" alt="SSD-2" /></p>
+
+<ul>
+  <li>Sliding Window를 기반으로 응용</li>
+  <li>큰 feature map의 경우 원본 이미지에 가까운 특징들을 가지고 있고, 비교적 작은 사이즈의 Object를 detect하기 용이.</li>
+  <li>거듭 CNN을 진행한 더 작은 feature map의 경우 더 추상적이고 핵심적인 특징들을 가지고 있고, 비교적 큰 사이즈의 Object를 detect하기 용이.</li>
+</ul>
+
+<p><br /><br /></p>
+
+<h5 id="--default-anchor-box">- <strong>Default (Anchor) Box</strong></h5>
+
+<ul>
+  <li>기존 Faster RCNN 중 RPN의 경우, Classification &amp; Bounding box Regression을 진행함</li>
+  <li>이를 object detection에 바로 활용</li>
+  <li>각 grid 별로 형성된 anchor box들에 대해 개별적으로 object 유형에 따른 softmax 및 좌표값을 계산</li>
+  <li>Conv 결과값은 object class 별 probability + background + offset 4 points 값을 갖게 됨.</li>
+</ul>
+
+<p><img src="/assets/images/CV/SSD-3.png" alt="SSD-3" />
+<br /><br /></p>
+
+<hr />
+
+<p><span style="color:red"> Doubt </span></p>
+
+<p>자 IoU = Ground Truth와 bounding box와의 겹치는 영역의 비를 나타낸건데
+지금 SSD에서 NMS를 적용하는 부분은 각 feature map에서 확인된 anchor box들에 대해서 적용하는 거임
+따라서 NMS는 다수의 anchor box vs Ground truth 간 confidence score 및 IoU를 이용해서 하는건데</p>
+
+<blockquote>
+  <p>feature map에서 확인된 anchor box는 resizing이 된건데  ground truth와 어떻게 비교하지?</p>
+</blockquote>
+
+<p>matching strategy</p>
+
+<p>사실 앞에서 만든 feature map 별 anchor box가 너무 많기 때문에 NMS를 통해서 수를 극적으로 줄여서 inference time을 개선</p>
+
+<p>match 전략 : bounding box와 anchor box와의 IoU보는거래
+그럼 결국 아래의 두가지 경우를 모두 보는 거 아닌가? 처음에 말했던 컨셉이 충돌되는 거 같은데</p>
+
+<ol>
+  <li>feature map anchor box vs ground truth IoU</li>
+  <li>feature map anchor box vs bounding box IoU</li>
+</ol>
+
+<hr />
+
+<p><br /></p>
+
+<p>feature map에 anchor box를 적용했을 때의 문제점은 크기가 작은 object를 detect했을 때의 성능이 떨어짐</p>
+
+<blockquote>
+  <p>이에 대한 성능 보정을 위해 Data Augmentation을 진행</p>
+</blockquote>
+
+<p><br /></p>
+
+<h4 id="data-augmentation">Data Augmentation</h4>
+
+<ul>
+  <li>학습 데이터셋의 규모를 키우는 방법</li>
+  <li>원본에 추가되는 개념이라 성능이 떨어지지 않음</li>
+  <li>단기간에 성능을 올리고 싶은 경우 적용</li>
+  <li>데이터가 많아진다는 것은 overfitting을 줄일 수 있다는 것을 의미</li>
+  <li>대부분 학습에 사용된 데이터의 품질은 좋지만 실제 테스트에 사용될 데이터들은 노이즈 등이 있어서 예측이 어려울 수 있음. 즉, 모델이 실제 환경에서도 잘 동작하도록 도와줌.</li>
+</ul>
+
+<p><br /></p>
+
+<ol>
+  <li>Mirroring</li>
+  <li>Random Cropping</li>
+  <li>Rotating</li>
+  <li>Color shifting</li>
+  <li>Shearing</li>
+  <li>etc …</li>
+</ol>]]></content><author><name>Written by Aaron</name></author><category term="ComputerVision" /><category term="ComputerVision" /><category term="SSD" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Object Detection과 Segmentation</title><link href="http://localhost:4000/computervision/2022/04/30/Chapter1.html" rel="alternate" type="text/html" title="Object Detection과 Segmentation" /><published>2022-04-30T00:00:00+09:00</published><updated>2022-04-30T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2022/04/30/Chapter1</id><content type="html" xml:base="http://localhost:4000/computervision/2022/04/30/Chapter1.html"><![CDATA[<h2 id="0-dependancy">0. Dependancy</h2>
 
 <ul>
   <li>CNN</li>
@@ -106,7 +209,7 @@
   <li>결과는 예측 class에 따른 confidence(class) score와 bounding box의 좌표값을 출력</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-1.png" alt="Chapter1-1" /></p>
+<p><img src="/assets/images/CV/ObjectDetection-1.png" alt="ObjectDetection-1" /></p>
 <blockquote>
   <p>softmax와 같은 분류기를 FC layer에 포함시켜서 설명하는 경우도 있음</p>
 </blockquote>
@@ -135,7 +238,7 @@
 
 <h4 id="sliding-window">Sliding Window</h4>
 
-<p><img src="/assets/images/CV/Chapter1-2.png" alt="Chapter1-2" /></p>
+<p><img src="/assets/images/CV/ObjectDetection-2.png" alt="ObjectDetection-2" /></p>
 
 <ol>
   <li>다양한 크기의 window를 sliding하는 방식</li>
@@ -164,7 +267,7 @@
   <li>이미지의 컬러나 무늬, 크기에 따라 유사한 영역을 반복적으로 grouping 하는 region proposal</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-3.png" alt="Chapter1-3" /></p>
+<p><img src="/assets/images/CV/ObjectDetection-3.png" alt="ObjectDetection-3" /></p>
 
 <p><br /></p>
 
@@ -180,7 +283,7 @@
   </li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-4.png" alt="Chapter1-4" width="50%" class="center" /></p>
+<p><img src="/assets/images/CV/ObjectDetection-4.png" alt="ObjectDetection-4" width="50%" class="center" /></p>
 
 <p><br /></p>
 
@@ -211,13 +314,13 @@
   </li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-5.png" alt="Chapter1-5" width="70%" /></p>
+<p><img src="/assets/images/CV/ObjectDetection-5.png" alt="ObjectDetection-5" width="70%" /></p>
 
 <blockquote>
   <p>예측을 했냐? P(positive) 안했냐? N(negative), 그 예측 결과가 실제값과 일치하냐? T(true) 일치하지 않느냐? F(false)</p>
 </blockquote>
 
-<p><img src="/assets/images/CV/Chapter1-6.png" alt="Chapter1-6" /></p>
+<p><img src="/assets/images/CV/ObjectDetection-6.png" alt="ObjectDetection-6" /></p>
 
 <ol>
   <li>Precision-Recall curve(binary classification에서 잘 활용)</li>
@@ -228,9 +331,9 @@
   <li>Recall(재현율) = $TP/(FN+TP)$</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-7.png" alt="Chapter1-7" width="50%" /></p>
+<p><img src="/assets/images/CV/ObjectDetection-7.png" alt="ObjectDetection-7" width="50%" /></p>
 
-<p><img src="/assets/images/CV/Chapter1-9.png" alt="Chapter1-9" width="50%" /></p>
+<p><img src="/assets/images/CV/ObjectDetection-9.png" alt="ObjectDetection-9" width="50%" /></p>
 
 <blockquote>
   <p>일반적으로 Precision-Recall curve는 지그재그 형태로 나타남</p>
@@ -241,7 +344,7 @@
   <li>=~ Sensitivity &amp; Specificity</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-8.png" alt="Chapter1-8" /></p>
+<p><img src="/assets/images/CV/ObjectDetection-8.png" alt="ObjectDetection-8" /></p>
 
 <p><br /></p>
 
@@ -302,7 +405,7 @@
   <li>SegmentationObject : Instance Segmentation에 사용될 이미지(object가 존재)</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter1-10.png" alt="Chapter1-10" width="26%" /> <img src="/assets/images/CV/Chapter1-11.png" alt="Chapter1-11" width="30%" /></p>
+<p><img src="/assets/images/CV/ObjectDetection-10.png" alt="ObjectDetection-10" width="26%" /> <img src="/assets/images/CV/ObjectDetection-11.png" alt="ObjectDetection-11" width="30%" /></p>
 
 <p><a href="https://velog.io/@cha-suyeon/%EB%94%A5%EB%9F%AC%EB%8B%9D-Segmentation1-%EA%B0%9C%EB%85%90-%EC%9A%A9%EC%96%B4-%EC%A2%85%EB%A5%98Semantic-Instance-segmentation">Figure reference site</a></p>
 
@@ -345,11 +448,11 @@
 
 <p><br /></p>
 
-<p><img src="https://github.com/innerpyg/innerpyg.github.io/tree/main/_posts/figs/CherryBlossom.jpeg" alt="RGB" width="60%" /></p>
+<p><img src="/assets/images/CV/CherryBlossom.jpeg" alt="RGB" width="60%" /></p>
 
 <p><br /></p>
 
-<p><img src="https://github.com/innerpyg/innerpyg.github.io/tree/main/_posts/figs/CherryBlossom-BGR.png" alt="BGR" width="70%" /></p>
+<p><img src="/assets/images/CV/CherryBlossom-BGR.png" alt="BGR" width="70%" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -377,7 +480,7 @@
 
 <p><br /></p>
 
-<p><img src="/assets/images/CV/Chapter2-1.png" alt="Chapter2-1" /></p>
+<p><img src="/assets/images/CV/RCNN-1.png" alt="RCNN-1" /></p>
 
 <p><br /><br /></p>
 
@@ -399,7 +502,7 @@
 
 <p><br /></p>
 
-<p><img src="/assets/images/CV/Chapter2-2.png" alt="Chapter2-2" /></p>
+<p><img src="/assets/images/CV/RCNN-2.png" alt="RCNN-2" /></p>
 
 <ol>
   <li>데이터 셋 상 Annotation file기반 Ground truth와 Selective Search를 통한 predicted bounding box 확인</li>
@@ -427,7 +530,7 @@
   <li>전반적인 bounding box regression의 경우 RCNN상 Selective Search로 찾은 약 2K image에 대해 모두 진행하지 않고 특정 IoU threshold 이상은 값을 가지는 것에 대해서만 진행</li>
 </ul>
 
-<p><img src="/assets/images/CV/Chapter2-3.png" alt="Chapter2-3" width="60%" /></p>
+<p><img src="/assets/images/CV/RCNN-3.png" alt="RCNN-3" width="60%" /></p>
 
 <p><br /><br /></p>
 
@@ -452,7 +555,7 @@
 
 <p><br /></p>
 
-<p><img src="/assets/images/CV/Chapter2-4.png" alt="Chapter2-4" /></p>
+<p><img src="/assets/images/CV/RCNN-4.png" alt="RCNN-4" /></p>
 
 <ul>
   <li>이에 대해 SPP layer를 추가하여 서로 다른 크기를 가진 이미지를 vector로 변환하여 dense layer인 1D FC input을 제공하게끔 함.</li>
@@ -462,7 +565,7 @@
 
 <p><br /></p>
 
-<p><img src="/assets/images/CV/Chapter2-5.png" alt="Chapter2-5" /></p>
+<p><img src="/assets/images/CV/RCNN-5.png" alt="RCNN-5" /></p>
 
 <ul>
   <li>결국 SPP는 위의 SPM에 max pooling만 추가 적용한 것임.</li>
@@ -471,7 +574,7 @@
 
 <p><br /></p>
 
-<p><img src="/assets/images/CV/Chapter2-6.png" alt="Chapter2-6" /></p>
+<p><img src="/assets/images/CV/RCNN-6.png" alt="RCNN-6" /></p>
 
 <p><br /><br /></p>
 
@@ -493,7 +596,7 @@
 
 <p><br /></p>
 
-<p><img src="/assets/images/CV/Chapter2-7.png" alt="Chapter2-7" /></p>
+<p><img src="/assets/images/CV/RCNN-7.png" alt="RCNN-7" /></p>
 
 <ol>
   <li>원본 이미지에 대해 한 번만 학습하여 feature map을 만듬</li>
@@ -522,7 +625,7 @@
 
 <p><br /></p>
 
-<p><img src="/assets/images/CV/Chapter2-8.png" alt="Chapter2-8" /></p>
+<p><img src="/assets/images/CV/RCNN-8.png" alt="RCNN-8" /></p>
 
 <p><br /><br /></p>
 
@@ -540,7 +643,7 @@
 
 <p><br /></p>
 
-<p><img src="/assets/images/CV/Chapter2-9.png" alt="Chapter2-9" /></p>
+<p><img src="/assets/images/CV/RCNN-9.png" alt="RCNN-9" /></p>
 
 <p><br /><br /></p>
 
@@ -601,7 +704,7 @@
 
 <h4 id="rpn-network-configuration">RPN Network configuration</h4>
 
-<p><img src="/assets/images/CV/Chapter2-10.png" alt="Chapter2-10" /></p>
+<p><img src="/assets/images/CV/RCNN-10.png" alt="RCNN-10" /></p>
 
 <p><br /></p>
 
@@ -621,13 +724,13 @@
 
 <h4 id="bounding-box-regression-1">bounding box regression</h4>
 
-<p><img src="/assets/images/CV/Chapter2-11.png" alt="Chapter2-11" /></p>
+<p><img src="/assets/images/CV/RCNN-11.png" alt="RCNN-11" /></p>
 
 <p><br /><br /></p>
 
 <h4 id="rpn-손실함수">RPN 손실함수</h4>
 
-<p><img src="/assets/images/CV/Chapter2-12.png" alt="Chapter2-12" /></p>
+<p><img src="/assets/images/CV/RCNN-12.png" alt="RCNN-12" /></p>
 
 <h4 id="faster-r-cnn-training">Faster R-CNN training</h4>
 
@@ -646,7 +749,7 @@
 
 <p><br /></p>
 
-<p><img src="/assets/images/CV/Chapter2-13.png" alt="Chapter2-13" /></p>
+<p><img src="/assets/images/CV/RCNN-13.png" alt="RCNN-13" /></p>
 
 <p><br /></p>
 
