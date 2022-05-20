@@ -7,28 +7,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>RCNN, Fast-RCNN, Faster-RCNN | No pain, No gain</title>
+<title>Classification with CNN, LSTM using DNA sequence data | No pain, No gain</title>
 <meta name="generator" content="Jekyll v4.2.2">
-<meta property="og:title" content="RCNN, Fast-RCNN, Faster-RCNN">
+<meta property="og:title" content="Classification with CNN, LSTM using DNA sequence data">
 <meta name="author" content="Written by Aaron">
 <meta property="og:locale" content="en_US">
-<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
-<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
-<link rel="canonical" href="http://localhost:4000/computervision/2022/04/30/Chapter2.html">
-<meta property="og:url" content="http://localhost:4000/computervision/2022/04/30/Chapter2.html">
+<meta name="description" content="BI에서의 딥러닝 활용">
+<meta property="og:description" content="BI에서의 딥러닝 활용">
+<link rel="canonical" href="/bioinformatics/2022/05/21/test.html">
+<meta property="og:url" content="/bioinformatics/2022/05/21/test.html">
 <meta property="og:site_name" content="No pain, No gain">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2022-04-30T00:00:00+09:00">
+<meta property="article:published_time" content="2022-05-21T00:00:00+09:00">
 <meta name="twitter:card" content="summary">
-<meta property="twitter:title" content="RCNN, Fast-RCNN, Faster-RCNN">
+<meta property="twitter:title" content="Classification with CNN, LSTM using DNA sequence data">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Written by Aaron"},"dateModified":"2022-04-30T00:00:00+09:00","datePublished":"2022-04-30T00:00:00+09:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"RCNN, Fast-RCNN, Faster-RCNN","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/computervision/2022/04/30/Chapter2.html"},"url":"http://localhost:4000/computervision/2022/04/30/Chapter2.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Written by Aaron"},"dateModified":"2022-05-21T00:00:00+09:00","datePublished":"2022-05-21T00:00:00+09:00","description":"BI에서의 딥러닝 활용","headline":"Classification with CNN, LSTM using DNA sequence data","mainEntityOfPage":{"@type":"WebPage","@id":"/bioinformatics/2022/05/21/test.html"},"url":"/bioinformatics/2022/05/21/test.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="shortcut icon" href="">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
   <link rel="stylesheet" href="/assets/css/main.css">
-  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="No pain, No gain">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="No pain, No gain">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
 <!-- and it's easy to individually load additional languages -->
@@ -774,11 +774,11 @@ function googleTranslateElementInit() {
 
 
 <header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">RCNN, Fast-RCNN, Faster-RCNN</h1>
+  <h1 class="post-title p-name" itemprop="name headline">Classification with CNN, LSTM using DNA sequence data</h1>
   <h2 class="post-subtitle"></h2>
 
   <p class="post-meta">
-    <time class="dt-published" datetime="2022-04-30T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 30, 2022
+    <time class="dt-published" datetime="2022-05-21T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 21, 2022
     </time>
 
     
@@ -815,331 +815,107 @@ function googleTranslateElementInit() {
 
 
 
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
   </p>
 <div class="post-tags">
-<a class="post-tag" href="/tags.html#ComputerVision">#ComputerVision</a><a class="post-tag" href="/tags.html#RCNN">#RCNN</a>
+<a class="post-tag" href="/tags.html#Bioinformatics">#Bioinformatics</a><a class="post-tag" href="/tags.html#CNN">#CNN</a><a class="post-tag" href="/tags.html#LSTM">#LSTM</a>
 </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <div class="post-content e-content" itemprop="articleBody">
 
-      <hr>
-
-<h2 id="1-rcnnregions-with-cnn">1. RCNN(Regions with CNN)</h2>
-
-<ul>
-  <li>CNN 공부하다보면 어떤 곳에서는 Region Proposal을 network 안에 포함하여 설명하는 글이 있음</li>
-  <li>CNN에 Region Proposal을 넣은 것이 RCNN</li>
-</ul>
+      <h2 id="bi에서의-딥러닝-활용">BI에서의 딥러닝 활용</h2>
 
 <p><br></p>
 
-<p><img src="/assets/images/CV/RCNN-1.png" alt="RCNN-1"></p>
+<h4 id="--paper-title">- Paper title</h4>
+
+<p><img src="/assets/images/CV/BICase-1.png" alt=""></p>
+
+<p><br></p>
+
+<ul>
+  <li>머신러닝, 딥러닝 등 여러 분석 기법을 배우고 있지만 실무적으로 어떻게 쓰일 수 있는지 예시를 보여주기 위함.</li>
+  <li>실무적으로 다룰 데이터가 어떤 특성을 가지는 것인지 즉, 도메인의 지식이 중요하다는 것을 알 수 있음.</li>
+</ul>
 
 <p><br><br></p>
 
+<h4 id="--sample-status">- Sample Status</h4>
+
+<p><img src="/assets/images/CV/BICase-2.png" alt=""></p>
+
+<p><br><br></p>
+
+<h4 id="--classification-workflow">- Classification workflow</h4>
+
+<p><img src="/assets/images/CV/BICase-3.png" alt=""></p>
+
+<p><br><br></p>
+
+<h4 id="--process">- Process</h4>
+
 <ol>
-  <li>단일 이미지에 대해 Selective Search를 이용하여 2000개의 Region proposal</li>
-  <li>Selective Search를 통해 나온 이미지들을 AlexNet에 넣기 위해서는 227*227 image crop</li>
-  <li>마지막에 classification을 위해 사용했던 softmax 대신 SVM를 채택하여 성능이 향상됨.
+  <li>Data Collection
     <ul>
-      <li>SVM(Support Vector Machine) : 특정 함수를 만족하는 regression line은 무수히 많지만 그 중에서 잔차의 합이 최소가 되는 line을 찾는 방법</li>
-      <li>성능은 향상됐으나, 약 2000개의 crop image를 processing하기 때문에 시간이 오래 걸림</li>
-      <li>object detection 및 region proposal 성능 입증</li>
+      <li>모든 샘플은 NCBI에서 확보</li>
+      <li>class imbalance하게 때문에 SMOTE 적용</li>
+    </ul>
+  </li>
+  <li>Data pre-processing
+    <ul>
+      <li>DNA sequence는 문자열 데이터이기 때문에 수치형 데이터로 변환하는 encoding 작업을 진행</li>
+    </ul>
+    <ol>
+      <li>Label encoding</li>
+      <li>K-mer encoding(k-means 아님)</li>
+    </ol>
+
+    <p><img src="/assets/images/CV/BICase-4.png" width="300" height="200"></p>
+  </li>
+  <li>Classification model
+    <ul>
+      <li>CNN</li>
+      <li>CNN + LSTM</li>
+      <li>CNN + Bidirectional LSTM</li>
     </ul>
   </li>
 </ol>
 
-<p><br></p>
+<p><br><br></p>
 
-<h4 id="rcnn-training">RCNN Training</h4>
+<h4 id="--accuracy-of-classification-models">- Accuracy of classification models</h4>
 
-<p><br></p>
-
-<p><img src="/assets/images/CV/RCNN-2.png" alt="RCNN-2"></p>
-
-<ol>
-  <li>데이터 셋 상 Annotation file기반 Ground truth와 Selective Search를 통한 predicted bounding box 확인</li>
-  <li>1000개의 class로 되어있는 ImageNet으로 Feature Extractor pretraining</li>
-  <li>pretrained model에 사용할 데이터 셋을 fine-tuning
-    <ul>
-      <li>Gronud truth와 Selective Search bounding box 간 IoU가 특정 threshold(PASCAL 데이터 셋일 때 0.5일 것으로 보임)이상인 것들만 학습을 시키고 나머지는 background로 find-tuning</li>
-    </ul>
-  </li>
-  <li>만들어진 Feature Map을 이용한 1D FC input이 만들어짐</li>
-  <li>SVM을 이용한 Ground truth만을 기준으로 학습하되 IoU가 0.3 이하는 background로 설정, <span style="color:red">0.3이상인데 GT가 아닌 것은 무시???</span>
-</li>
-</ol>
-
-<p><br></p>
-
-<h4 id="bounding-box-regression">Bounding Box Regression</h4>
-
-<p><br></p>
-
-<ul>
-  <li>bounding box와 Ground truth의 각 중심점 간 거리가 최소가 되도록 학습</li>
-  <li>우리가 원하는 건 bounding box 변수 P에 대한 tranformation(기존의 vector(여기서는 bounding box P)를 다른 좌표 공간으로 정의하여 달리 표현(여기서는 G_hat)) 함수</li>
-  <li>transformation 함수는 CNN layter 중 weight vector가 가미된 손실함수.</li>
-  <li>손실 함수 상에서 사용된 가중치를 학습시키기 위해 ridge regression을 사용하여 regression target를 정의</li>
-  <li>전반적인 bounding box regression의 경우 RCNN상 Selective Search로 찾은 약 2K image에 대해 모두 진행하지 않고 특정 IoU threshold 이상은 값을 가지는 것에 대해서만 진행</li>
-</ul>
-
-<p><img src="/assets/images/CV/RCNN-3.png" alt="RCNN-3" width="60%"></p>
+<p><img src="/assets/images/CV/BICase-5.png" alt=""></p>
 
 <p><br><br></p>
 
-<h2 id="2-sppspatial-pyramid-pooling-net">2. SPP(Spatial Pyramid Pooling) Net</h2>
+<h4 id="--conclusion">- Conclusion</h4>
 
 <ul>
-  <li>RCNN의 문제점
-    <ul>
-      <li><span style="color:red">detection 시간이 너무 오래 걸림</span></li>
-      <li>image crop &amp; warp로 인해 원래의 이미지가 아닌 다른 이미지로 인식이 됨.</li>
-    </ul>
-  </li>
+  <li>이 논문의 목적은 사실상 DNA sequence를 이용하여 species를 잘 classification 할 수 있는지, 그리고 정확도는 좋은지 확인하는 목적</li>
+  <li>그러나 BI 실무 및 딥러닝 입문자의 입장에서는 딥러닝 기술을 이용하여 meta genome(여러 genome이 모여있는 형태)에 대해 각 species별 분류가 가능하고, 더 나아가 아직 밝혀지지 않은 sequence 정보를 확보 후 신약 개발에 응용한다는 등 여러 가능성이 보임.(물론 이미 많은 개발이 이루어져있겠지..)</li>
 </ul>
-
-<p><br></p>
-
-<h4 id="rcnn-개선-방안">RCNN 개선 방안</h4>
-
-<ul>
-  <li>원본 이미지에 대해 feature map을 만든 후, bounding box에 대한 부분을 feature map에 mapping하면 해결 될 것으로 보였으나, dense layer 1D FC input size가 고정되지 않아 진행할 수 없었음.</li>
-</ul>
-
-<p><br></p>
-
-<p><img src="/assets/images/CV/RCNN-4.png" alt="RCNN-4"></p>
-
-<ul>
-  <li>이에 대해 SPP layer를 추가하여 서로 다른 크기를 가진 이미지를 vector로 변환하여 dense layer인 1D FC input을 제공하게끔 함.</li>
-  <li>SPP는 CNN image classification에서 서로 다른 이미지의 크기를 고정된 크기로 변환하는 기법으로 소개, 이는 Spatial Pyramid Matching 기법에 근단을 둠</li>
-  <li>
-<strong>SPM(Spatial Pyramid Matching)</strong> : 이미지를 grid layout(위치)을 기반으로 하여 각 feature들이 위치 별로 얼마나 분포하고 있는 지를 파악한 후, 각 위치 별 가장 빈번한 feature의 특성이 반영된 새로운 속성들이 생김. 새롭게 확인된 속성들을 이용하여 새로운 분류를 할 수 있게 됨. <span style="color:blue">결국 파생 변수…아이디어 싸움</span>
-</li>
-</ul>
-
-<p><br></p>
-
-<p><img src="/assets/images/CV/RCNN-5.png" alt="RCNN-5"></p>
-
-<ul>
-  <li>결국 SPP는 위의 SPM에 max pooling만 추가 적용한 것임.</li>
-  <li>여기서 질문.. 서로 다른 feature map size임에도 불구하고 SPP를 적용하여 문제를 해결할 수 있으나, 2n x 2n의 feature들이여야 1,4,12분면으로 만들 수 있는 거 아니니?</li>
-</ul>
-
-<p><br></p>
-
-<p><img src="/assets/images/CV/RCNN-6.png" alt="RCNN-6"></p>
 
 <p><br><br></p>
 
-<h4 id="rcnn의-발전">RCNN의 발전</h4>
+<p><strong>위 내용들은 모두 아래의 논문을 참고하였음</strong></p>
 
-<ul>
-  <li>R-CNN : 한 image에 대해 2천개의 bounding box를 모두 학습하여 별도의 SVM을 통해 classification</li>
-  <li>SPP layer 도입</li>
-  <li>Fast R-CNN : 여전히 Selective Search포함되어 있으며 spp layer를 ROI pooling으로 대체. 또한 SVM이 삭제되고 다시 softmax를 도입. End-To-End Network learning(ROI는 제외), Multi-task loss 함수로 classification과 regression를 함께 최적화(loss 줄이기)</li>
-  <li>
-    <p>Fater R-CNN : RPN이 추가됨.</p>
-  </li>
-  <li>ROI : 방법론이 어떻든 region proposal로 제시된 영역을 일컫는 것으로 보임.</li>
-</ul>
-
-<p><br></p>
-
-<h4 id="fast-r-cnn">Fast R-CNN</h4>
-
-<p><br></p>
-
-<p><img src="/assets/images/CV/RCNN-7.png" alt="RCNN-7"></p>
-
-<ol>
-  <li>원본 이미지에 대해 한 번만 학습하여 feature map을 만듬</li>
-  <li>Selective Search로 찾은 bounding box에 대하여 이미 만들어놓은 feature map에 mapping</li>
-  <li>ROI logic을 적용하여 resizing, max pooling을 적용하여 크기에 상관없이 정해진 feature extract</li>
-  <li>FC layer &gt; softmax를 통해 분류</li>
-</ol>
-
-<p><br></p>
-
-<h4 id="faster-r-cnn">Faster R-CNN</h4>
-
-<ul>
-  <li>RNN + Fast R-CNN</li>
-  <li>object detection을 구성하는 모든 요소들을 모두 딥러닝만으로 구성한 첫 알고리즘</li>
-  <li>Selective Search를 통한 ROI logic을 RPM으로 대체</li>
-  <li>GPU 사용으로 빠른 학습</li>
-  <li>end-to-end Network 학습
-    <ul>
-      <li>다른 네트워크 개입없이 하나의 네트워크만으로 전체 파이프라인 네트워크를 이루는 것으로 보임.</li>
-      <li>병렬 처리가 안된다는 안점?이 존재할 거 같다.</li>
-      <li>분석이 리소스에 의존적이다. 메모리 제한</li>
-    </ul>
-  </li>
-</ul>
-
-<p><br></p>
-
-<p><img src="/assets/images/CV/RCNN-8.png" alt="RCNN-8"></p>
-
-<p><br><br></p>
-
-<h4 id="anchor-box">Anchor Box</h4>
-
-<ul>
-  <li>Selective Search를 대체하여 end-to-end network의 기반이 된 기술</li>
-  <li>형성된 feature map을 기준으로 각 grid(value …)를 기준으로 다음의 특징을 가지는 anchor box를 작성
-    <ul>
-      <li>1배수, 2배수, 3배수 // 1:1, 1:2, 2:1으로 총 9개의 anchor box 적용하는 것이 일반적</li>
-      <li>근데 yolo v2는 coco 데이터 셋의 bounding box에 k-means clustering을 적용해보니 anchor box를 5개로 설정하는 것이 precision과 recall측면에서 좋은 결과를 낸다고 결론지음.</li>
-    </ul>
-  </li>
-</ul>
-
-<p><br></p>
-
-<p><img src="/assets/images/CV/RCNN-9.png" alt="RCNN-9"></p>
-
-<p><br><br></p>
-
-<h4 id="rpn-network">RPN Network</h4>
-
-<ol>
-  <li>원본 이미지를 이용하여 feature map(n x m x c)을 얻는다.</li>
-  <li>feature map에 대하여 3x3 conv 연산을 적용한다. 크기에 변화가 없도록 padding을 추가한다.</li>
-  <li>1x1conv을 통하여 channel이 축소화 된 2가지의 feature map을 출력하는데..
-    <ul>
-      <li>
-        <dl>
-          <dt>이진 분류(object가 있나? 없나?)를 위한 feature map 출력</dt>
-          <dd>1x1conv을 이용한 9(anchor boxs) channel feature map</dd>
-        </dl>
-      </li>
-      <li>bounding box(x, y, w, h)를 위해 1x1conv를 이용한 4(bb coordinate)x9(anchor box) channel feature map</li>
-    </ul>
-  </li>
-</ol>
-
-<blockquote>
-  <p>근데 RPN에 대해 다른 자료들을 찾아보면 이진 분류를 위한 feature map은 9개가 아니라 9x2 channel의 feature map을 출력한다고 기입되어있음. 이 때의 2는 object가 있냐 없냐에 대한 binary class의 수이고, bounding box coordinate에 해당하는 좌표 정보의 갯수의 컨셉과 동일한 것으로 추정. 설마 sigmoid로 하면 9 channel로 구성해도 알아서 2배수로 해주는건가…</p>
-</blockquote>
-
-<h4 id="sigmoid-vs-softmax">Sigmoid vs Softmax</h4>
-
-<p><br></p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">N</th>
-      <th style="text-align: center">Sigmoid</th>
-      <th style="text-align: center">softmax</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">binary-classification</td>
-      <td style="text-align: center">multi-classification</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">2</td>
-      <td style="text-align: center">sum of P != 1</td>
-      <td style="text-align: center">sum of P == 1</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">3</td>
-      <td style="text-align: center">output is not real P</td>
-      <td style="text-align: center">real P</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><br></p>
-
-<h4 id="rpn-network-configuration">RPN Network configuration</h4>
-
-<p><img src="/assets/images/CV/RCNN-10.png" alt="RCNN-10"></p>
-
-<p><br></p>
-
-<h4 id="positive-negative-anchor-box">Positive, Negative anchor box</h4>
-
-<ul>
-  <li>모든 anchor box에 대해 RPN bounding box reg를 적용하지 않는다. 왜? 너무 많으니까</li>
-  <li>ground truth와 anchor box간 IoU를 이용하여 positive와 negative로 구분함.
-    <ul>
-      <li>IoU가 0.7 이상이거나 가장 높은 anchor는 <span style="color:blue">positive</span>
-</li>
-      <li>IoU가 0.3보다 낮으면 <span style="color:red">Negative</span>
-</li>
-    </ul>
-  </li>
-</ul>
-
-<p><br></p>
-
-<h4 id="bounding-box-regression-1">bounding box regression</h4>
-
-<p><img src="/assets/images/CV/RCNN-11.png" alt="RCNN-11"></p>
-
-<p><br><br></p>
-
-<h4 id="rpn-손실함수">RPN 손실함수</h4>
-
-<p><img src="/assets/images/CV/RCNN-12.png" alt="RCNN-12"></p>
-
-<h4 id="faster-r-cnn-training">Faster R-CNN training</h4>
-
-<p><br></p>
-
-<ol>
-  <li>RPN을 선행 학습</li>
-  <li>Fast RCNN Classification / Regression 학습</li>
-  <li>2의 loss를 이용해 RPN을 fine tuning</li>
-  <li>전반적인 process를 진행</li>
-</ol>
-
-<p><br><br></p>
-
-<h2 id="rcnn-summary">RCNN Summary</h2>
-
-<p><br></p>
-
-<p><img src="/assets/images/CV/RCNN-13.png" alt="RCNN-13"></p>
-
-<p><br></p>
-
-<ul>
-  <li>RCNN : Selective Search로 인한 2000개의 conv를 적용하여 시간이 오래걸리는 단점</li>
-  <li>Fast RCNN : RCNN의 문제점을 해결하기 위해 ROI를 적용하고 SVM 제거</li>
-  <li>Faster RCNN : Selective Search를 제거하고 RPN을 통해 딥러닝으로만 구성된 네트워크</li>
-</ul>
-
-<p><br></p>
-
-<hr>
-
-<p><br></p>
-
+<p><a href="https://www.hindawi.com/journals/cmmm/2021/1835056/">Analysis of DNA Sequence Classification Using CNN and Hybrid Models</a></p>
 
 
     </div>
 
 </article>
 <div class="post-nav">
-<a class="previous" href="/computervision/2022/04/30/Chapter1.html" title="Object Detection과 Segmentation">Object Detection과 Segmentation</a><a class="next" href="/computervision/2022/05/19/Chapter3.html" title="SSD">SSD</a>
+<a class="previous" href="/computervision/2022/05/21/Chapter4.html" title="YOLO">YOLO</a><span></span>
 </div>
 <div class="post-related">
       <div>Related Articles</div>
       <ul>
-        <li><a class="post-link" href="/computervision/2022/04/30/Chapter2.html" title="SSD">RCNN, Fast-RCNN, Faster-RCNN</a></li>
-<li><a class="post-link" href="/computervision/2022/05/21/Chapter4.html" title="SSD">YOLO</a></li>
-<li><a class="post-link" href="/computervision/2022/04/30/Chapter1.html" title="SSD">Object Detection과 Segmentation</a></li>
-<li><a class="post-link" href="/computervision/2022/05/19/Chapter3.html" title="SSD">SSD</a></li>
+        <li><a class="post-link" href="/computervision/2022/05/21/Chapter4.html" title="">YOLO</a></li>
+<li><a class="post-link" href="/bioinformatics/2022/05/21/BICase1.html" title="">Classification with CNN, LSTM using DNA sequence data</a></li>
+<li><a class="post-link" href="/bioinformatics/2022/05/21/test.html" title="">Classification with CNN, LSTM using DNA sequence data</a></li>
 </ul>
     </div>
 <div class="post-comments"></div></section>
