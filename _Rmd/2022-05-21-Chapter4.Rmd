@@ -12,7 +12,7 @@ output:
     toc_depth: '2'
 layout: post
 categories: ComputerVision
-tags: [ComputerVision, SSD]
+tags: [ComputerVision, YOLO]
 ---
 
 ```{r setup, include=FALSE}
