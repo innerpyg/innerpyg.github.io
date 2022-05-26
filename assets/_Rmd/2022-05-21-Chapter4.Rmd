@@ -1,7 +1,7 @@
 ---
 title: "YOLO"
 author: "Written by Aaron"
-date: "2022-05-26"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
 output:
   html_document:
     toc: yes
@@ -15,11 +15,15 @@ categories: ComputerVision
 tags: [ComputerVision, SSD]
 ---
 
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(knitr, ggplot2, dplyr, tidyr, plotly, gridExtra)
+```
 
 ---
 
-![](/assets/_Rmd/assets/images/CV/YOLO-3.png)
+![](./assets/images/CV/YOLO-3.png)
 
 <br><br>
 
@@ -30,7 +34,7 @@ tags: [ComputerVision, SSD]
 - input image를 S x S로 나눈 grid의 각각의 cell 별로 하나의 object에 대한 detection 수행
 - 각 cell이 2개의 Bounding box를 기반으로 하나의 object에 대한 bounding box 예측
 
-![](/assets/_Rmd/assets/images/CV/YOLO-1.png)
+![](./assets/images/CV/YOLO-1.png)
 
 <br>
 
@@ -70,7 +74,7 @@ tags: [ComputerVision, SSD]
 
 <br>
 
-![](/assets/_Rmd/assets/images/CV/YOLO-2.png)
+![](./assets/images/CV/YOLO-2.png)
 
 <br>
 
@@ -92,7 +96,7 @@ tags: [ComputerVision, SSD]
 
 <br>
 
-![](/assets/_Rmd/assets/images/CV/YOLO-4.png)
+![](./assets/images/CV/YOLO-4.png)
 
 **지금까지는 Feature Extract > Classification layer(dense)의 형태였는데, YOLO-V2에서는 Classification시 dense가 아닌 Fully Conv layer로 변경**
 **학습 시 Feature Extract 부분은 freezing하여 weight를 업데이트 하지 않도록 하고, Fully Conv만 weight를 업데이트**
@@ -106,7 +110,7 @@ tags: [ComputerVision, SSD]
 
 <br>
 
-![](/assets/_Rmd/assets/images/CV/YOLO-5.png)
+![](./assets/images/CV/YOLO-5.png)
 
 <br>
 
@@ -114,7 +118,7 @@ tags: [ComputerVision, SSD]
 
 <br>
 
-![](/assets/_Rmd/assets/images/CV/YOLO-6.png)
+![](./assets/images/CV/YOLO-6.png)
 
 <br>
 
@@ -126,7 +130,7 @@ tags: [ComputerVision, SSD]
 #### Passthrough module 적용
 
 <br>
-![](/assets/_Rmd/assets/images/CV/YOLO-7.png)
+![](./assets/images/CV/YOLO-7.png)
 
 - 작은 object를 detect하기 위해 다소 큰 feature map을 reshape함으로써 성능을 보정
 - 앞서 [SDD](https://innerpyg.github.io/computervision/2022/05/19/Chapter3.html)에서 multi-scale feature map을 이용하여 크고 작은 object를 detection하려는 것과 같이, 특정 시점의 feature map의 특성을 단순히 reshape함으로써 좀 더 작은 object를 detect하기 위함.
@@ -145,7 +149,7 @@ tags: [ComputerVision, SSD]
 
 #### YOLO V3 Network 구조
 
-![](/assets/_Rmd/assets/images/CV/YOLO-8.png)
+![](./assets/images/CV/YOLO-8.png)
 
 <br>
 
@@ -159,7 +163,7 @@ tags: [ComputerVision, SSD]
 
 <br>
 
-![](/assets/_Rmd/assets/images/CV/YOLO-10.png)
+![](./assets/images/CV/YOLO-10.png)
 
 <br>
 
@@ -171,4 +175,4 @@ prediction 방식이 특정 class를 가리키는 방식이 아니라 예측하�
 
 <br>
 
-![](/assets/_Rmd/assets/images/CV/YOLO-9.png)
+![](./assets/images/CV/YOLO-9.png)
