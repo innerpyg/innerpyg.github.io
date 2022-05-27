@@ -30,7 +30,7 @@ pacman::p_load(knitr, ggplot2, dplyr, tidyr, plotly, gridExtra)
 
 #### - Paper title
 
-![](./assets/images/CV/BICase-1.png)
+![](./assets/images/BI/BICase-1.png)
 
 <br>
 
@@ -42,13 +42,13 @@ pacman::p_load(knitr, ggplot2, dplyr, tidyr, plotly, gridExtra)
 
 #### - Sample Status
 
-![](./assets/images/CV/BICase-2.png)
+![](./assets/images/BI/BICase-2.png)
 
 <br><br>
 
 #### - Classification workflow
 
-![](./assets/images/CV/BICase-3.png)
+![](./assets/images/BI/BICase-3.png)
 
 <br><br>
 
@@ -62,7 +62,7 @@ pacman::p_load(knitr, ggplot2, dplyr, tidyr, plotly, gridExtra)
     1. Label encoding
     2. K-mer encoding(k-means 아님)
     
-    <img src="./assets/images/CV/BICase-4.png" width="300" height="200">
+    <img src="./assets/images/BI/BICase-4.png" width="300" height="200">
 
 3. Classification model
   - CNN
@@ -73,7 +73,7 @@ pacman::p_load(knitr, ggplot2, dplyr, tidyr, plotly, gridExtra)
 
 #### - Accuracy of classification models
 
-![](./assets/images/CV/BICase-5.png)
+![](./assets/images/BI/BICase-5.png)
 
 <br><br>
 

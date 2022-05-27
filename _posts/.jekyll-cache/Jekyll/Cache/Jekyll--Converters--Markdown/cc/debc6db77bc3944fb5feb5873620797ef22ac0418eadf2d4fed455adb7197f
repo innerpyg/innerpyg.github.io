@@ -1,4 +1,6 @@
-I"Y<p><img src="/assets/images/CV/YOLO-3.png" alt="" /></p>
+I"�<hr />
+
+<p><img src="/assets/images/CV/YOLO-3.png" alt="" /></p>
 
 <p><br /><br /></p>
 
@@ -143,4 +145,52 @@
   <li>작은 object를 detect하기 위해 다소 큰 feature map을 reshape함으로써 성능을 보정</li>
   <li>앞서 <a href="https://innerpyg.github.io/computervision/2022/05/19/Chapter3.html">SDD</a>에서 multi-scale feature map을 이용하여 크고 작은 object를 detection하려는 것과 같이, 특정 시점의 feature map의 특성을 단순히 reshape함으로써 좀 더 작은 object를 detect하기 위함.</li>
 </ul>
+
+<p><br /><br /></p>
+
+<h2 id="3-yolo---v3">3. YOLO - V3</h2>
+
+<p><br /></p>
+
+<ul>
+  <li>Feature Pyramid Network 유사한 기법을 적용하여 3개의 Feature Map Output에서 각각 3개의 서로 다 른 크기와 scale을 가진 anchor box 로 Detection</li>
+  <li>Backbone성능향상-Darknet-53</li>
+  <li>Multi Labels 예측: Softmax가 아닌 Sigmoid 기반의 logistic classifier로 개별 Object의 Multi labels 예측</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="yolo-v3-network-구조">YOLO V3 Network 구조</h4>
+
+<p><img src="/assets/images/CV/YOLO-8.png" alt="" /></p>
+
+<p><br /></p>
+
+<ul>
+  <li>79 layer의 feature map을 이용하여 보다 큰 Object들을 detection</li>
+  <li>79 layer의 feature를 resizing(2배)하고 앞선 61번 layer의 feature map과 합친 후 91 layer에서 detection</li>
+  <li>91 layer를 feature를 resizing하여 36번과 합친 후 detection</li>
+</ul>
+
+<blockquote>
+  <p>서로 다른 크기의 object들을 잘 detect하기 위함</p>
+</blockquote>
+
+<h4 id="multi-labels-prediction">Multi labels prediction</h4>
+
+<p><br /></p>
+
+<p><img src="/assets/images/CV/YOLO-10.png" alt="" /></p>
+
+<p><br /></p>
+
+<p>prediction 방식이 특정 class를 가리키는 방식이 아니라 예측하고자 하는 모든 class에 대해서 확률값으로 계산</p>
+
+<p><br /></p>
+
+<h2 id="yolo-summary">YOLO Summary</h2>
+
+<p><br /></p>
+
+<p><img src="/assets/images/CV/YOLO-9.png" alt="" /></p>
 :ET
