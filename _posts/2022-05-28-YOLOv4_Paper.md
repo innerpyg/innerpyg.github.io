@@ -1,7 +1,7 @@
 ---
 title: "YOLO v4 paper"
 author: "Written by Aaron"
-date: "`r format(Sys.time(), '%Y-%m-%d')`"
+date: "2022-05-28"
 output:
   html_document:
     toc: yes
@@ -15,11 +15,7 @@ categories: ComputerVision
 tags: [ComputerVision, TEST]
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
-if (!require("pacman")) install.packages("pacman")
-pacman::p_load(knitr, ggplot2, dplyr, tidyr, plotly, gridExtra)
-```
+
 
 ---
 
