@@ -17,8 +17,6 @@ tags: [ComputerVision, TEST]
 
 
 
----
-
 ## YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.
 
 <br>

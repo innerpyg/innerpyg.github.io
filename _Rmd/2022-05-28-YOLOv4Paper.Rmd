@@ -21,8 +21,6 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load(knitr, ggplot2, dplyr, tidyr, plotly, gridExtra)
 ```
 
----
-
 ## YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.
 
 <br>
