@@ -12,7 +12,7 @@ output:
     toc_depth: '4'
 layout: post
 categories: ComputerVision
-tags: [ComputerVision, YOLO]
+tags: [ComputerVision, TEST]
 ---
 
 
