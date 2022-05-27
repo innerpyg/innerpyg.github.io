@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-05-28T03:17:01+09:00</updated><id>/feed.xml</id><title type="html">No pain, No gain</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>innerpyg</name></author><entry><title type="html">YOLO v4 paper</title><link href="/computervision/2022/05/28/YOLOv4_Paper.html" rel="alternate" type="text/html" title="YOLO v4 paper" /><published>2022-05-28T00:00:00+09:00</published><updated>2022-05-28T00:00:00+09:00</updated><id>/computervision/2022/05/28/YOLOv4_Paper</id><content type="html" xml:base="/computervision/2022/05/28/YOLOv4_Paper.html"><![CDATA[<h2 id="yolo-v4--optimal-speed-and-accuracy-of-objefct-detection">YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-28T03:35:29+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">No pain, No gain</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><author><name>innerpyg</name></author><entry><title type="html">YOLO v4 paper</title><link href="http://localhost:4000/computervision/2022/05/28/YOLOv4Paper.html" rel="alternate" type="text/html" title="YOLO v4 paper" /><published>2022-05-28T00:00:00+09:00</published><updated>2022-05-28T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2022/05/28/YOLOv4Paper</id><content type="html" xml:base="http://localhost:4000/computervision/2022/05/28/YOLOv4Paper.html"><![CDATA[<h2 id="yolo-v4--optimal-speed-and-accuracy-of-objefct-detection">YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.</h2>
 
 <p><br /></p>
 
@@ -444,9 +444,7 @@
   <li>SE : Squeeze-and-Exitation</li>
   <li>SFAM : Scale-wise-Feature-Aggregation Module</li>
   <li>SPP : Spatial Pyramid Pooling</li>
-</ul>]]></content><author><name>Written by Aaron</name></author><category term="ComputerVision" /><category term="ComputerVision" /><category term="YOLO" /><summary type="html"><![CDATA[YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.]]></summary></entry><entry><title type="html">YOLO</title><link href="/computervision/2022/05/26/Chapter4.html" rel="alternate" type="text/html" title="YOLO" /><published>2022-05-26T00:00:00+09:00</published><updated>2022-05-26T00:00:00+09:00</updated><id>/computervision/2022/05/26/Chapter4</id><content type="html" xml:base="/computervision/2022/05/26/Chapter4.html"><![CDATA[<hr />
-
-<p><img src="/assets/images/CV/YOLO-3.png" alt="" /></p>
+</ul>]]></content><author><name>Written by Aaron</name></author><category term="ComputerVision" /><category term="ComputerVision" /><category term="TEST" /><summary type="html"><![CDATA[YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.]]></summary></entry><entry><title type="html">YOLO</title><link href="http://localhost:4000/computervision/2022/05/26/Chapter4.html" rel="alternate" type="text/html" title="YOLO" /><published>2022-05-26T00:00:00+09:00</published><updated>2022-05-26T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2022/05/26/Chapter4</id><content type="html" xml:base="http://localhost:4000/computervision/2022/05/26/Chapter4.html"><![CDATA[<p><img src="/assets/images/CV/YOLO-3.png" alt="" /></p>
 
 <p><br /><br /></p>
 
@@ -638,7 +636,7 @@
 
 <p><br /></p>
 
-<p><img src="/assets/images/CV/YOLO-9.png" alt="" /></p>]]></content><author><name>Written by Aaron</name></author><category term="ComputerVision" /><category term="ComputerVision" /><category term="YOLO" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Classification with CNN, LSTM using DNA sequence data</title><link href="/bioinformatics/2022/05/21/BICase1.html" rel="alternate" type="text/html" title="Classification with CNN, LSTM using DNA sequence data" /><published>2022-05-21T00:00:00+09:00</published><updated>2022-05-21T00:00:00+09:00</updated><id>/bioinformatics/2022/05/21/BICase1</id><content type="html" xml:base="/bioinformatics/2022/05/21/BICase1.html"><![CDATA[<h2 id="bi에서의-딥러닝-활용">BI에서의 딥러닝 활용</h2>
+<p><img src="/assets/images/CV/YOLO-9.png" alt="" /></p>]]></content><author><name>Written by Aaron</name></author><category term="ComputerVision" /><category term="ComputerVision" /><category term="YOLO" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Classification with CNN, LSTM using DNA sequence data</title><link href="http://localhost:4000/bioinformatics/2022/05/21/BICase1.html" rel="alternate" type="text/html" title="Classification with CNN, LSTM using DNA sequence data" /><published>2022-05-21T00:00:00+09:00</published><updated>2022-05-21T00:00:00+09:00</updated><id>http://localhost:4000/bioinformatics/2022/05/21/BICase1</id><content type="html" xml:base="http://localhost:4000/bioinformatics/2022/05/21/BICase1.html"><![CDATA[<h2 id="bi에서의-딥러닝-활용">BI에서의 딥러닝 활용</h2>
 
 <p><br /></p>
 
@@ -715,7 +713,7 @@
 
 <p><strong>위 내용들은 모두 아래의 논문을 참고하였음</strong></p>
 
-<p><a href="https://www.hindawi.com/journals/cmmm/2021/1835056/">Analysis of DNA Sequence Classification Using CNN and Hybrid Models</a></p>]]></content><author><name>Written by Aaron</name></author><category term="Bioinformatics" /><category term="Bioinformatics" /><category term="CNN" /><category term="LSTM" /><summary type="html"><![CDATA[BI에서의 딥러닝 활용]]></summary></entry><entry><title type="html">SSD</title><link href="/computervision/2022/05/19/Chapter3.html" rel="alternate" type="text/html" title="SSD" /><published>2022-05-19T00:00:00+09:00</published><updated>2022-05-19T00:00:00+09:00</updated><id>/computervision/2022/05/19/Chapter3</id><content type="html" xml:base="/computervision/2022/05/19/Chapter3.html"><![CDATA[<h2 id="ssdsingle-shot-multibox-detector">SSD(Single Shot multibox Detector)</h2>
+<p><a href="https://www.hindawi.com/journals/cmmm/2021/1835056/">Analysis of DNA Sequence Classification Using CNN and Hybrid Models</a></p>]]></content><author><name>Written by Aaron</name></author><category term="Bioinformatics" /><category term="Bioinformatics" /><category term="CNN" /><category term="LSTM" /><summary type="html"><![CDATA[BI에서의 딥러닝 활용]]></summary></entry><entry><title type="html">SSD</title><link href="http://localhost:4000/computervision/2022/05/19/Chapter3.html" rel="alternate" type="text/html" title="SSD" /><published>2022-05-19T00:00:00+09:00</published><updated>2022-05-19T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2022/05/19/Chapter3</id><content type="html" xml:base="http://localhost:4000/computervision/2022/05/19/Chapter3.html"><![CDATA[<h2 id="ssdsingle-shot-multibox-detector">SSD(Single Shot multibox Detector)</h2>
 
 <p><br /></p>
 
@@ -816,7 +814,7 @@
   <li>Color shifting</li>
   <li>Shearing</li>
   <li>etc …</li>
-</ol>]]></content><author><name>Written by Aaron</name></author><category term="ComputerVision" /><category term="ComputerVision" /><category term="SSD" /><summary type="html"><![CDATA[SSD(Single Shot multibox Detector)]]></summary></entry><entry><title type="html">Object Detection과 Segmentation</title><link href="/computervision/2022/04/30/Chapter1.html" rel="alternate" type="text/html" title="Object Detection과 Segmentation" /><published>2022-04-30T00:00:00+09:00</published><updated>2022-04-30T00:00:00+09:00</updated><id>/computervision/2022/04/30/Chapter1</id><content type="html" xml:base="/computervision/2022/04/30/Chapter1.html"><![CDATA[<h2 id="0-dependancy">0. Dependancy</h2>
+</ol>]]></content><author><name>Written by Aaron</name></author><category term="ComputerVision" /><category term="ComputerVision" /><category term="SSD" /><summary type="html"><![CDATA[SSD(Single Shot multibox Detector)]]></summary></entry><entry><title type="html">Object Detection과 Segmentation</title><link href="http://localhost:4000/computervision/2022/04/30/Chapter1.html" rel="alternate" type="text/html" title="Object Detection과 Segmentation" /><published>2022-04-30T00:00:00+09:00</published><updated>2022-04-30T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2022/04/30/Chapter1</id><content type="html" xml:base="http://localhost:4000/computervision/2022/04/30/Chapter1.html"><![CDATA[<h2 id="0-dependancy">0. Dependancy</h2>
 
 <ul>
   <li>CNN</li>
@@ -1184,7 +1182,7 @@
   <li>알고리즘 개선이 없다면 진보된 하드웨어가 필요…</li>
 </ul>
 
-<p><br /><br /></p>]]></content><author><name>Written by Aaron</name></author><category term="ComputerVision" /><category term="ComputerVision" /><category term="ObjectDetection" /><summary type="html"><![CDATA[0. Dependancy]]></summary></entry><entry><title type="html">RCNN, Fast-RCNN, Faster-RCNN</title><link href="/computervision/2022/04/30/Chapter2.html" rel="alternate" type="text/html" title="RCNN, Fast-RCNN, Faster-RCNN" /><published>2022-04-30T00:00:00+09:00</published><updated>2022-04-30T00:00:00+09:00</updated><id>/computervision/2022/04/30/Chapter2</id><content type="html" xml:base="/computervision/2022/04/30/Chapter2.html"><![CDATA[<hr />
+<p><br /><br /></p>]]></content><author><name>Written by Aaron</name></author><category term="ComputerVision" /><category term="ComputerVision" /><category term="ObjectDetection" /><summary type="html"><![CDATA[0. Dependancy]]></summary></entry><entry><title type="html">RCNN, Fast-RCNN, Faster-RCNN</title><link href="http://localhost:4000/computervision/2022/04/30/Chapter2.html" rel="alternate" type="text/html" title="RCNN, Fast-RCNN, Faster-RCNN" /><published>2022-04-30T00:00:00+09:00</published><updated>2022-04-30T00:00:00+09:00</updated><id>http://localhost:4000/computervision/2022/04/30/Chapter2</id><content type="html" xml:base="http://localhost:4000/computervision/2022/04/30/Chapter2.html"><![CDATA[<hr />
 
 <h2 id="1-rcnnregions-with-cnn">1. RCNN(Regions with CNN)</h2>
 
