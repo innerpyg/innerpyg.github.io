@@ -1,7 +1,7 @@
 ---
 title: "YOLO v4 paper"
 author: "Written by Aaron"
-date: "2022-05-28"
+date: "2022-05-27"
 output:
   html_document:
     toc: yes
