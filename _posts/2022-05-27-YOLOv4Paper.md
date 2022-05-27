@@ -65,7 +65,7 @@ tags: [ComputerVision, TEST]
   - 누구나 실시간/고품질의 결과를 얻을 수 있도록
   - BFLOP 즉, 연산을 줄이는 게 아니라 생산하는 단계에서 빠른 속도로 동작하는 object detector 고안하고 병렬 최적화
   
-<img src="./assets/images/CV/YOLOv4_Paper-2.png" width="500" height="400">
+<img src="/assets/images/CV/YOLOv4_Paper-2.png" width="500" height="400">
 
   
 - 본 논문의 결과 기여
@@ -102,7 +102,7 @@ tags: [ComputerVision, TEST]
 
 **일반적인 object detection 구조**
 
-![](./assets/images/CV/YOLOv4_Paper-1.png)
+![](/assets/images/CV/YOLOv4_Paper-1.png)
 
 <br>
 
@@ -172,7 +172,7 @@ tags: [ComputerVision, TEST]
       - network 속도 저하 없음
     - CPSDarknet53에 parameter aggregation 기법으로 PAN 이용
 
-![](./assets/images/CV/YOLOv4_Paper-3.png)
+![](/assets/images/CV/YOLOv4_Paper-3.png)
   
     
 
@@ -217,7 +217,7 @@ tags: [ComputerVision, TEST]
       - batch normalization은 각 layer 상에서 서로 다른 4개의 이미지들에 대한 activation statistic 계산 가능
       
         ###### > 큰 크기의 mini-batch에 대한 필요성을 줄일 수 있음.
-        <img src="./assets/images/CV/YOLOv4_Paper-4.png" width="500" height="400">
+        <img src="/assets/images/CV/YOLOv4_Paper-4.png" width="500" height="400">
     - SAT(Self-Adversarial Training)
       - 2단계의 forward & backward 단계로 동작
       - 1단계 : network의 weight가 아닌 원본 이미지를 변경
@@ -230,13 +230,13 @@ tags: [ComputerVision, TEST]
       - BN은 batch size가 작을 경우 examples에 대해 정확한 statistic estimation이 어려움
       
       ###### > CBN은 이전 iteration들의 statistic을 함께 활용
-      <img src="./assets/images/CV/YOLOv4_Paper-5.png" width="500" height="350">
+      <img src="/assets/images/CV/YOLOv4_Paper-5.png" width="500" height="350">
       <br><br>
     - modified SAM(Spatial Attention Module), modified PAN(Path Aggregation Network)
       - SAM을 spatial-wise > point-wise로 변경
       - PAN의 shortcut connection > concatenation으로
       
-      <img src="./assets/images/CV/YOLOv4_Paper-6.png" width="500" height="450">
+      <img src="/assets/images/CV/YOLOv4_Paper-6.png" width="500" height="450">
       
 <br>
 
