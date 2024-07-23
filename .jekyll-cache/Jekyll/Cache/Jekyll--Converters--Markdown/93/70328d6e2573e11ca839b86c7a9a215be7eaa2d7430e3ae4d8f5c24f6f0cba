@@ -1,0 +1,452 @@
+I"�6<h2 id="yolo-v4--optimal-speed-and-accuracy-of-objefct-detection">YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.</h2>
+
+<p><br /></p>
+
+<h4 id="reference">Reference</h4>
+
+<p><br /></p>
+
+<p><a href="https://arxiv.org/pdf/2004.10934v1.pdf">YOLO v4 Paper</a></p>
+
+<p><br /></p>
+
+<h4 id="abstract">Abstract</h4>
+
+<ul>
+  <li>CNN 정확도 개선을 위한 수많은 feature(function)들이 존재</li>
+  <li>어떤 feature들은 특정 model or problem에만 국한되어 동작하거나 소규모 데이터셋에 대해서만 동작하는 것들이 있음</li>
+  <li>반면에 대부분의 model 등에 적용 가능한 universal 한 feature들이 존재함
+    <ul>
+      <li>Weighted-Residual-Connections(WRC)</li>
+      <li>Cross-Stage-Partial-connections(CSP)</li>
+      <li>Cross mini-Batch Normalization (CmBN)</li>
+      <li>Self-adversarial-training(SAT)</li>
+      <li>Mish-activation</li>
+    </ul>
+  </li>
+  <li>이 논문에서는 아래의 내용에 따라 분석을 진행함.
+    <ul>
+      <li>WRC, CSP, CmBN, SAT, Mish-activation, Mosaic data augmentation, DropBlock regularization, CIoU를 조합하여 SOTA 달성.</li>
+      <li>MS COCO data 기준 43.5% AP(65.6% AP<sub>50</sub>)</li>
+      <li>Tesla V100 기준 ~ 65FPS</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>YOLO v4</strong></p>
+<ul>
+  <li>CSPDarknet53</li>
+  <li>SPP + PAN</li>
+  <li>YOLO v3</li>
+  <li>Many BoF + Bos feautres</li>
+</ul>
+
+<hr />
+
+<p><br /></p>
+
+<h4 id="intro">Intro</h4>
+
+<ul>
+  <li>대부분의 CNN 기반 object detection에는 정확도와 속도 간 trade-off가 존재
+    <ul>
+      <li>주차 가능 공간 탐색 : 느리지만 정확한 Model</li>
+      <li>차량 추돌 경고 : 빠르지만 부정확한 Model</li>
+    </ul>
+  </li>
+  <li>본 논문의 목적
+    <ul>
+      <li>누구나 실시간/고품질의 결과를 얻을 수 있도록</li>
+      <li>BFLOP 즉, 연산을 줄이는 게 아니라 생산하는 단계에서 빠른 속도로 동작하는 object detector 고안하고 병렬 최적화</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/images/CV/YOLOv4_Paper-2.png" width="500" height="400" /></p>
+
+<ul>
+  <li>본 논문의 결과 기여
+    <ul>
+      <li>보다 강력한 Object detector 개발</li>
+      <li>최신 Bag-of-freebies, Bag-of-Specials 기법 효과 검증</li>
+      <li>단일 GPU에 효율적으로 적합하기 위한 최신 기법들을 수정
+        <ul>
+          <li>CBN</li>
+          <li>PAN</li>
+          <li>SAM</li>
+          <li>etc..</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="related-work">Related work</h4>
+
+<ul>
+  <li>Object Detection model
+    <ol>
+      <li>Backbone : ImageNet을 이용한 pre-trained
+        <ul>
+          <li>GPU 기반 : VGG, ResNet, ResNeXt, DenseNet, etc</li>
+          <li>CPU 기반 : SqueezeMet. MobileNet, ShuffleNet, etc</li>
+        </ul>
+      </li>
+      <li>Head : class와 BBox prediction에 적용
+        <ul>
+          <li>one-stage detector
+            <ul>
+              <li>anchor-based : YOLO, SSD, RetinaNet, etc</li>
+              <li>anchor-free : CenterNet, CornetNet, FCOS, etc</li>
+            </ul>
+          </li>
+          <li>two-stage detector
+            <ul>
+              <li>anchor-based : R-CNN series, etc</li>
+              <li>anchor-free : RedPoints, etc</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Neck : backbone과 head 사이에 크고 작은 object detection가 가능하도록  여러 feature map의 특성을 모으는 역할
+        <ul>
+          <li>Feature Pyramid Network(FPN), Path Aggregation Network(PAN), BiFPN, NAS-FPN, etc</li>
+        </ul>
+      </li>
+      <li>Others : 새롭게 연구 된 부분
+        <ul>
+          <li>새로운 backbone : DetNet, DetNAS, etc</li>
+          <li>새로운 모델 구축 : SpineNet, HitDetector, etc</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>일반적인 object detection 구조</strong></p>
+
+<p><img src="/assets/images/CV/YOLOv4_Paper-1.png" alt="" /></p>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>Bag of Freebies(BoF)</p>
+
+    <ol>
+      <li>data augmentation
+        <ul>
+          <li>input의 가변성을 증가시켜 model이 다른 환경에서 얻은 이미지(resolution 등 quality 차이가 있는)에 대해서도 높은 강건함을 유지하는 것이 목적</li>
+        </ul>
+        <ul>
+          <li>광학적, 기하학적, pixel-wise</li>
+          <li>object occlusion 문제에 중점을 연구</li>
+          <li>여러 이미지를 함께 사용하는 방법</li>
+          <li>style transfer GAN 적용하여 texture bias를 효과적으로 줄임.</li>
+        </ul>
+      </li>
+      <li>regularization
+        <ul>
+          <li>data augmentation과 유사한 개념을 feature map에 적용하는 연구</li>
+        </ul>
+      </li>
+      <li>imbalance sampling
+        <ul>
+          <li>class imbalance</li>
+          <li>서로 다른 category 간 연관성을 표현하기 어려운 부분에 대한 연구</li>
+        </ul>
+      </li>
+      <li>objective function(BBox regression) - <a href="">IoU description page. to be update</a>
+        <ul>
+          <li>IoU loss</li>
+          <li>GIoU loss</li>
+          <li>DIoU, CIoU loss</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>Bag of Specials(BoS)</p>
+
+    <ol>
+      <li>plugin modules
+        <ul>
+          <li>receptive field enhancement module
+            <ul>
+              <li>SPP</li>
+              <li>ASPP</li>
+              <li>REB</li>
+            </ul>
+          </li>
+          <li>attention modules
+            <ul>
+              <li>Squeeze-and-Excitation(SE)</li>
+              <li>Spatial Attention Module(SAM)</li>
+            </ul>
+          </li>
+          <li>feature integration
+            <ul>
+              <li>FPN 등</li>
+            </ul>
+          </li>
+          <li>activation function : gradient vanish 문제 해결하기 위해
+            <ul>
+              <li>ReLU</li>
+              <li>LReLU, PReLU : ReLU의 출력이 0보다 작을 경우 gradient가 0이 되는 문제를 해결</li>
+              <li>ReLU6, hard-Swish : quantization networks를 고려</li>
+              <li>SELU : neural network를 self-normalizing하기 위한 목적</li>
+              <li>Swish, Mish : continuously differentiable activation function</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ol>
+  <li>post-processing : 일반적으로 NMS(Non-Maximum Suppression)
+    <ul>
+      <li>NMS</li>
+      <li>greedy NMS</li>
+      <li>
+        <p>soft NMS, DIoU</p>
+
+        <h6 id="-anchor-free-기법에서는-post-processing이-필요하지-않음">&gt; anchor-free 기법에서는 post-processing이 필요하지 않음.</h6>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<h4 id="methodology">Methodology</h4>
+
+<p><br /></p>
+
+<ol>
+  <li>Selection of architecture
+    <ul>
+      <li>detector 선택 시 고려 사항
+        <ul>
+          <li>더 큰 크기의 input resolution</li>
+          <li>더많은 layer 수 &gt; 더 큰 receptive field</li>
+          <li>더 많은 parameter 수 : 서로 다른 크기의 objects들을 검출하기 위해</li>
+        </ul>
+      </li>
+      <li>CSPDarknet53에 SPP block 추가
+        <ul>
+          <li>receptive field 향상</li>
+          <li>context features 분리</li>
+          <li>network 속도 저하 없음</li>
+        </ul>
+      </li>
+      <li>CPSDarknet53에 parameter aggregation 기법으로 PAN 이용</li>
+    </ul>
+  </li>
+</ol>
+
+<p><img src="/assets/images/CV/YOLOv4_Paper-3.png" alt="" /></p>
+
+<p><br /></p>
+
+<blockquote>
+  <p>최종적으로 선택된 기법들 <br />
+  backbone : CSPDarknet53 <br />
+  neck <br />
+    - additional blocks : SPP <br />
+    - path-aggregation blocks : PANet <br />
+  head : YOLO v3(anchor-based)</p>
+</blockquote>
+
+<p><br /></p>
+
+<ol>
+  <li>Selection of BoF and BoS
+    <ul>
+      <li>BoF 후보 features</li>
+    </ul>
+    <ul>
+      <li>BBox regression : MSE, IoU, GIoU, DIoU, CIoU</li>
+      <li>data augmentation : CutOut, MixUp, CutMix</li>
+      <li>
+        <p>regulation method : <del>DropOut, DropPath, Spatial DropOut</del>, DropBlock</p>
+
+        <h6 id="-dropblock을-게시한-사람들이-다른-정규화-방법과-비교했을-때-우수한-성능을-보임을-입증">&gt; DropBlock을 게시한 사람들이 다른 정규화 방법과 비교했을 때 우수한 성능을 보임을 입증</h6>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<ul>
+  <li>BoS 후보 features
+    <ul>
+      <li>activations : ReLU, leaky-ReLU, <del>parametric ReLU, ReLU6, SELU</del>, Swish, Mish</li>
+      <li>normalization of the network activations
+        <ul>
+          <li>Batch Normalization</li>
+          <li><del>Cross GPU batch Normalization(CGBN or SyncBN)</del> : 본 연구는 하나의 GPU를 이용하는 것이 중점이기 때문에 제외</li>
+          <li>Filter Response Normalization</li>
+          <li>Cross-iteration Batch Normalization</li>
+        </ul>
+      </li>
+      <li>skip-connections
+        <ul>
+          <li>Residual connections</li>
+          <li>Weighted residual connections</li>
+          <li>Multi-input weighted residual connections</li>
+          <li>Cross stage partial connections(CSP)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ol>
+  <li>Additional improvements
+    <ul>
+      <li>새롭게 도입한 BoF data augmentation</li>
+    </ul>
+    <ul>
+      <li>Mosaic
+        <ul>
+          <li>4개의 train image를 1개로 mix</li>
+          <li>
+            <p>batch normalization은 각 layer 상에서 서로 다른 4개의 이미지들에 대한 activation statistic 계산 가능</p>
+
+            <h6 id="-큰-크기의-mini-batch에-대한-필요성을-줄일-수-있음">&gt; 큰 크기의 mini-batch에 대한 필요성을 줄일 수 있음.</h6>
+            <p><img src="/assets/images/CV/YOLOv4_Paper-4.png" width="500" height="400" /></p>
+          </li>
+        </ul>
+      </li>
+      <li>SAT(Self-Adversarial Training)
+        <ul>
+          <li>2단계의 forward &amp; backward 단계로 동작</li>
+          <li>
+            <p>1단계 : network의 weight가 아닌 원본 이미지를 변경</p>
+
+            <h6 id="-자체적으로-adversarial-attack을-수행-이미지에-원하는-object가-없다는-속임수를-만들도록-원본-이미지를-변경">&gt; 자체적으로 adversarial attack을 수행, 이미지에 원하는 object가 없다는 속임수를 만들도록 원본 이미지를 변경</h6>
+          </li>
+          <li>2단계 : 변경된 이미지에 대해 정상적인 방식의 object detect하도록 training
+    - BoS</li>
+        </ul>
+      </li>
+      <li>CmBN
+        <ul>
+          <li>CBN의 변경된 버전, 단일 batch 내에서 mini-batches 간 statistic 수집</li>
+          <li>BN은 batch size가 작을 경우 examples에 대해 정확한 statistic estimation이 어려움</li>
+        </ul>
+
+        <h6 id="-cbn은-이전-iteration들의-statistic을-함께-활용">&gt; CBN은 이전 iteration들의 statistic을 함께 활용</h6>
+        <p><img src="/assets/images/CV/YOLOv4_Paper-5.png" width="500" height="350" />
+<br /><br /></p>
+      </li>
+      <li>modified SAM(Spatial Attention Module), modified PAN(Path Aggregation Network)
+        <ul>
+          <li>SAM을 spatial-wise &gt; point-wise로 변경</li>
+          <li>PAN의 shortcut connection &gt; concatenation으로</li>
+        </ul>
+
+        <p><img src="/assets/images/CV/YOLOv4_Paper-6.png" width="500" height="450" /></p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<hr />
+
+<p><strong>4. YOLO v4 architecture</strong></p>
+
+<ul>
+  <li>CSPDarknet53</li>
+  <li>SPP + PAN</li>
+  <li>YOLO v3</li>
+  <li>
+    <p>Many BoF + Bos feautres</p>
+  </li>
+  <li>BoF</li>
+  <li>for backbone
+    <ul>
+      <li>data augmentation : CutMix, Mosaic</li>
+      <li>imbalance sampling : Class labeling smoothing</li>
+      <li>regularization : DropBlock</li>
+    </ul>
+  </li>
+  <li>for detector
+    <ul>
+      <li>object function : CIoU loss</li>
+      <li>normalization of network activation : CmBN</li>
+      <li>regularization : DropBlock</li>
+      <li>data augmentation : Mosic, Self-Adversarial Training(SAT)</li>
+      <li>hyper-parameters optimization : Genetic algorithms</li>
+      <li>learning rate scheduler : Cosine annealing scheduler</li>
+      <li>others
+        <ul>
+          <li>Eliminate grid sensitivity</li>
+          <li>Using multiple anchors for a single ground truth</li>
+          <li>Random training Shapes.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>BoS
+    <ul>
+      <li>for backbone
+        <ul>
+          <li>activation function : Mish</li>
+          <li>skep-connection : CSP, MiWRC</li>
+        </ul>
+      </li>
+      <li>for detector
+        <ul>
+          <li>activation function : Mish</li>
+          <li>receptive field enhancement : SPP</li>
+          <li>attention : SAM</li>
+          <li>feature integration : PAN</li>
+          <li>post-processing : DIoU NMS</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /><br /></p>
+
+<p><strong>용어 정리</strong></p>
+
+<ul>
+  <li>ASFF : Adaptively Spatial Feature Fusion</li>
+  <li>ASPP : Atrous Spatial Pyramid Pooling</li>
+  <li>BiFPN : Bidirectional Feature Pyramid Network</li>
+  <li>CBN : Cross-iteration Batch Normalization</li>
+  <li>CmBN : Cross mini-Batch Normalization</li>
+  <li>CSP : Cross-Stage-Partial-connections</li>
+  <li>FCOS : Fully Convolutional One-Stage pbject detector</li>
+  <li>MiWRC : Multi-input-Weighted-Residual-Connections</li>
+  <li>NAS-FPN : Neural Architecture Search Feature Pyramid Network</li>
+  <li>PAN : Path Aggregation Network</li>
+  <li>RFB : Receptive Field Block</li>
+  <li>SAM : Spatial Attention Module</li>
+  <li>SAT : Self-Adversarial-Training</li>
+  <li>SE : Squeeze-and-Exitation</li>
+  <li>SFAM : Scale-wise-Feature-Aggregation Module</li>
+  <li>SPP : Spatial Pyramid Pooling</li>
+</ul>
+:ET

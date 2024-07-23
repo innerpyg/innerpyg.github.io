@@ -14,15 +14,15 @@
 <meta property="og:locale" content="en_US">
 <meta name="description" content="YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.">
 <meta property="og:description" content="YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.">
-<link rel="canonical" href="http://localhost:4000/computervision/2022/05/28/Chapter.html">
-<meta property="og:url" content="http://localhost:4000/computervision/2022/05/28/Chapter.html">
+<link rel="canonical" href="http://localhost:4000/computervision/2022/05/27/YOLOv4Paper.html">
+<meta property="og:url" content="http://localhost:4000/computervision/2022/05/27/YOLOv4Paper.html">
 <meta property="og:site_name" content="No pain, No gain">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2022-05-28T00:00:00+09:00">
+<meta property="article:published_time" content="2022-05-27T00:00:00+09:00">
 <meta name="twitter:card" content="summary">
 <meta property="twitter:title" content="YOLO v4 paper">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Written by Aaron"},"dateModified":"2022-05-28T00:00:00+09:00","datePublished":"2022-05-28T00:00:00+09:00","description":"YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.","headline":"YOLO v4 paper","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/computervision/2022/05/28/Chapter.html"},"url":"http://localhost:4000/computervision/2022/05/28/Chapter.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Written by Aaron"},"dateModified":"2022-05-27T00:00:00+09:00","datePublished":"2022-05-27T00:00:00+09:00","description":"YOLO v4 : Optimal Speed and Accuracy of Objefct Detection.","headline":"YOLO v4 paper","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/computervision/2022/05/27/YOLOv4Paper.html"},"url":"http://localhost:4000/computervision/2022/05/27/YOLOv4Paper.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="shortcut icon" href="">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -778,7 +778,7 @@ function googleTranslateElementInit() {
   <h2 class="post-subtitle"></h2>
 
   <p class="post-meta">
-    <time class="dt-published" datetime="2022-05-28T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 28, 2022
+    <time class="dt-published" datetime="2022-05-27T00:00:00+09:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 27, 2022
     </time>
 
     
@@ -818,7 +818,7 @@ function googleTranslateElementInit() {
     <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
   </p>
 <div class="post-tags">
-<a class="post-tag" href="/tags.html#ComputerVision">#ComputerVision</a><a class="post-tag" href="/tags.html#TEST">#TEST</a>
+<a class="post-tag" href="/tags.html#ComputerVision">#ComputerVision</a><a class="post-tag" href="/tags.html#YOLO">#YOLO</a>
 </div></header>
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
@@ -829,6 +829,8 @@ function googleTranslateElementInit() {
 <p><br></p>
 
 <h4 id="reference">Reference</h4>
+
+<p><br></p>
 
 <p><a href="https://arxiv.org/pdf/2004.10934v1.pdf">YOLO v4 Paper</a></p>
 
@@ -1046,7 +1048,9 @@ function googleTranslateElementInit() {
     <ul>
       <li>NMS</li>
       <li>greedy NMS</li>
-      <li>soft NMS, DIoU
+      <li>
+        <p>soft NMS, DIoU</p>
+
         <h6 id="-anchor-free-기법에서는-post-processing이-필요하지-않음">&gt; anchor-free 기법에서는 post-processing이 필요하지 않음.</h6>
       </li>
     </ul>
@@ -1172,12 +1176,12 @@ function googleTranslateElementInit() {
       <li>CmBN
         <ul>
           <li>CBN의 변경된 버전, 단일 batch 내에서 mini-batches 간 statistic 수집</li>
-          <li>BN은 batch size가 작을 경우 examples에 대해 정확한 statistic estimation이 어려움
-            <h6 id="-cbn은-이전-iteration들의-statistic을-함께-활용">&gt; CBN은 이전 iteration들의 statistic을 함께 활용</h6>
-            <p><img src="/assets/images/CV/YOLOv4_Paper-5.png" width="500" height="350">
-<br><br></p>
-          </li>
+          <li>BN은 batch size가 작을 경우 examples에 대해 정확한 statistic estimation이 어려움</li>
         </ul>
+
+        <h6 id="-cbn은-이전-iteration들의-statistic을-함께-활용">&gt; CBN은 이전 iteration들의 statistic을 함께 활용</h6>
+        <p><img src="/assets/images/CV/YOLOv4_Paper-5.png" width="500" height="350">
+<br><br></p>
       </li>
       <li>modified SAM(Spatial Attention Module), modified PAN(Path Aggregation Network)
         <ul>
@@ -1278,12 +1282,15 @@ function googleTranslateElementInit() {
 
 </article>
 <div class="post-nav">
-<span></span><span></span>
+<a class="previous" href="/computervision/2022/05/26/Chapter4.html" title="YOLO">YOLO</a><span></span>
 </div>
 <div class="post-related">
       <div>Related Articles</div>
       <ul>
-        <li><a class="post-link" href="/computervision/2022/05/28/Chapter.html" title="">YOLO v4 paper</a></li>
+        <li><a class="post-link" href="/computervision/2022/05/19/Chapter3.html" title="">SSD</a></li>
+<li><a class="post-link" href="/bioinformatics/2022/05/21/BICase1.html" title="">Classification with CNN, LSTM using DNA sequence data</a></li>
+<li><a class="post-link" href="/computervision/2022/05/27/YOLOv4Paper.html" title="">YOLO v4 paper</a></li>
+<li><a class="post-link" href="/computervision/2022/04/30/Chapter1.html" title="">Object Detection과 Segmentation</a></li>
 </ul>
     </div>
 <div class="post-comments"></div></section>
@@ -1423,7 +1430,7 @@ function googleTranslateElementInit() {
 
   <div class="wrapper">
     <div class="site-footer-inner">
-<div>Unpublished Work <span class="copyleft">©</span> 2022-2022 innerpyg</div>
+<div>Unpublished Work <span class="copyleft">©</span> 2022-2024 innerpyg</div>
       <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
       generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
       another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>

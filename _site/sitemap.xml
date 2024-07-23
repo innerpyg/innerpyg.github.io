@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://localhost:4000/computervision/2022/05/28/Chapter.html</loc>
-<lastmod>2022-05-28T00:00:00+09:00</lastmod>
+<loc>http://localhost:4000/computervision/2022/04/30/Chapter1.html</loc>
+<lastmod>2022-04-30T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/computervision/2022/04/30/Chapter2.html</loc>
+<lastmod>2022-04-30T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/computervision/2022/05/19/Chapter3.html</loc>
+<lastmod>2022-05-19T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/bioinformatics/2022/05/21/BICase1.html</loc>
+<lastmod>2022-05-21T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/computervision/2022/05/26/Chapter4.html</loc>
+<lastmod>2022-05-26T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/computervision/2022/05/27/YOLOv4Paper.html</loc>
+<lastmod>2022-05-27T00:00:00+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/archives.html</loc>
