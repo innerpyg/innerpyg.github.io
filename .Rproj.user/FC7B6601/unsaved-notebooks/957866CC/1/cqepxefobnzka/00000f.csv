@@ -1,0 +1,6 @@
+"0","#df <- read.table(""../../MachineLearning/ML/duc/to_plot2.txt"", header=T, sep=""\t"")
+"
+"2","There were 50 or more warnings (use warnings() to see the first 50)"
+"2","
+"
+"0","df <- read.table(""../../MachineLearning/ML/duc/wk_to_plot.txt"", header=T, sep=""\t"")"

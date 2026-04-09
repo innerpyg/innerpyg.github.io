@@ -1,0 +1,64 @@
+---
+title: "Untitled"
+output: html_document
+date: '2022-08-20'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, include = FALSE)
+pacman::p_load(ggplot2, plotly, showtext)
+showtext_auto()
+theme_set(theme_grey(base_family='NanumGothic'))
+```
+
+
+```{r}
+df <- read.table("../../MachineLearning/ML/duc/to_plot2.txt", header=T, sep="\t")
+```
+
+
+# diag_type2 가 현재 Case, Control
+# 이에 따른 Education 분류해서 bar plot으로 작성
+
+```{r}
+df$xaxis <- factor(df$Education,levels = c("무학(문맹)", "무학(문맹아님)", "초1~3년", "초4~6년","초졸","중중퇴", "중3퇴","중졸","고중퇴","고졸","대2졸","대중퇴","대졸","대학원1년이상"))
+png("bar-plot.png", width=800, height = 400)
+ggplot(df, aes(x=xaxis, y=Count, fill=Group)) + geom_bar(stat="identity", position=position_dodge()) +
+  scale_fill_manual("Group", values = c("MCI" = "red", "CN" = "blue")) + theme(axis.text.x=element_text(angle=90))
+  
+```
+
+```{r}
+df <- read.table("../../MachineLearning/ML/duc/wk_to_plot.txt", header=T, sep="\t")
+```
+
+```{r}
+head(df)
+df$xaxis <- factor(df$Education,levels = c("무학", "초중퇴", "초중퇴(1년)", "초중퇴(3년)", "초중퇴(4년)", "초중퇴(5년)", "초4~6년", "초졸", "중1중퇴(7년)", "중중퇴(6년)", "중중퇴(7년)", "중중퇴(8년)", "중졸", "중졸(9년)", "고중퇴", "고중퇴(10년)", "고중퇴(11년)", "고졸", "대중퇴", "대중퇴(14년)", "대중퇴(15년)", "대졸", "대졸(13년)", "대졸(14년)", "대학원졸", "대학원졸(18년)", "대학원졸업"))
+png("bar-plot2.png", width=1000, height = 400)
+ggplot(df, aes(x=xaxis, y=Count, fill=Group)) + geom_bar(stat="identity", position=position_dodge()) +
+  scale_fill_manual("Group", values = c("MCI" = "red", "SCD" = "blue")) + theme(axis.text.x=element_text(angle=90))
+dev.off()  
+```
+
+"무학", "초중퇴", "초중퇴(1년)", "초중퇴(3년)", "초중퇴(4년)", "초중퇴(5년)", "초4~6년", "초졸", "중1중퇴(7년)", "중중퇴(6년)", "중중퇴(7년)", "중중퇴(8년)", "중졸", "중졸(9년)", "고중퇴", "고중퇴(10년)", "고중퇴(11년)", "고졸", "대중퇴", "대중퇴(14년)", "대중퇴(15년)", "대졸", "대졸(13년)", "대졸(14년)", "대학원졸", "대학원졸업"
+
+
+
+|Education|CN|MCI|합계|
+|---------|--|---|---|
+|초1~3년|54(53%)|48(47%)|102|
+|대2졸|.|1(100%)|1|
+|중3퇴|.|1(100%)|1|
+|초4~6년|238(52%)|219(48%)|457|
+|고졸|302(58%)|221(42%)|523|
+|대졸|265(61%)|171(39%)|436|
+|중졸|169(61%)|109(39%)|278|
+|초졸|2(67%)|1(33%)|3|
+|무학(문맹)|4(44%)|5(56%)|9|
+|무학(문맹아님)|23(34%)|45(66%)|68|
+|고중퇴|21(37%)|36(63%)|57|
+|대중퇴|23(34%)|45(66%)|68|
+|중중퇴|63(52%)|49(48%)|112|
+|대학원1년이상|67(56%)|53(44%)|120|
+|**합계**|**1231**|**1004**|**2235**|

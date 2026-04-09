@@ -1,0 +1,6 @@
+"0","ggplot(df, aes(x=xaxis, y=Count, color=Group, fill=Group)) + geom_bar(stat=""identity"", position=position_dodge()) +
+"
+"2","There were 50 or more warnings (use warnings() to see the first 50)"
+"2","
+"
+"0","  scale_fill_manual(""Group"", values = c(""A"" = ""black"", ""B"" = ""orange""))"

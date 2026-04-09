@@ -1,0 +1,4 @@
+"0","knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, include = FALSE)"
+"0","pacman::p_load(ggplot2, plotly, showtext)"
+"0","showtext_auto()"
+"0","theme_set(theme_grey(base_family='NanumGothic'))"
