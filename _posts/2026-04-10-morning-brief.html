@@ -1,0 +1,262 @@
+---
+title: Morning Market Brief
+author: "Written by Claude"
+date: "2026-04-10"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily]
+series: stock
+---
+
+<style>
+  .morning-brief {
+    background: #0a0e17;
+    color: #c8cdd3;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+  .morning-brief h1 {
+    color: #ff9500;
+    font-size: 22px;
+    border-bottom: 2px solid #ff9500;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+  .morning-brief h2 {
+    color: #00d4aa;
+    font-size: 16px;
+    margin: 24px 0 12px 0;
+    border-left: 3px solid #00d4aa;
+    padding-left: 10px;
+  }
+  .morning-brief h3 {
+    color: #5bc0de;
+    font-size: 14px;
+    margin: 16px 0 8px 0;
+  }
+  .morning-brief hr {
+    border: none;
+    border-top: 1px solid #1e2a3a;
+    margin: 20px 0;
+  }
+  .morning-brief table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .morning-brief th {
+    background: #111927;
+    color: #ff9500;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid #2a3a4a;
+    font-weight: 600;
+  }
+  .morning-brief td {
+    padding: 6px 12px;
+    border-bottom: 1px solid #1a2232;
+  }
+  .morning-brief tr:hover { background: #111927; }
+  .morning-brief .up { color: #ff3b30; }
+  .morning-brief .down { color: #007aff; }
+  .morning-brief .neutral { color: #8e8e93; }
+  .morning-brief .bullets { margin: 10px 0 10px 20px; }
+  .morning-brief .bullets li {
+    margin-bottom: 6px;
+    list-style: none;
+    position: relative;
+    padding-left: 14px;
+  }
+  .morning-brief .bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #ff9500;
+  }
+  .morning-brief strong { color: #e0e0e0; }
+  .morning-brief .section-label {
+    display: inline-block;
+    background: #1a2a3a;
+    color: #00d4aa;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+  .morning-brief .takeaway {
+    background: #111927;
+    border-left: 3px solid #ff9500;
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .morning-brief .takeaway-num {
+    color: #ff9500;
+    font-weight: bold;
+    margin-right: 6px;
+  }
+  .morning-brief .footer {
+    margin-top: 30px;
+    padding-top: 12px;
+    border-top: 1px solid #1e2a3a;
+    font-size: 11px;
+    color: #5a6570;
+  }
+  .morning-brief .watchlist-card {
+    background: #111927;
+    border: 1px solid #1e2a3a;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 8px 0;
+  }
+  .morning-brief .watchlist-card h3 { margin-top: 0; }
+  .morning-brief .tag {
+    display: inline-block;
+    background: #1a2a3a;
+    color: #8e8e93;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    margin-right: 4px;
+  }
+  .morning-brief .tag.error { color: #ff3b30; background: #2a1215; }
+</style>
+
+<div class="morning-brief">
+
+<h1>📊 Morning Market Brief — 2026.04.10 (금)</h1>
+
+<h2>🇺🇸 US Market Recap</h2>
+<table>
+  <tr><th>Index</th><th style="text-align:right">Close</th><th style="text-align:right">Change</th><th style="text-align:right">%</th></tr>
+  <tr><td>S&P 500</td><td style="text-align:right">6,824.66</td><td style="text-align:right" class="up">+41.85</td><td style="text-align:right" class="up">+0.62%</td></tr>
+  <tr><td>Nasdaq</td><td style="text-align:right">22,822.42</td><td style="text-align:right" class="up">+187.43</td><td style="text-align:right" class="up">+0.83%</td></tr>
+  <tr><td>Dow Jones</td><td style="text-align:right">48,185.80</td><td style="text-align:right" class="up">+275.88</td><td style="text-align:right" class="up">+0.58%</td></tr>
+  <tr><td>VIX</td><td style="text-align:right">19.49</td><td style="text-align:right" class="down">-1.55</td><td style="text-align:right" class="down">-7.37%</td></tr>
+</table>
+
+<span class="section-label">KEY DRIVERS</span>
+<ul class="bullets">
+  <li>미-이란 2주간 휴전 합의 지속 기대감으로 7거래일 연속 상승. S&P 500 10월 이후 최장 연승. Dow YTD 양전환(+0.25%).</li>
+  <li>Amazon(+5.6%) CEO Andy Jassy 주주서한에서 AI·AWS·자체 칩 전략 발표 후 급등. 소프트웨어 섹터는 약세.</li>
+  <li>유가 상승(WTI +3.94%)에도 이란 휴전 기대가 인플레 우려 상쇄, 위험선호 심리 유지.</li>
+</ul>
+
+<hr>
+
+<h2>🌍 Global Macro</h2>
+<table>
+  <tr><th>Indicator</th><th style="text-align:right">Value</th><th style="text-align:right">Change</th><th>Note</th></tr>
+  <tr><td>US 10Y</td><td style="text-align:right">4.293%</td><td style="text-align:right" class="neutral">+0.002</td><td>보합, 금리인하 기대 소폭 확대</td></tr>
+  <tr><td>US 5Y</td><td style="text-align:right">3.915%</td><td style="text-align:right" class="down">-0.005</td><td>소폭 하락</td></tr>
+  <tr><td>US 30Y</td><td style="text-align:right">4.897%</td><td style="text-align:right" class="up">+0.010</td><td>장기물 소폭 상승</td></tr>
+  <tr><td>US 13W</td><td style="text-align:right">3.588%</td><td style="text-align:right" class="down">-0.012</td><td>단기물 하락</td></tr>
+  <tr><td>10Y-13W Spread</td><td style="text-align:right">0.705%p</td><td style="text-align:right" class="neutral">—</td><td>정상 수준 유지</td></tr>
+  <tr><td>WTI Oil</td><td style="text-align:right">$98.13</td><td style="text-align:right" class="up">+$3.72 (+3.94%)</td><td>이란 휴전 불확실성 재부각</td></tr>
+  <tr><td>Gold</td><td style="text-align:right">$4,801.00</td><td style="text-align:right" class="up">+$51.50 (+1.08%)</td><td>안전자산 수요 지속</td></tr>
+  <tr><td>USD/KRW</td><td style="text-align:right">1,474.09</td><td style="text-align:right" class="down">-25.04 (-1.67%)</td><td>원화 강세, 휴전 수혜</td></tr>
+</table>
+
+<span class="section-label">주요 이슈</span>
+<ul class="bullets">
+  <li>FOMC 3월 의사록: 금리 3.50~3.75% 동결 유지. 일부 위원 금리인상 가능성 언급, "양방향(two-sided)" 정책 기조 시사. 연내 1회 인하 전망 유지.</li>
+  <li>이란 휴전 이후 금리인하 확률 14%→43% 급등. 유가 하락→인플레 완화 기대가 동인이나, WTI는 전일 대비 재상승.</li>
+  <li>금 가격 $4,800 돌파. 지정학적 불확실성과 중앙은행 매수세 지속.</li>
+</ul>
+
+<hr>
+
+<h2>🇰🇷 Korean Market Outlook</h2>
+<table>
+  <tr><th>Index</th><th style="text-align:right">전일 종가</th><th style="text-align:right">등락</th><th style="text-align:right">등락률</th><th>예상 흐름</th></tr>
+  <tr><td>KOSPI</td><td style="text-align:right">5,778.01</td><td style="text-align:right" class="down">-94.33</td><td style="text-align:right" class="down">-1.61%</td><td>미국 상승 반영 반등 시도 예상</td></tr>
+  <tr><td>KOSDAQ</td><td style="text-align:right">1,076.00</td><td style="text-align:right" class="down">-13.85</td><td style="text-align:right" class="down">-1.27%</td><td>바이오·중소형주 관망세</td></tr>
+</table>
+
+<span class="section-label">주목 섹터</span>
+<ul class="bullets">
+  <li><strong>반도체:</strong> AI 슈퍼사이클 진입 평가. 삼성전자 목표가 40만원, SK하이닉스 200만원 상향. 합산 영업이익 370조원 전망.</li>
+  <li><strong>에너지/정유:</strong> WTI $98 돌파로 정유·에너지주 수혜 기대. 고유가 장기화 시 비용 부담 확대 리스크.</li>
+  <li><strong>조선/방산:</strong> 중동 지정학 리스크 지속으로 방산주 관심 유지.</li>
+</ul>
+
+<span class="section-label">수급 동향</span>
+<ul class="bullets">
+  <li>원/달러 1,474원 급락(-1.67%). 외국인 매수 전환 가능성. 원화 강세가 외국인 자금 유입에 우호적.</li>
+  <li>전일 KOSPI -1.61% 하락은 유가 급등 인플레 우려 반영. 금일 미국 시장 상승분 반영 기대.</li>
+</ul>
+
+<hr>
+
+<h2>🔍 Watchlist</h2>
+
+<div class="watchlist-card">
+  <h3>Tesla (TSLA) <span class="tag error">데이터 미확인</span></h3>
+  <ul class="bullets">
+    <li>Q1 인도량 358,023대, 기대치(370,000대) 하회. 전분기 대비 -14%. YTD -20%.</li>
+    <li>에너지 저장: Q4 14.2GWh→Q1 8.8GWh 급감.</li>
+    <li>4월 Cybercab 생산 개시 예정. 저가형 컴팩트 SUV 부활 계획.</li>
+    <li>Q1 실적 발표: 4/22 장 마감 후.</li>
+  </ul>
+</div>
+
+<div class="watchlist-card">
+  <h3>NVIDIA (NVDA) <span class="tag error">데이터 미확인</span></h3>
+  <ul class="bullets">
+    <li>6거래일 연속 상승, 4/8 +2.23%. YTD -6%.</li>
+    <li>Anthropic $10B 투자(MS 공동), Marvell $2B 전략 투자, NVLink 라이선싱 개방.</li>
+    <li>FY26 Q4 매출 $68B(+73% YoY), EPS $1.62(+82%). 차기 실적: 5/20.</li>
+    <li>컨센서스 목표가 $275.25 (Buy).</li>
+  </ul>
+</div>
+
+<div class="watchlist-card">
+  <h3>삼성전자 (005930.KS) <span class="tag error">데이터 미확인</span></h3>
+  <ul class="bullets">
+    <li>2026년 영업이익 327조원(+57%) 전망. 목표주가 40만원 상향.</li>
+    <li>AI 반도체 슈퍼사이클 수혜, HBM 수요 급증.</li>
+  </ul>
+</div>
+
+<div class="watchlist-card">
+  <h3>SK하이닉스 (000660.KS) <span class="tag error">데이터 미확인</span></h3>
+  <ul class="bullets">
+    <li>2026년 영업이익 253조원(+44%) 전망. 목표주가 200만원 상향.</li>
+    <li>HBM 시장 선도. 패키징 후공정 장비 수혜 확산.</li>
+  </ul>
+</div>
+
+<hr>
+
+<h2>⚡ Today's Key Takeaways</h2>
+
+<div class="takeaway">
+  <span class="takeaway-num">1.</span> <strong>미-이란 휴전 랠리 지속:</strong> 미국 증시 7일 연속 상승. 금리인하 기대 확대(43%)와 원화 강세(1,474원)가 한국 시장에 우호적 환경 조성.
+</div>
+<div class="takeaway">
+  <span class="takeaway-num">2.</span> <strong>유가 양면성:</strong> WTI $98 재돌파. 정유·에너지주 수혜 vs 인플레 재점화 리스크. 이란 휴전 지속 여부가 단기 핵심 변수.
+</div>
+<div class="takeaway">
+  <span class="takeaway-num">3.</span> <strong>반도체 슈퍼사이클 본격화:</strong> 삼성+하이닉스 합산 영업이익 370조원 전망. NVIDIA 공격적 투자(Anthropic $10B, Marvell $2B)가 AI 인프라 확장 가속화.
+</div>
+
+<div class="footer">
+  ⏰ Generated at 07:11 KST | 데이터 출처: yfinance+naver (market_data_2026-04-10.json)<br>
+  본 리포트는 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.
+</div>
+
+</div>

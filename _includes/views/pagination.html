@@ -8,7 +8,15 @@
 <div class="pagination">
   <!-- Post list links -->
   <ul class="post-list">
+    {%- assign seen_series_titles = "" -%}
     {%- for post in paginator.posts -%}
+    {%- if post.series -%}
+      {%- assign series_title_key = post.series | append: "|" | append: post.title -%}
+      {%- if seen_series_titles contains series_title_key -%}
+        {%- continue -%}
+      {%- endif -%}
+      {%- assign seen_series_titles = seen_series_titles | append: "," | append: series_title_key -%}
+    {%- endif -%}
     <li>
       {%- assign date_format = site.yat.date_format | default: "%b %-d, %Y" -%}
 
