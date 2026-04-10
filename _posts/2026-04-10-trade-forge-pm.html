@@ -1,0 +1,467 @@
+---
+title: Trade Forge Report
+author: "Written by Claude"
+date: "2026-04-10"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily, Trading]
+series: stock
+---
+
+<style>
+.trade-forge{
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #1c2330;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --green: #3fb950;
+      --red: #f85149;
+      --yellow: #d29922;
+      --blue: #58a6ff;
+      --purple: #bc8cff;
+      --cyan: #39d353;
+      --accent: #1f6feb;
+    }.trade-forge *{ box-sizing: border-box; margin: 0; padding: 0; }.trade-forge{
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }.trade-forge .header{
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }.trade-forge .header-left h1{
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }.trade-forge .header-left .subtitle{
+      color: var(--text-muted);
+      font-size: 13px;
+    }.trade-forge .badge{
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }.trade-forge .badge-neutral{ background: rgba(210,153,34,0.15); color: var(--yellow); border: 1px solid rgba(210,153,34,0.3); }.trade-forge .badge-risk-on{ background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }.trade-forge .badge-risk-off{ background: rgba(248,81,73,0.15); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }.trade-forge .section{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }.trade-forge .section-title{
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }.trade-forge .section-title::before{
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 16px;
+      background: var(--blue);
+      border-radius: 2px;
+    }.trade-forge .macro-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }.trade-forge .macro-card{
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }.trade-forge .macro-card .label{ font-size: 11px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }.trade-forge .macro-card .value{ font-size: 18px; font-weight: 700; }.trade-forge .macro-card .change{ font-size: 12px; margin-top: 2px; }.trade-forge .pos{ color: var(--green); }.trade-forge .neg{ color: var(--red); }.trade-forge .neu{ color: var(--text-muted); }.trade-forge table{
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }.trade-forge th{
+      background: var(--surface2);
+      color: var(--text-muted);
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+    }.trade-forge td{
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }.trade-forge tr:last-child td{ border-bottom: none; }.trade-forge tr:hover td{ background: var(--surface2); }.trade-forge .trade-sell{ color: var(--red); font-weight: 700; }.trade-forge .trade-buy{ color: var(--green); font-weight: 700; }.trade-forge .portfolio-summary{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }.trade-forge .summary-item{
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }.trade-forge .summary-item .s-label{ font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }.trade-forge .summary-item .s-value{ font-size: 20px; font-weight: 700; margin-top: 4px; }.trade-forge .signals-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }.trade-forge .signal-card{
+      background: var(--surface2);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }.trade-forge .signal-card.strong-buy{ border-left: 3px solid var(--green); }.trade-forge .signal-card.buy{ border-left: 3px solid var(--cyan); }.trade-forge .signal-card.hold{ border-left: 3px solid var(--yellow); }.trade-forge .signal-card.sell{ border-left: 3px solid var(--red); }.trade-forge .signal-label{ font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }.trade-forge .signal-card.strong-buy .signal-label{ color: var(--green); }.trade-forge .signal-card.buy .signal-label{ color: var(--cyan); }.trade-forge .signal-card.hold .signal-label{ color: var(--yellow); }.trade-forge .signal-card.sell .signal-label{ color: var(--red); }.trade-forge .signal-ticker{ font-size: 15px; font-weight: 700; }.trade-forge .signal-name{ font-size: 11px; color: var(--text-muted); margin-top: 2px; }.trade-forge .signal-note{ font-size: 11px; color: var(--text-muted); margin-top: 4px; }.trade-forge .commentary{
+      background: var(--surface2);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text);
+      margin-top: 12px;
+    }.trade-forge .footer{
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 11px;
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }.trade-forge .two-col{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }.trade-forge @media (max-width: 700px){ .two-col { grid-template-columns: 1fr; } }
+  
+</style>
+
+<div class="trade-forge">
+
+
+<div class="header">
+  <div class="header-left">
+    <h1>⚡ Trade Forge 시뮬레이션</h1>
+    <div class="subtitle">2026년 4월 10일 · PM 세션 (한국시장 마감 후) · 생성: 19:00 KST</div>
+  </div>
+  <div>
+    <span class="badge badge-neutral">NEUTRAL · VIX 19.44</span>
+  </div>
+</div>
+
+<!-- 매크로 지표 -->
+<div class="section">
+  <div class="section-title">매크로 지표</div>
+  <div class="macro-grid">
+    <div class="macro-card">
+      <div class="label">KOSPI</div>
+      <div class="value">5,858.87</div>
+      <div class="change pos">▲ +80.86 (+1.40%)</div>
+    </div>
+    <div class="macro-card">
+      <div class="label">S&amp;P 500</div>
+      <div class="value">6,824.66</div>
+      <div class="change pos">▲ +41.85 (+0.62%)</div>
+    </div>
+    <div class="macro-card">
+      <div class="label">NASDAQ</div>
+      <div class="value">22,822.42</div>
+      <div class="change pos">▲ +187.43 (+0.83%)</div>
+    </div>
+    <div class="macro-card">
+      <div class="label">VIX</div>
+      <div class="value" style="color:var(--yellow)">19.44</div>
+      <div class="change neu">▼ -0.05 (-0.26%)</div>
+    </div>
+    <div class="macro-card">
+      <div class="label">USD/KRW</div>
+      <div class="value">1,483.22</div>
+      <div class="change neg">▲ +5.62 (+0.38%)</div>
+    </div>
+    <div class="macro-card">
+      <div class="label">WTI 원유</div>
+      <div class="value">$98.95</div>
+      <div class="change pos">▲ +$1.08 (+1.10%)</div>
+    </div>
+    <div class="macro-card">
+      <div class="label">금</div>
+      <div class="value">$4,773.30</div>
+      <div class="change neg">▼ -$18.90 (-0.39%)</div>
+    </div>
+    <div class="macro-card">
+      <div class="label">미 10Y 국채</div>
+      <div class="value">4.293%</div>
+      <div class="change neu">▲ +0.002%</div>
+    </div>
+    <div class="macro-card">
+      <div class="label">스프레드 10Y-3M</div>
+      <div class="value" style="color:var(--green)">+0.705%</div>
+      <div class="change neu">정상 우상향</div>
+    </div>
+  </div>
+  <div class="commentary">
+    <strong>시장 코멘터리:</strong> 미-이란 휴전 협상 지속 속 불확실성으로 유가 $98.95 재상승. 전일 코스피 1.61% 조정 이후 오늘 +1.40% 반등.
+    삼성전자·SK하이닉스 중심 반도체 섹터가 반등 주도, AI 메모리 수요 강세 기조 유지.
+    KB금융·신한지주 등 금융주도 동반 강세. 미국 시장은 빅테크(META +2.61%, AMZN +5.60%) 강한 상승세로 리스크온 분위기.
+  </div>
+</div>
+
+<!-- 오늘의 매매 내역 -->
+<div class="two-col">
+  <div class="section">
+    <div class="section-title">🇰🇷 한국 매매 내역</div>
+    <table>
+      <thead>
+        <tr><th>구분</th><th>종목</th><th>수량</th><th>매매가</th><th>금액</th><th>손익</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="trade-sell">SELL</span></td>
+          <td>LG에너지솔루션<br><span style="color:var(--text-muted);font-size:11px">373220.KS</span></td>
+          <td>23주</td>
+          <td>₩412,000</td>
+          <td>₩9,476,000</td>
+          <td class="neg">-₩207,000</td>
+        </tr>
+        <tr>
+          <td><span class="trade-buy">BUY</span></td>
+          <td>삼성전자<br><span style="color:var(--text-muted);font-size:11px">005930.KS</span></td>
+          <td>72주</td>
+          <td>₩206,000</td>
+          <td>₩14,832,000</td>
+          <td class="neu">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section">
+    <div class="section-title">🇺🇸 미국 매매 내역</div>
+    <table>
+      <thead>
+        <tr><th>구분</th><th>종목</th><th>수량</th><th>매매가</th><th>금액</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="trade-buy">BUY</span></td>
+          <td>NVIDIA<br><span style="color:var(--text-muted);font-size:11px">NVDA</span></td>
+          <td>38주</td>
+          <td>$183.91</td>
+          <td>$6,988.58</td>
+        </tr>
+        <tr>
+          <td><span class="trade-buy">BUY</span></td>
+          <td>JPMorgan<br><span style="color:var(--text-muted);font-size:11px">JPM</span></td>
+          <td>15주</td>
+          <td>$310.33</td>
+          <td>$4,654.95</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 포트폴리오 현황 -->
+<div class="two-col">
+  <div class="section">
+    <div class="section-title">🇰🇷 한국 포트폴리오 현황</div>
+    <table>
+      <thead>
+        <tr><th>종목</th><th>수량</th><th>평균단가</th><th>현재가</th><th>미실현손익</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>삼성전자<br><span style="font-size:11px;color:var(--text-muted)">005930.KS</span></td>
+          <td>72</td>
+          <td>₩206,000</td>
+          <td>₩206,000</td>
+          <td class="neu">₩0</td>
+        </tr>
+        <tr>
+          <td>삼성SDI<br><span style="font-size:11px;color:var(--text-muted)">006400.KS</span></td>
+          <td>25</td>
+          <td>₩480,000</td>
+          <td>₩481,000</td>
+          <td class="pos">+₩25,000<br><span style="font-size:11px">(+0.21%)</span></td>
+        </tr>
+        <tr>
+          <td>KB금융<br><span style="font-size:11px;color:var(--text-muted)">105560.KS</span></td>
+          <td>51</td>
+          <td>₩154,200</td>
+          <td>₩158,300</td>
+          <td class="pos">+₩209,100<br><span style="font-size:11px">(+2.66%)</span></td>
+        </tr>
+        <tr>
+          <td>셀트리온<br><span style="font-size:11px;color:var(--text-muted)">068270.KS</span></td>
+          <td>34</td>
+          <td>₩201,500</td>
+          <td>₩199,700</td>
+          <td class="neg">-₩61,200<br><span style="font-size:11px">(-0.89%)</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="portfolio-summary">
+      <div class="summary-item">
+        <div class="s-label">총 자산</div>
+        <div class="s-value">₩99,956,794</div>
+      </div>
+      <div class="summary-item">
+        <div class="s-label">투자 비중</div>
+        <div class="s-value" style="color:var(--yellow)">41.6%</div>
+      </div>
+      <div class="summary-item">
+        <div class="s-label">당일 손익</div>
+        <div class="s-value neg">-₩37,746</div>
+      </div>
+      <div class="summary-item">
+        <div class="s-label">미실현 손익</div>
+        <div class="s-value pos">+₩172,900</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🇺🇸 미국 포트폴리오 현황</div>
+    <table>
+      <thead>
+        <tr><th>종목</th><th>수량</th><th>평균단가</th><th>현재가</th><th>미실현손익</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Amazon</td>
+          <td>51</td>
+          <td>$233.65</td>
+          <td>$233.65</td>
+          <td class="neu">$0</td>
+        </tr>
+        <tr>
+          <td>Broadcom</td>
+          <td>28</td>
+          <td>$354.91</td>
+          <td>$354.91</td>
+          <td class="neu">$0</td>
+        </tr>
+        <tr>
+          <td>Meta</td>
+          <td>12</td>
+          <td>$628.39</td>
+          <td>$628.39</td>
+          <td class="neu">$0</td>
+        </tr>
+        <tr>
+          <td>Alphabet</td>
+          <td>21</td>
+          <td>$318.49</td>
+          <td>$318.49</td>
+          <td class="neu">$0</td>
+        </tr>
+        <tr>
+          <td>NVIDIA <span style="font-size:11px;color:var(--green)">(신규)</span></td>
+          <td>38</td>
+          <td>$183.91</td>
+          <td>$183.91</td>
+          <td class="neu">$0</td>
+        </tr>
+        <tr>
+          <td>JPMorgan <span style="font-size:11px;color:var(--green)">(신규)</span></td>
+          <td>15</td>
+          <td>$310.33</td>
+          <td>$310.33</td>
+          <td class="neu">$0</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="portfolio-summary">
+      <div class="summary-item">
+        <div class="s-label">총 자산</div>
+        <div class="s-value">$100,000.00</div>
+      </div>
+      <div class="summary-item">
+        <div class="s-label">투자 비중</div>
+        <div class="s-value" style="color:var(--yellow)">47.7%</div>
+      </div>
+      <div class="summary-item">
+        <div class="s-label">당일 손익</div>
+        <div class="s-value neu">$0.00</div>
+      </div>
+      <div class="summary-item">
+        <div class="s-label">현금</div>
+        <div class="s-value">$52,273.87</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 주요 신호 -->
+<div class="section">
+  <div class="section-title">주요 신호 요약</div>
+  <div class="signals-grid">
+    <div class="signal-card strong-buy">
+      <div class="signal-label">★ Strong Buy</div>
+      <div class="signal-ticker">SK하이닉스</div>
+      <div class="signal-name">000660.KS</div>
+      <div class="signal-note">5일 +16.0% · 오늘 +2.91%</div>
+    </div>
+    <div class="signal-card strong-buy">
+      <div class="signal-label">★ Strong Buy</div>
+      <div class="signal-ticker">AMZN</div>
+      <div class="signal-name">Amazon</div>
+      <div class="signal-note">5일 +11.4% · 오늘 +5.60%</div>
+    </div>
+    <div class="signal-card strong-buy">
+      <div class="signal-label">★ Strong Buy</div>
+      <div class="signal-ticker">META</div>
+      <div class="signal-name">Meta Platforms</div>
+      <div class="signal-note">5일 +9.4% · 오늘 +2.61%</div>
+    </div>
+    <div class="signal-card strong-buy">
+      <div class="signal-label">★ Strong Buy</div>
+      <div class="signal-ticker">AVGO</div>
+      <div class="signal-name">Broadcom</div>
+      <div class="signal-note">5일 +12.8% · AI 반도체 선두</div>
+    </div>
+    <div class="signal-card buy">
+      <div class="signal-label">▲ Buy</div>
+      <div class="signal-ticker">삼성전자</div>
+      <div class="signal-name">005930.KS</div>
+      <div class="signal-note">5일 +6.7% · 오늘 +0.98% — 매수 완료</div>
+    </div>
+    <div class="signal-card buy">
+      <div class="signal-label">▲ Buy</div>
+      <div class="signal-ticker">신한지주</div>
+      <div class="signal-name">055550.KS</div>
+      <div class="signal-note">5일 +6.2% · 오늘 +2.17%</div>
+    </div>
+    <div class="signal-card hold">
+      <div class="signal-label">◈ Hold</div>
+      <div class="signal-ticker">삼성SDI / KB금융</div>
+      <div class="signal-name">006400.KS / 105560.KS</div>
+      <div class="signal-note">상승 추세 유지, 보유 지속</div>
+    </div>
+    <div class="signal-card sell">
+      <div class="signal-label">▼ Sold</div>
+      <div class="signal-ticker">LG에너지솔루션</div>
+      <div class="signal-name">373220.KS</div>
+      <div class="signal-note">오늘 -2.14% · 추세 부진 — 매도 완료</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Trade Forge Simulation · 데이터 소스: yfinance + Naver Finance (fetch: 2026-04-10T18:53:36 KST)<br>
+  모든 수치는 market_data_2026-04-10_pm.json 원본 값 기준 · 실제 투자 권유 아님
+</div>
+
+
+</div>
