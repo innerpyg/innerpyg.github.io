@@ -1,0 +1,195 @@
+---
+title: Trade Forge Report
+author: "Written by Claude"
+date: "2026-04-10"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily, Trading]
+series: stock
+---
+<style>
+.trade-forge {
+    --bg: #0d1117; --surface: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+    --green: #3fb950; --red: #f85149; --yellow: #d29922;
+    --orange: #db6d28;
+  }
+.trade-forge * { margin: 0; padding: 0; box-sizing: border-box; }
+.trade-forge { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 24px; max-width: 1100px; margin: 0 auto; }
+.trade-forge h1 { font-size: 1.6rem; margin-bottom: 4px; }
+.trade-forge h2 { font-size: 1.2rem; color: var(--accent); margin: 28px 0 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+.trade-forge h3 { font-size: 1rem; color: var(--muted); margin: 16px 0 8px; }
+.trade-forge .subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 20px; }
+.trade-forge .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+.trade-forge .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+.trade-forge .card-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.trade-forge .card-value { font-size: 1.4rem; font-weight: 700; margin: 4px 0; }
+.trade-forge .card-sub { font-size: 0.8rem; }
+.trade-forge .up { color: var(--green); }
+.trade-forge .down { color: var(--red); }
+.trade-forge .flat { color: var(--yellow); }
+.trade-forge .regime-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; background: rgba(210,153,34,0.2); color: var(--yellow); }
+.trade-forge table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.85rem; }
+.trade-forge th { background: var(--surface); color: var(--muted); text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; }
+.trade-forge td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.trade-forge tr:hover { background: rgba(88,166,255,0.04); }
+.trade-forge .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.72rem; font-weight: 600; }
+.trade-forge .tag-buy { background: rgba(63,185,80,0.15); color: var(--green); }
+.trade-forge .signal-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.trade-forge .signal-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.trade-forge .dot-green { background: var(--green); }
+.trade-forge .dot-yellow { background: var(--yellow); }
+.trade-forge .dot-red { background: var(--red); }
+.trade-forge .commentary { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px; margin: 12px 0; font-size: 0.9rem; line-height: 1.7; }
+.trade-forge .footer { color: var(--muted); font-size: 0.75rem; margin-top: 32px; padding-top: 12px; border-top: 1px solid var(--border); text-align: center; }
+.trade-forge .pf-summary { display: flex; gap: 20px; flex-wrap: wrap; margin: 10px 0; }
+.trade-forge .pf-item { font-size: 0.85rem; }
+.trade-forge .pf-item span { color: var(--muted); }
+</style>
+
+<div class="trade-forge">
+<h1>Trade Forge Daily Report</h1>
+<p class="subtitle">2026-04-10 AM Session &middot; 미국시장 마감 후 분석 (2026-04-09 종가 기준)</p>
+
+<h2>시장 환경</h2>
+<div class="grid">
+  <div class="card">
+    <div class="card-label">VIX</div>
+    <div class="card-value">19.49</div>
+    <div class="card-sub down">▼ 1.55 (-7.37%)</div>
+    <div style="margin-top:6px"><span class="regime-badge">NEUTRAL</span></div>
+  </div>
+  <div class="card">
+    <div class="card-label">S&P 500</div>
+    <div class="card-value up">6,824.66</div>
+    <div class="card-sub up">▲ 41.85 (+0.62%)</div>
+  </div>
+  <div class="card">
+    <div class="card-label">NASDAQ</div>
+    <div class="card-value up">22,822.42</div>
+    <div class="card-sub up">▲ 187.43 (+0.83%)</div>
+  </div>
+  <div class="card">
+    <div class="card-label">KOSPI</div>
+    <div class="card-value down">5,778.01</div>
+    <div class="card-sub down">▼ 94.33 (-1.61%)</div>
+  </div>
+  <div class="card">
+    <div class="card-label">USD/KRW</div>
+    <div class="card-value">1,474.09</div>
+    <div class="card-sub up">▼ 25.04 (-1.67%)</div>
+  </div>
+  <div class="card">
+    <div class="card-label">WTI 원유</div>
+    <div class="card-value">$98.13</div>
+    <div class="card-sub down">▲ 3.72 (+3.94%)</div>
+  </div>
+  <div class="card">
+    <div class="card-label">금</div>
+    <div class="card-value">$4,801</div>
+    <div class="card-sub up">▲ 51.50 (+1.08%)</div>
+  </div>
+  <div class="card">
+    <div class="card-label">10Y 국채</div>
+    <div class="card-value">4.293%</div>
+    <div class="card-sub flat">+0.002 (+0.05%)</div>
+  </div>
+</div>
+
+<h2>오늘의 매매 내역</h2>
+
+<h3>🇰🇷 한국 포트폴리오</h3>
+<table>
+  <thead><tr><th>종목</th><th>매매</th><th>수량</th><th>매매가</th><th>금액</th><th>수수료</th><th>사유</th></tr></thead>
+  <tbody>
+    <tr><td><strong>삼성SDI</strong></td><td><span class="tag tag-buy">매수</span></td><td>25주</td><td>₩480,000</td><td>₩12,000,000</td><td>₩1,800</td><td>5일 +9.5%, 일관된 상승추세</td></tr>
+    <tr><td><strong>LG에너지솔루션</strong></td><td><span class="tag tag-buy">매수</span></td><td>23주</td><td>₩421,000</td><td>₩9,683,000</td><td>₩1,452</td><td>금일 +3.69%, 배터리 강세</td></tr>
+    <tr><td><strong>KB금융</strong></td><td><span class="tag tag-buy">매수</span></td><td>51주</td><td>₩154,200</td><td>₩7,864,200</td><td>₩1,180</td><td>5일 +6.0%, 금융 안정</td></tr>
+    <tr><td><strong>셀트리온</strong></td><td><span class="tag tag-buy">매수</span></td><td>34주</td><td>₩201,500</td><td>₩6,851,000</td><td>₩1,028</td><td>방어적 바이오, 안정 추세</td></tr>
+  </tbody>
+</table>
+<div class="pf-summary">
+  <div class="pf-item"><span>총 매수: </span><strong>₩36,403,660</strong> (36.4%)</div>
+</div>
+
+<h3>🇺🇸 미국 포트폴리오</h3>
+<table>
+  <thead><tr><th>종목</th><th>매매</th><th>수량</th><th>매매가</th><th>금액</th><th>사유</th></tr></thead>
+  <tbody>
+    <tr><td><strong>AMZN</strong></td><td><span class="tag tag-buy">매수</span></td><td>51주</td><td>$233.65</td><td>$11,916.15</td><td>5일 +11.4%, AI/AWS 모멘텀</td></tr>
+    <tr><td><strong>AVGO</strong></td><td><span class="tag tag-buy">매수</span></td><td>28주</td><td>$354.91</td><td>$9,937.48</td><td>5일 +12.8%, 반도체 대장</td></tr>
+    <tr><td><strong>META</strong></td><td><span class="tag tag-buy">매수</span></td><td>12주</td><td>$628.39</td><td>$7,540.68</td><td>5일 +9.4%, AI 클라우드 확대</td></tr>
+    <tr><td><strong>GOOGL</strong></td><td><span class="tag tag-buy">매수</span></td><td>21주</td><td>$318.49</td><td>$6,688.29</td><td>5일 +7.7%, AI 기대감</td></tr>
+  </tbody>
+</table>
+<div class="pf-summary">
+  <div class="pf-item"><span>총 매수: </span><strong>$36,082.60</strong> (36.1%)</div>
+</div>
+
+<h2>포트폴리오 현황</h2>
+
+<h3>🇰🇷 한국</h3>
+<table>
+  <thead><tr><th>종목</th><th>수량</th><th>평균단가</th><th>현재가</th><th>평가금액</th><th>손익</th></tr></thead>
+  <tbody>
+    <tr><td>삼성SDI</td><td>25주</td><td>₩480,000</td><td>₩480,000</td><td>₩12,000,000</td><td class="flat">₩0 (0.0%)</td></tr>
+    <tr><td>LG에너지솔루션</td><td>23주</td><td>₩421,000</td><td>₩421,000</td><td>₩9,683,000</td><td class="flat">₩0 (0.0%)</td></tr>
+    <tr><td>KB금융</td><td>51주</td><td>₩154,200</td><td>₩154,200</td><td>₩7,864,200</td><td class="flat">₩0 (0.0%)</td></tr>
+    <tr><td>셀트리온</td><td>34주</td><td>₩201,500</td><td>₩201,500</td><td>₩6,851,000</td><td class="flat">₩0 (0.0%)</td></tr>
+  </tbody>
+</table>
+<div class="pf-summary">
+  <div class="pf-item"><span>현금: </span>₩63,596,340</div>
+  <div class="pf-item"><span>총 자산: </span>₩99,994,540</div>
+  <div class="pf-item"><span>투자비중: </span>36.4%</div>
+</div>
+
+<h3>🇺🇸 미국</h3>
+<table>
+  <thead><tr><th>종목</th><th>수량</th><th>평균단가</th><th>현재가</th><th>평가금액</th><th>손익</th></tr></thead>
+  <tbody>
+    <tr><td>AMZN</td><td>51주</td><td>$233.65</td><td>$233.65</td><td>$11,916.15</td><td class="flat">$0 (0.0%)</td></tr>
+    <tr><td>AVGO</td><td>28주</td><td>$354.91</td><td>$354.91</td><td>$9,937.48</td><td class="flat">$0 (0.0%)</td></tr>
+    <tr><td>META</td><td>12주</td><td>$628.39</td><td>$628.39</td><td>$7,540.68</td><td class="flat">$0 (0.0%)</td></tr>
+    <tr><td>GOOGL</td><td>21주</td><td>$318.49</td><td>$318.49</td><td>$6,688.29</td><td class="flat">$0 (0.0%)</td></tr>
+  </tbody>
+</table>
+<div class="pf-summary">
+  <div class="pf-item"><span>현금: </span>$63,917.40</div>
+  <div class="pf-item"><span>총 자산: </span>$100,000.00</div>
+  <div class="pf-item"><span>투자비중: </span>36.1%</div>
+</div>
+
+<h2>주요 신호</h2>
+<div style="margin:10px 0">
+  <div class="signal-row"><div class="signal-dot dot-green"></div><div><strong>VIX 하락 -7.37%</strong> — 변동성 완화, NEUTRAL 체제 안정화</div></div>
+  <div class="signal-row"><div class="signal-dot dot-yellow"></div><div><strong>S&P 500 7일 연속 상승</strong> — 모멘텀 강하나 과열 경계 필요</div></div>
+  <div class="signal-row"><div class="signal-dot dot-yellow"></div><div><strong>원유 급등 +3.94%</strong> — 이란 휴전 불확실성, 인플레 우려 재부각 가능</div></div>
+  <div class="signal-row"><div class="signal-dot dot-green"></div><div><strong>USD/KRW -1.67%</strong> — 원화 강세, 외국인 자금 유입 기대</div></div>
+  <div class="signal-row"><div class="signal-dot dot-red"></div><div><strong>KOSPI -1.61% vs US +0.6%</strong> — 한미 디커플링 주의</div></div>
+  <div class="signal-row"><div class="signal-dot dot-green"></div><div><strong>10Y 국채 4.293% 안정</strong> — 금리 리스크 제한적</div></div>
+</div>
+
+<h2>코멘터리</h2>
+<div class="commentary">
+  <p>이번 AM 세션은 포트폴리오 초기 구축 세션입니다. VIX가 NEUTRAL 구간(19.49)에 위치하여 공격적 배치보다는 약 36%의 보수적 투자비중으로 시작했습니다.</p>
+  <br>
+  <p>미국 시장은 이란 휴전 기대감과 빅테크 AI 모멘텀에 힘입어 7일 연속 상승 중입니다. AMZN(AI/AWS), AVGO(반도체), META(CoreWeave 계약), GOOGL(AI) 등 AI 관련 모멘텀이 강한 종목을 중심으로 포지션을 구축했습니다.</p>
+  <br>
+  <p>한국 시장은 미국 대비 약세를 보이고 있으나(KOSPI -1.61%), 2차전지(삼성SDI, LG에너지솔루션)와 방어주(셀트리온, KB금융)를 중심으로 안정적인 포지션을 잡았습니다. 삼성전자·SK하이닉스·현대차는 갭업 후 강한 매도세가 나와 단기 차익실현 물량으로 판단, 진입을 보류했습니다.</p>
+  <br>
+  <p>향후 PM 세션에서 KOSPI 움직임과 VIX 추이를 확인하여 추가 배치 여부를 결정할 예정입니다.</p>
+</div>
+
+<div class="footer">
+  Trade Forge &middot; 2026-04-10 AM Session &middot; Data: yfinance+naver API
+</div>
+</div>
