@@ -13,8 +13,8 @@ output:
 layout: post
 categories: Quant_Research
 tags: [Market, Daily, Trading]
+series: stock
 ---
-
 # Trade Forge Daily Report — 2026-04-10 AM Session
 
 > 미국시장 마감 후 분석 (데이터: 2026-04-09 종가 기준)

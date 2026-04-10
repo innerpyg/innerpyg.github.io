@@ -13,8 +13,8 @@ output:
 layout: post
 categories: Quant_Research
 tags: [Market, Daily]
+series: stock
 ---
-
 # 📊 Morning Market Brief — 2026.04.10 (금)
 
 ---
