@@ -1,0 +1,400 @@
+---
+title: Morning Market Brief
+author: "Written by Claude"
+date: "2026-04-11"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily]
+series: stock
+---
+
+<style>
+.morning-brief {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --orange: #f0883e;
+      --green: #3fb950;
+      --red: #f85149;
+      --blue: #58a6ff;
+      --yellow: #e3b341;
+      --purple: #bc8cff;
+    }
+.morning-brief * { box-sizing: border-box; margin: 0; padding: 0; }
+.morning-brief {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Courier New', 'SF Mono', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+.morning-brief h1 {
+      font-size: 22px;
+      color: var(--orange);
+      border-bottom: 2px solid var(--orange);
+      padding-bottom: 8px;
+      margin-bottom: 6px;
+    }
+.morning-brief .subtitle {
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
+.morning-brief h2 {
+      font-size: 16px;
+      color: var(--blue);
+      margin: 28px 0 12px 0;
+      padding: 6px 10px;
+      background: var(--bg2);
+      border-left: 3px solid var(--blue);
+      border-radius: 2px;
+    }
+.morning-brief table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      background: var(--bg2);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+.morning-brief th {
+      background: var(--bg3);
+      color: var(--yellow);
+      text-align: left;
+      padding: 8px 12px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+.morning-brief td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+.morning-brief tr:last-child td { border-bottom: none; }
+.morning-brief tr:hover td { background: var(--bg3); }
+.morning-brief .positive { color: var(--green); }
+.morning-brief .negative { color: var(--red); }
+.morning-brief .neutral { color: var(--text-muted); }
+.morning-brief .bullets {
+      background: var(--bg2);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+.morning-brief .bullets h3 {
+      color: var(--yellow);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+.morning-brief .bullet-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+.morning-brief .bullet-dot {
+      color: var(--orange);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+.morning-brief .bullet-text { color: var(--text); }
+.morning-brief .bullet-text strong { color: var(--orange); }
+.morning-brief .watchlist-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+    }
+.morning-brief .watchlist-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+.morning-brief .ticker { color: var(--yellow); font-weight: bold; font-size: 15px; }
+.morning-brief .price { color: var(--text); font-size: 15px; }
+.morning-brief .change-badge {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+.morning-brief .change-pos { background: rgba(63,185,80,0.15); color: var(--green); }
+.morning-brief .change-neg { background: rgba(248,81,73,0.15); color: var(--red); }
+.morning-brief .watchlist-note { color: var(--text-muted); font-size: 12px; }
+.morning-brief .takeaways {
+      background: var(--bg2);
+      border: 1px solid var(--orange);
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+.morning-brief .takeaway-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+.morning-brief .takeaway-num {
+      color: var(--orange);
+      font-weight: bold;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+.morning-brief .takeaway-text strong { color: var(--orange); }
+.morning-brief .footer {
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-top: 20px;
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+.morning-brief .footer span { color: var(--blue); }
+.morning-brief .section-note {
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+.morning-brief .label { color: var(--text-muted); }
+.morning-brief .highlight { color: var(--purple); }
+.morning-brief hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+</style>
+
+<div class="morning-brief">
+<h1>📊 Morning Market Brief — 2026.04.11 (토)</h1>
+<div class="subtitle">4월 10일(금) 종가 기준 | 오늘(토) 한국·미국 증시 휴장</div>
+
+<!-- US MARKET -->
+<h2>🇺🇸 US Market Recap</h2>
+<table>
+  <thead>
+    <tr><th>Index</th><th>Close</th><th>Change</th><th>%</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>S&amp;P 500</td>
+      <td>6,816.89</td>
+      <td class="negative">-7.77</td>
+      <td class="negative">-0.11%</td>
+    </tr>
+    <tr>
+      <td>Nasdaq</td>
+      <td>22,902.89</td>
+      <td class="positive">+80.47</td>
+      <td class="positive">+0.35%</td>
+    </tr>
+    <tr>
+      <td>Dow Jones</td>
+      <td>47,916.57</td>
+      <td class="negative">-269.23</td>
+      <td class="negative">-0.56%</td>
+    </tr>
+    <tr>
+      <td>VIX</td>
+      <td>19.23</td>
+      <td class="positive">-0.26</td>
+      <td class="positive">-1.33%</td>
+    </tr>
+  </tbody>
+</table>
+<div class="bullets">
+  <h3>Key Drivers</h3>
+  <div class="bullet-item">
+    <span class="bullet-dot">▶</span>
+    <span class="bullet-text"><strong>CPI 서프라이즈 혼재:</strong> 헤드라인 CPI 전월 대비 0.9% 급등, 시장 예상(0.7%) 상회. 근원 CPI는 0.2%로 예상(0.3%) 하회 — 에너지·식품 제외 물가 안정이 낙폭을 제한.</span>
+  </div>
+  <div class="bullet-item">
+    <span class="bullet-dot">▶</span>
+    <span class="bullet-text"><strong>AI 섹터 양극화:</strong> CoreWeave가 Anthropic과 다년 AI 클라우드 계약 체결 후 11% 급등. ServiceNow는 UBS 다운그레이드로 급락, Palantir는 AI 경쟁 심화 우려로 하락.</span>
+  </div>
+  <div class="bullet-item">
+    <span class="bullet-dot">▶</span>
+    <span class="bullet-text"><strong>지정학 경계감:</strong> 미-이란 평화 협상이 주말 예정. 협상 타결 기대로 VIX 소폭 하락, 위험 회피 심리 일부 완화.</span>
+  </div>
+</div>
+
+<!-- GLOBAL MACRO -->
+<h2>🌍 Global Macro</h2>
+<table>
+  <thead>
+    <tr><th>Indicator</th><th>Value</th><th>Change</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>US 10Y Treasury</td>
+      <td>4.317%</td>
+      <td class="negative">+0.024</td>
+      <td class="negative">+0.56%</td>
+    </tr>
+    <tr>
+      <td>US 5Y Treasury</td>
+      <td>3.939%</td>
+      <td class="negative">+0.024</td>
+      <td class="negative">+0.61%</td>
+    </tr>
+    <tr>
+      <td>US 30Y Treasury</td>
+      <td>4.914%</td>
+      <td class="negative">+0.017</td>
+      <td class="negative">+0.35%</td>
+    </tr>
+    <tr>
+      <td>US 13W Treasury</td>
+      <td>3.593%</td>
+      <td class="negative">+0.005</td>
+      <td class="negative">+0.14%</td>
+    </tr>
+    <tr>
+      <td>USD/KRW</td>
+      <td>1,485.41</td>
+      <td class="negative">+7.81</td>
+      <td class="negative">+0.53% ↑원화약세</td>
+    </tr>
+    <tr>
+      <td>WTI Oil</td>
+      <td>$95.63</td>
+      <td class="positive">-2.24</td>
+      <td class="positive">-2.29% ↓</td>
+    </tr>
+    <tr>
+      <td>Gold</td>
+      <td>$4,771.00</td>
+      <td class="negative">-21.20</td>
+      <td class="negative">-0.44%</td>
+    </tr>
+  </tbody>
+</table>
+<div class="bullets">
+  <h3>주요 이슈</h3>
+  <div class="bullet-item">
+    <span class="bullet-dot">▶</span>
+    <span class="bullet-text"><strong>연준 금리 불확실성 고조:</strong> 기준금리 3.50~3.75% 동결 유지 중이나, 클리블랜드 연준 총재 Beth Hammack이 물가 고착화 시 인상 가능성을 공개 언급. 다음 FOMC 4월 28~29일 예정.</span>
+  </div>
+  <div class="bullet-item">
+    <span class="bullet-dot">▶</span>
+    <span class="bullet-text"><strong>원화 약세 압력:</strong> USD/KRW 1,485원대로 전일 대비 7.81원 상승. 헤드라인 CPI 서프라이즈·금리 인상 우려가 달러 강세를 지지하며 원화 압력 확대.</span>
+  </div>
+  <div class="bullet-item">
+    <span class="bullet-dot">▶</span>
+    <span class="bullet-text"><strong>유가 하락:</strong> WTI $95.63으로 2.29% 하락 — 미-이란 협상 기대 반영. 금은 $4,771로 소폭 하락하며 안전자산 선호도 다소 약화.</span>
+  </div>
+</div>
+
+<!-- KOREAN MARKET -->
+<h2>🇰🇷 Korean Market Outlook</h2>
+<p class="section-note">※ 4월 10일(금) 종가 기준. 4월 11일(토) 증시 휴장.</p>
+<table>
+  <thead>
+    <tr><th>Index</th><th>전일 종가</th><th>변동</th><th>예상 흐름</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>KOSPI</td>
+      <td>5,858.87</td>
+      <td class="positive">+80.86 (+1.40%)</td>
+      <td class="neutral">주말 휴장</td>
+    </tr>
+    <tr>
+      <td>KOSDAQ</td>
+      <td>1,093.63</td>
+      <td class="positive">+17.63 (+1.64%)</td>
+      <td class="neutral">주말 휴장</td>
+    </tr>
+  </tbody>
+</table>
+<div class="bullets">
+  <h3>주목 섹터 &amp; 수급 동향</h3>
+  <div class="bullet-item">
+    <span class="bullet-dot">▶</span>
+    <span class="bullet-text"><strong>반도체 초호황:</strong> 코스피 4/10 장중 5,900선 일시 돌파. 한국은행 기준금리 동결 발표 직후 외국인 선물 순매수 4,750억 원 급증이 지수를 이끌었다.</span>
+  </div>
+  <div class="bullet-item">
+    <span class="bullet-dot">▶</span>
+    <span class="bullet-text"><strong>기업이익 모멘텀:</strong> 코스피 1분기 합산 영업이익 컨센서스 127조원 (분기 기준 최초 100조 돌파 전망). 삼성전자 1분기 영업이익 57.2조원(+800% YoY 추정)이 업종 신뢰도 제고.</span>
+  </div>
+  <div class="bullet-item">
+    <span class="bullet-dot">▶</span>
+    <span class="bullet-text"><strong>다음 주 변수:</strong> 미-이란 협상 결과, FOMC(4/28~29) 사전 경계감 유지. AI·HBM 수요 기반 반도체 대형주 수급 집중 흐름 지속 예상.</span>
+  </div>
+</div>
+
+<!-- WATCHLIST -->
+<h2>🔍 Watchlist</h2>
+
+<div class="watchlist-card">
+  <div class="watchlist-header">
+    <span class="ticker">TSLA</span>
+    <span class="price">$348.95</span>
+    <span class="change-badge change-pos">+0.96%</span>
+  </div>
+  <div class="watchlist-note">NVIDIA의 DRIVE 플랫폼 업그레이드로 자율주행 경쟁 심화 우려. Cybercab 양산은 2026년 말 예정이나 경쟁 지연 리스크 존재. 주가는 소폭 상승 마감.</div>
+</div>
+
+<div class="watchlist-card">
+  <div class="watchlist-header">
+    <span class="ticker">NVDA</span>
+    <span class="price">$188.63</span>
+    <span class="change-badge change-pos">+2.57%</span>
+  </div>
+  <div class="watchlist-note">CoreWeave-Anthropic AI 클라우드 계약 수혜로 AI 인프라 수요 재확인. Leo KoGuan 등 기관투자가 추가 매수 지속. 반도체·AI 인프라 업종 강세 선도.</div>
+</div>
+
+<div class="watchlist-card">
+  <div class="watchlist-header">
+    <span class="ticker">삼성전자 (005930)</span>
+    <span class="price">₩206,000</span>
+    <span class="change-badge change-pos">+0.98%</span>
+  </div>
+  <div class="watchlist-note">1분기 영업이익 57조원 전망(+800% YoY). SK하이닉스 대비 HBM 점유율 격차 좁히기 과제. 증권사 목표주가 40만원으로 대폭 상향 조정.</div>
+</div>
+
+<div class="watchlist-card">
+  <div class="watchlist-header">
+    <span class="ticker">SK하이닉스 (000660)</span>
+    <span class="price">₩1,027,000</span>
+    <span class="change-badge change-pos">+2.91%</span>
+  </div>
+  <div class="watchlist-note">1c D램 수율 80% 달성, 생산능력 절반 이상 신공정 전환. AI 서버 HBM 수요 선점으로 초강세. 목표주가 200만원 상향 — 당일 워치리스트 최강 퍼포머.</div>
+</div>
+
+<!-- TAKEAWAYS -->
+<h2>⚡ Today's Key Takeaways</h2>
+<div class="takeaways">
+  <div class="takeaway-item">
+    <span class="takeaway-num">1</span>
+    <span class="takeaway-text"><strong>CPI 혼재 속 연준 불확실성 확대:</strong> 헤드라인 물가 서프라이즈(+0.9%)가 금리 인상 논의를 재점화. 달러 강세·원화 약세 압력 지속 가능성에 주목. 4/28~29 FOMC가 단기 최대 변수.</span>
+  </div>
+  <div class="takeaway-item">
+    <span class="takeaway-num">2</span>
+    <span class="takeaway-text"><strong>한국 증시는 반도체가 이끄는 이익 모멘텀 장세:</strong> KOSPI 5,900 돌파를 앞두고 외국인 수급이 반도체 대형주로 집중. 삼성전자·SK하이닉스 실적 서프라이즈가 추가 상승의 촉매.</span>
+  </div>
+  <div class="takeaway-item">
+    <span class="takeaway-num">3</span>
+    <span class="takeaway-text"><strong>AI 인프라 섹터 차별화 가속:</strong> CoreWeave-Anthropic 계약으로 AI 클라우드 투자 지속 확인. NVIDIA는 AI 인프라 수혜 지속, Tesla는 자율주행 경쟁 심화 속 차별화 필요.</span>
+  </div>
+</div>
+
+<hr>
+<div class="footer">
+  ⏰ Generated at <span>10:10 KST</span> | 데이터 출처: <span>yfinance+naver (market_data_2026-04-11.json)</span><br>
+  본 리포트는 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.
+</div>
+</div>
