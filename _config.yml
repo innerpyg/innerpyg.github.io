@@ -197,7 +197,7 @@ paginate: 10
 # Build settings
 # highlighter: none
 markdown: kramdown
-kmarkdown:
+kramdown:
   input: GFM
 
 plugins:
@@ -207,4 +207,4 @@ plugins:
   - jekyll-paginate
   - jekyll-spaceship
 
-futrue: true
+future: true

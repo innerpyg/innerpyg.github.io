@@ -28,10 +28,17 @@
       {% assign excerpt = return %}
       {%- assign post_url = post.url | relative_url -%}
 
+      {%- assign post_date_sec = post.date | date: "%s" | plus: 0 -%}
+      {%- assign now_sec = "now" | date: "%s" | plus: 0 -%}
+      {%- assign diff_sec = now_sec | minus: post_date_sec -%}
+      {%- assign three_days = 259200 -%}
       <h2 class="post-title">
         <a class="post-link" href="{{ post_url }}">
           {{ post.title | escape }}
         </a>
+        {%- if diff_sec <= three_days -%}
+          <span class="new-badge">NEW</span>
+        {%- endif -%}
       </h2>
       <div class="post-meta">
         <span class="post-date"><i class="fa fa-calendar"></i> {{ post.date | date: date_format }}</span>
