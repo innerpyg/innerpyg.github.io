@@ -1,0 +1,448 @@
+---
+title: Trade Forge Report
+author: "Written by Claude"
+date: "2026-04-13"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily, Trading]
+series: stock
+---
+
+<style>
+.trade-forge {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #21262d;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --green: #3fb950;
+    --red: #f85149;
+    --blue: #58a6ff;
+    --yellow: #d29922;
+    --purple: #bc8cff;
+    --orange: #ffa657;
+  }
+.trade-forge * { box-sizing: border-box; margin: 0; padding: 0; }
+.trade-forge { background: var(--bg); color: var(--text); font-family: 'Segoe UI', -apple-system, sans-serif; font-size: 14px; line-height: 1.6; }
+.trade-forge .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+.trade-forge /* Header */
+  .header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px; }
+.trade-forge .header-left h1 { font-size: 22px; font-weight: 700; color: var(--text); }
+.trade-forge .header-left .subtitle { color: var(--text2); font-size: 13px; margin-top: 4px; }
+.trade-forge .regime-badge { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; background: #d2992233; border: 1px solid var(--yellow); color: var(--yellow); }
+.trade-forge /* Section */
+  .section { margin-bottom: 28px; }
+.trade-forge .section-title { font-size: 14px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.trade-forge /* Macro Grid */
+  .macro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.trade-forge .macro-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.trade-forge .macro-card .label { font-size: 11px; color: var(--text2); margin-bottom: 4px; }
+.trade-forge .macro-card .value { font-size: 18px; font-weight: 700; }
+.trade-forge .macro-card .change { font-size: 11px; margin-top: 2px; }
+.trade-forge .pos { color: var(--green); }
+.trade-forge .neg { color: var(--red); }
+.trade-forge .neu { color: var(--text2); }
+.trade-forge /* Table */
+  table { width: 100%; border-collapse: collapse; }
+.trade-forge th { background: var(--bg3); color: var(--text2); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+.trade-forge td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
+.trade-forge tr:last-child td { border-bottom: none; }
+.trade-forge tr:hover td { background: var(--bg3); }
+.trade-forge .trade-buy { color: var(--green); font-weight: 600; }
+.trade-forge .trade-sell { color: var(--red); font-weight: 600; }
+.trade-forge /* Portfolio summary cards */
+  .portfolio-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.trade-forge .port-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.trade-forge .port-card .port-title { font-size: 12px; color: var(--text2); margin-bottom: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.trade-forge .port-card .port-main { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+.trade-forge .port-card .port-sub { font-size: 12px; color: var(--text2); }
+.trade-forge .port-card .port-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.trade-forge .port-stat { }
+.trade-forge .port-stat .stat-label { font-size: 11px; color: var(--text2); }
+.trade-forge .port-stat .stat-value { font-size: 14px; font-weight: 600; margin-top: 2px; }
+.trade-forge /* Progress bar */
+  .progress-wrap { margin-top: 10px; }
+.trade-forge .progress-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); margin-bottom: 4px; }
+.trade-forge .progress-bar { height: 6px; background: var(--bg3); border-radius: 4px; overflow: hidden; }
+.trade-forge .progress-fill { height: 100%; border-radius: 4px; background: var(--blue); }
+.trade-forge /* News */
+  .news-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; }
+.trade-forge .news-item .news-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
+.trade-forge .tag-risk { background: #f8514933; color: var(--red); }
+.trade-forge .tag-positive { background: #3fb95033; color: var(--green); }
+.trade-forge .news-item .news-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.trade-forge .news-item .news-body { font-size: 13px; color: var(--text2); }
+.trade-forge /* Signal pills */
+  .signals { display: flex; flex-wrap: wrap; gap: 8px; }
+.trade-forge .signal { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.trade-forge .signal-green { background: #3fb95022; border: 1px solid var(--green); color: var(--green); }
+.trade-forge .signal-red { background: #f8514922; border: 1px solid var(--red); color: var(--red); }
+.trade-forge .signal-yellow { background: #d2992222; border: 1px solid var(--yellow); color: var(--yellow); }
+.trade-forge .signal-blue { background: #58a6ff22; border: 1px solid var(--blue); color: var(--blue); }
+.trade-forge /* Commentary */
+  .commentary { background: var(--bg2); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0; padding: 16px 18px; font-size: 14px; line-height: 1.8; color: var(--text); }
+.trade-forge /* Footer */
+  .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--text2); }
+
+
+  @media (max-width: 600px) {
+    .portfolio-row { grid-template-columns: 1fr; }
+.trade-forge .macro-grid { grid-template-columns: repeat(2, 1fr); }
+</style>
+
+<div class="trade-forge">
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>⚡ Trade Forge</h1>
+      <div class="subtitle">2026-04-13 AM 세션 &nbsp;·&nbsp; 미국시장 4/10 마감 기준</div>
+    </div>
+    <div class="regime-badge">⚠ NEUTRAL</div>
+  </div>
+
+  <!-- Macro -->
+  <div class="section">
+    <div class="section-title">📊 매크로 지표</div>
+    <div class="macro-grid">
+      <div class="macro-card">
+        <div class="label">VIX</div>
+        <div class="value neu">19.23</div>
+        <div class="change pos">▼ -0.26 (-1.33%)</div>
+      </div>
+      <div class="macro-card">
+        <div class="label">S&P 500</div>
+        <div class="value">6,816.89</div>
+        <div class="change neg">▼ -7.77 (-0.11%)</div>
+      </div>
+      <div class="macro-card">
+        <div class="label">NASDAQ</div>
+        <div class="value">22,902.89</div>
+        <div class="change pos">▲ +80.47 (+0.35%)</div>
+      </div>
+      <div class="macro-card">
+        <div class="label">KOSPI</div>
+        <div class="value">5,858.87</div>
+        <div class="change pos">▲ +80.86 (+1.40%)</div>
+      </div>
+      <div class="macro-card">
+        <div class="label">10Y 국채</div>
+        <div class="value">4.317%</div>
+        <div class="change neg">▲ +0.024 (+0.56%)</div>
+      </div>
+      <div class="macro-card">
+        <div class="label">수익률 스프레드</div>
+        <div class="value pos">+0.724%</div>
+        <div class="change neu">10Y - 13W</div>
+      </div>
+      <div class="macro-card">
+        <div class="label">USD/KRW</div>
+        <div class="value">1,483.09</div>
+        <div class="change neg">▲ +9.81 (+0.67%)</div>
+      </div>
+      <div class="macro-card">
+        <div class="label">WTI 원유</div>
+        <div class="value">$96.57</div>
+        <div class="change pos">▼ -$1.30 (-1.33%)</div>
+      </div>
+      <div class="macro-card">
+        <div class="label">금</div>
+        <div class="value">$4,787</div>
+        <div class="change pos">▼ -$4.80 (-0.10%)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- News -->
+  <div class="section">
+    <div class="section-title">📰 주요 뉴스 & 맥락</div>
+    <div class="news-item">
+      <span class="news-tag tag-positive">긍정적</span>
+      <div class="news-title">트럼프-이란 휴전 협상 → 기술주 랠리</div>
+      <div class="news-body">알파벳·메타·아마존·엔비디아 주도로 기술주 강세. 4/6~10 사이 S&P 500 +3.1%, NASDAQ +3.8% 상승. VIX도 하향 안정.</div>
+    </div>
+    <div class="news-item">
+      <span class="news-tag tag-risk">리스크</span>
+      <div class="news-title">USTR 301조 반도체 조사 — 의견 제출 마감 4월 15일</div>
+      <div class="news-body">삼성전자·SK하이닉스 잠재 리스크. 단, 미 대법원 상호관세 위법 판결로 트럼프 관세 정책 법적 기반 흔들려 실제 영향 제한적 가능성.</div>
+    </div>
+    <div class="news-item">
+      <span class="news-tag tag-positive">긍정적</span>
+      <div class="news-title">삼성전자 1nm 공정 양산 로드맵 발표</div>
+      <div class="news-body">AI 시대 자체 칩 개발 경쟁 속 삼성전자 기술력 재확인. 한국 반도체 섹터 전반적 긍정 신호.</div>
+    </div>
+  </div>
+
+  <!-- Trades -->
+  <div class="section">
+    <div class="section-title">🔄 오늘의 매매 내역</div>
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>종목</th>
+          <th>수량</th>
+          <th>매매가</th>
+          <th>금액</th>
+          <th>수수료</th>
+          <th>실현손익</th>
+          <th>근거</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="trade-sell">SELL</span></td>
+          <td>LG에너지솔루션<br><small style="color:#8b949e">373220.KS</small></td>
+          <td>23주</td>
+          <td>412,000 ₩</td>
+          <td>9,476,000 ₩</td>
+          <td>1,421 ₩</td>
+          <td class="neg">-207,000 ₩</td>
+          <td style="color:#8b949e;font-size:12px">5일 불안정, -2.14% 당일</td>
+        </tr>
+        <tr>
+          <td><span class="trade-sell">SELL</span></td>
+          <td>셀트리온<br><small style="color:#8b949e">068270.KS</small></td>
+          <td>34주</td>
+          <td>199,700 ₩</td>
+          <td>6,789,800 ₩</td>
+          <td>1,018 ₩</td>
+          <td class="neg">-61,200 ₩</td>
+          <td style="color:#8b949e;font-size:12px">고점 후 모멘텀 약화</td>
+        </tr>
+        <tr>
+          <td><span class="trade-buy">BUY</span></td>
+          <td>SK하이닉스<br><small style="color:#8b949e">000660.KS</small></td>
+          <td>14주</td>
+          <td>1,027,000 ₩</td>
+          <td>14,378,000 ₩</td>
+          <td>2,157 ₩</td>
+          <td class="neu">신규</td>
+          <td style="color:#8b949e;font-size:12px">5일 +15.9%, AI HBM 강세</td>
+        </tr>
+        <tr>
+          <td><span class="trade-buy">BUY</span></td>
+          <td>삼성전자<br><small style="color:#8b949e">005930.KS</small></td>
+          <td>72주</td>
+          <td>206,000 ₩</td>
+          <td>14,832,000 ₩</td>
+          <td>2,225 ₩</td>
+          <td class="neu">신규</td>
+          <td style="color:#8b949e;font-size:12px">5일 +6.7%, 1nm 로드맵</td>
+        </tr>
+        <tr>
+          <td><span class="trade-buy">BUY</span></td>
+          <td>NVDA<br><small style="color:#8b949e">NASDAQ</small></td>
+          <td>71주</td>
+          <td>$188.63</td>
+          <td>$13,392.73</td>
+          <td>$0</td>
+          <td class="neu">신규</td>
+          <td style="color:#8b949e;font-size:12px">5일 +6.2%, AI 칩 사이클</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Portfolio Summary -->
+  <div class="section">
+    <div class="section-title">💼 포트폴리오 현황</div>
+    <div class="portfolio-row">
+      <div class="port-card">
+        <div class="port-title">🇰🇷 한국 포트폴리오</div>
+        <div class="port-main">99,953,619 ₩</div>
+        <div class="port-sub">시작가 100,000,000 KRW 대비</div>
+        <div class="port-stats">
+          <div class="port-stat">
+            <div class="stat-label">미실현 손익</div>
+            <div class="stat-value pos">+234,100 ₩</div>
+          </div>
+          <div class="port-stat">
+            <div class="stat-label">당일 실현손익</div>
+            <div class="stat-value neg">-268,200 ₩</div>
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>투자비중</span><span>49.3% / 50%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:98.6%"></div></div>
+        </div>
+      </div>
+      <div class="port-card">
+        <div class="port-title">🇺🇸 미국 포트폴리오</div>
+        <div class="port-main pos">$100,697.54</div>
+        <div class="port-sub">시작가 $100,000 대비 +0.70%</div>
+        <div class="port-stats">
+          <div class="port-stat">
+            <div class="stat-label">미실현 손익</div>
+            <div class="stat-value pos">+$698.54</div>
+          </div>
+          <div class="port-stat">
+            <div class="stat-label">당일 실현손익</div>
+            <div class="stat-value neu">$0</div>
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>투자비중</span><span>49.8% / 50%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:99.6%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>종목</th>
+          <th>수량</th>
+          <th>평균단가</th>
+          <th>현재가</th>
+          <th>평가금액</th>
+          <th>미실현손익</th>
+          <th>비중</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>삼성SDI</strong> <small style="color:#8b949e">006400.KS</small></td>
+          <td>25주</td>
+          <td>480,000 ₩</td>
+          <td>481,000 ₩</td>
+          <td>12,025,000 ₩</td>
+          <td class="pos">+25,000 (+0.21%)</td>
+          <td>12.0%</td>
+        </tr>
+        <tr>
+          <td><strong>KB금융</strong> <small style="color:#8b949e">105560.KS</small></td>
+          <td>51주</td>
+          <td>154,200 ₩</td>
+          <td>158,300 ₩</td>
+          <td>8,073,300 ₩</td>
+          <td class="pos">+209,100 (+2.66%)</td>
+          <td>8.1%</td>
+        </tr>
+        <tr>
+          <td><strong>SK하이닉스</strong> <small style="color:#8b949e">000660.KS 신규</small></td>
+          <td>14주</td>
+          <td>1,027,000 ₩</td>
+          <td>1,027,000 ₩</td>
+          <td>14,378,000 ₩</td>
+          <td class="neu">—</td>
+          <td>14.4%</td>
+        </tr>
+        <tr>
+          <td><strong>삼성전자</strong> <small style="color:#8b949e">005930.KS 신규</small></td>
+          <td>72주</td>
+          <td>206,000 ₩</td>
+          <td>206,000 ₩</td>
+          <td>14,832,000 ₩</td>
+          <td class="neu">—</td>
+          <td>14.8%</td>
+        </tr>
+        <tr style="background: #161b22;">
+          <td colspan="4" style="color:#8b949e">현금</td>
+          <td>50,645,319 ₩</td>
+          <td>—</td>
+          <td>50.7%</td>
+        </tr>
+        <tr>
+          <td><strong>AMZN</strong> <small style="color:#8b949e">NASDAQ</small></td>
+          <td>51주</td>
+          <td>$233.65</td>
+          <td>$238.38</td>
+          <td>$12,157.38</td>
+          <td class="pos">+$241.23 (+2.02%)</td>
+          <td>12.1%</td>
+        </tr>
+        <tr>
+          <td><strong>AVGO</strong> <small style="color:#8b949e">NASDAQ</small></td>
+          <td>28주</td>
+          <td>$354.91</td>
+          <td>$371.55</td>
+          <td>$10,403.40</td>
+          <td class="pos">+$465.92 (+4.69%)</td>
+          <td>10.3%</td>
+        </tr>
+        <tr>
+          <td><strong>META</strong> <small style="color:#8b949e">NASDAQ</small></td>
+          <td>12주</td>
+          <td>$628.39</td>
+          <td>$629.86</td>
+          <td>$7,558.32</td>
+          <td class="pos">+$17.64 (+0.23%)</td>
+          <td>7.5%</td>
+        </tr>
+        <tr>
+          <td><strong>GOOGL</strong> <small style="color:#8b949e">NASDAQ</small></td>
+          <td>21주</td>
+          <td>$318.49</td>
+          <td>$317.24</td>
+          <td>$6,661.04</td>
+          <td class="neg">-$26.25 (-0.39%)</td>
+          <td>6.6%</td>
+        </tr>
+        <tr>
+          <td><strong>NVDA</strong> <small style="color:#8b949e">NASDAQ 신규</small></td>
+          <td>71주</td>
+          <td>$188.63</td>
+          <td>$188.63</td>
+          <td>$13,392.73</td>
+          <td class="neu">—</td>
+          <td>13.3%</td>
+        </tr>
+        <tr style="background: #161b22;">
+          <td colspan="4" style="color:#8b949e">현금 (USD)</td>
+          <td>$50,524.67</td>
+          <td>—</td>
+          <td>50.2%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Signals -->
+  <div class="section">
+    <div class="section-title">🚦 주요 신호</div>
+    <div class="signals">
+      <span class="signal signal-green">SK하이닉스 5일 +15.9%</span>
+      <span class="signal signal-green">AVGO 5일 +18.2%</span>
+      <span class="signal signal-green">KB금융 5일 +7.0%</span>
+      <span class="signal signal-green">KOSPI +1.40%</span>
+      <span class="signal signal-blue">NVDA 신규 편입</span>
+      <span class="signal signal-blue">삼성전자 신규 편입</span>
+      <span class="signal signal-yellow">VIX 19.23 NEUTRAL</span>
+      <span class="signal signal-yellow">USTR 301조 D-2</span>
+      <span class="signal signal-red">USD/KRW +0.67%</span>
+      <span class="signal signal-red">LG에너솔·셀트리온 손절</span>
+    </div>
+  </div>
+
+  <!-- Commentary -->
+  <div class="section">
+    <div class="section-title">💬 오늘의 코멘터리</div>
+    <div class="commentary">
+      <p>이번 AM 세션의 핵심은 <strong>포트폴리오 정비</strong>다. 지난 4/10 PM 세션에서 편입한 LG에너지솔루션과 셀트리온이 모멘텀 약화 신호를 보임에 따라 조기 청산하고, 주도 섹터인 <strong>AI 반도체</strong>로 자원을 재배치했다.</p>
+      <br>
+      <p>SK하이닉스는 5일간 <strong>+15.9%</strong>의 압도적 모멘텀을 기록하며 AI HBM(고대역폭메모리) 수요의 직접 수혜주임을 입증했다. 삼성전자는 1nm 공정 양산 로드맵 발표 모멘텀과 안정적인 우상향 추세를 근거로 편입했다.</p>
+      <br>
+      <p>미국 포트폴리오는 NVDA 신규 편입으로 <strong>AI 반도체 듀오(NVDA+AVGO)</strong> 포지션을 완성했다. AVGO는 이미 +4.69% 미실현수익 중이며, NVDA와의 시너지가 기대된다.</p>
+      <br>
+      <p>USTR 301조 조사(의견 제출 마감 4/15)는 반도체 섹터 전반에 단기 변동성 요인이 될 수 있으나, <strong>미 대법원의 상호관세 위법 판결</strong>이 관세 정책의 법적 기반을 흔들고 있어 실제 리스크는 제한적으로 판단. 당분간 NEUTRAL 체제(VIX 15~25)에서 반도체 모멘텀 플레이에 집중하는 전략을 유지한다.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Trade Forge Simulation &nbsp;·&nbsp; 2026-04-13 AM Session &nbsp;·&nbsp; Data: yfinance+naver &nbsp;·&nbsp; 모든 수치는 시뮬레이션 목적
+  </div>
+
+</div>
+</div>
