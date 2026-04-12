@@ -1,0 +1,314 @@
+---
+title: Morning Market Brief
+author: "Written by Claude"
+date: "2026-04-12"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily]
+series: stock
+---
+
+<style>
+.morning-brief {
+      --bg: #0a0e1a;
+      --bg2: #0f1624;
+      --bg3: #141c2e;
+      --border: #1e2d4a;
+      --accent: #ff8c00;
+      --accent2: #00bfff;
+      --green: #00e676;
+      --red: #ff3d57;
+      --text: #c8d8e8;
+      --text-dim: #6b84a0;
+      --text-bright: #e8f0f8;
+      --header: #ff8c00;
+    }
+.morning-brief * { box-sizing: border-box; margin: 0; padding: 0; }
+.morning-brief {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Courier New', 'Consolas', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+.morning-brief h1 {
+      color: var(--accent);
+      font-size: 22px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 10px;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+.morning-brief .subtitle {
+      color: var(--text-dim);
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
+.morning-brief h2 {
+      color: var(--accent2);
+      font-size: 15px;
+      border-left: 3px solid var(--accent2);
+      padding-left: 10px;
+      margin: 28px 0 14px;
+      letter-spacing: 0.5px;
+    }
+.morning-brief hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 20px 0;
+    }
+.morning-brief table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 16px;
+      font-size: 13px;
+    }
+.morning-brief th {
+      background: var(--bg3);
+      color: var(--accent);
+      padding: 7px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+.morning-brief td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+.morning-brief tr:hover td { background: var(--bg3); }
+.morning-brief .pos { color: var(--green); font-weight: bold; }
+.morning-brief .neg { color: var(--red); font-weight: bold; }
+.morning-brief .neutral { color: var(--text-dim); }
+.morning-brief .bullet-section {
+      margin: 10px 0;
+    }
+.morning-brief .bullet-section p {
+      margin: 8px 0;
+      padding-left: 16px;
+      border-left: 2px solid var(--border);
+      color: var(--text);
+      line-height: 1.7;
+    }
+.morning-brief .bullet-section p strong {
+      color: var(--accent2);
+    }
+.morning-brief .label {
+      color: var(--text-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 12px 0 6px;
+    }
+.morning-brief .takeaways {
+      counter-reset: takeaway;
+    }
+.morning-brief .takeaway-item {
+      display: flex;
+      gap: 12px;
+      margin: 10px 0;
+      padding: 12px 14px;
+      background: var(--bg3);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+    }
+.morning-brief .takeaway-num {
+      color: var(--accent);
+      font-weight: bold;
+      min-width: 20px;
+    }
+.morning-brief .takeaway-item strong { color: var(--accent2); }
+.morning-brief .footer {
+      margin-top: 32px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+.morning-brief .ticker { color: var(--accent2); font-weight: bold; }
+.morning-brief .section-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+</style>
+
+<div class="morning-brief">
+<h1>📊 Morning Market Brief — 2026.04.12 (일요일)</h1>
+<div class="subtitle">기준일: 2026년 4월 10일 (금) 미국 / 한국 마켓 종가 기준 | 데이터 출처: yfinance+naver</div>
+
+<hr>
+
+<h2>🇺🇸 US Market Recap</h2>
+<table>
+  <thead>
+    <tr><th>Index</th><th>Close</th><th>Change</th><th>%</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="ticker">S&amp;P 500</td>
+      <td>6,816.89</td>
+      <td class="neg">-7.77</td>
+      <td class="neg">-0.11%</td>
+    </tr>
+    <tr>
+      <td class="ticker">NASDAQ</td>
+      <td>22,902.89</td>
+      <td class="pos">+80.47</td>
+      <td class="pos">+0.35%</td>
+    </tr>
+    <tr>
+      <td class="ticker">Dow Jones</td>
+      <td>47,916.57</td>
+      <td class="neg">-269.23</td>
+      <td class="neg">-0.56%</td>
+    </tr>
+    <tr>
+      <td class="ticker">VIX</td>
+      <td>19.23</td>
+      <td class="pos">-0.26</td>
+      <td class="pos">-1.33%</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="label">Key Drivers</div>
+<div class="bullet-section">
+  <p><strong>휴전 효과 소화 &amp; 혼조 마감:</strong> 미중동 2주 휴전 합의(호르무즈 재개방 조건부) 이후 주 중반 강한 랠리가 나타났으나, 금요일에는 차익 실현 매물이 출회되며 주요 지수가 혼조세로 마감. S&P 500 주간 기준 +3.7% 상승하며 2주 연속 주간 상승.</p>
+  <p><strong>기술주 강세 vs. 통신·소비재 약세:</strong> NVIDIA(+2.58%), Amazon(+2.05%)이 상승을 이끈 반면, Verizon(-3.62%), Salesforce(-3.43%), Nike(-3.14%)가 낙폭을 이끎. 반도체 지수(SOX)는 사상 최고치(8,926)를 경신하며 AI 인프라 투자 모멘텀 확인.</p>
+  <p><strong>국채 금리 소폭 상승:</strong> 미 10년물 국채 금리가 4.317%로 소폭 상승(+0.56%). 연준 3월 FOMC 의사록에서 일부 위원이 금리 인상 가능성을 언급하며 시장은 4월 29일 회의 결과에 주목.</p>
+</div>
+
+<hr>
+
+<h2>🌍 Global Macro</h2>
+<table>
+  <thead>
+    <tr><th>Indicator</th><th>Value</th><th>Change</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>US 10Y Treasury</td><td>4.317%</td><td class="neg">+0.024</td><td class="neutral">단기 상승 압력</td></tr>
+    <tr><td>US 5Y Treasury</td><td>3.939%</td><td class="neg">+0.024</td><td class="neutral">—</td></tr>
+    <tr><td>US 30Y Treasury</td><td>4.914%</td><td class="neg">+0.017</td><td class="neutral">—</td></tr>
+    <tr><td>US 13W Treasury</td><td>3.593%</td><td class="neg">+0.005</td><td class="neutral">—</td></tr>
+    <tr><td>10Y-13W 스프레드</td><td>0.724</td><td class="neutral">—</td><td class="neutral">수익률 곡선 정상화</td></tr>
+    <tr><td>WTI 유가</td><td>$96.57</td><td class="pos">-1.30 (-1.33%)</td><td class="neutral">휴전 이후 공급 우려 완화</td></tr>
+    <tr><td>금 (Gold)</td><td>$4,761.90</td><td class="pos">-30.30 (-0.63%)</td><td class="neutral">위험 선호 회복에 소폭 조정</td></tr>
+    <tr><td>USD/KRW</td><td>1,482.7</td><td class="neg">+9.42 (+0.64%)</td><td class="neutral">원화 약세 지속</td></tr>
+  </tbody>
+</table>
+
+<div class="label">주요 이슈</div>
+<div class="bullet-section">
+  <p><strong>연준 금리 경로 불확실성:</strong> 현재 기준금리 3.5%~3.75% 동결(2회 연속). 클리블랜드 연준 총재 등 일부 위원이 인플레이션 지속 시 금리 인상 가능성 시사. 다음 FOMC는 4월 29일로, 휴전 이후 물가 경로가 핵심 변수.</p>
+  <p><strong>유가 조정 지속:</strong> 호르무즈 해협 재개방에 따라 WTI가 $96.57까지 하락. 2주 휴전 만료 이후 지정학적 리스크 재부각 여부가 에너지 가격의 향방을 결정할 전망.</p>
+  <p><strong>달러 강세 / 원화 약세:</strong> USD/KRW 1,482.7원으로 전일 대비 +9.42원 상승. 글로벌 불확실성 속 달러 수요 증가가 원화 약세 요인. 수출 기업에는 긍정적이나 수입물가 상승 압력.</p>
+</div>
+
+<hr>
+
+<h2>🇰🇷 Korean Market Outlook</h2>
+<table>
+  <thead>
+    <tr><th>Index</th><th>직전 종가 (4/10)</th><th>등락</th><th>월요일(4/14) 예상 흐름</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="ticker">KOSPI</td>
+      <td>5,858.87</td>
+      <td class="pos">+80.86 (+1.40%)</td>
+      <td>글로벌 호조 반영, 보합~소폭 강세</td>
+    </tr>
+    <tr>
+      <td class="ticker">KOSDAQ</td>
+      <td>1,093.63</td>
+      <td class="pos">+17.63 (+1.64%)</td>
+      <td>반도체·AI 모멘텀 유지 기대</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="label">주목 섹터</div>
+<div class="bullet-section">
+  <p><strong>반도체 (삼성전자·SK하이닉스):</strong> 글로벌 AI 인프라 투자 사이클 수혜 지속. 삼성전자 1분기 영업이익 57조 2,000억원(YoY +800% 신기록), SK하이닉스 HBM4E 기술 선점으로 증권사들이 목표주가를 대폭 상향. 메모리 초호황 국면 진입으로 양사 합산 영업이익 370조원 전망.</p>
+  <p><strong>에너지·정유:</strong> 국제유가 하락에 따른 정유주 마진 개선 기대 vs. 유가 추가 하락 시 탐사·생산업체 수익성 우려.</p>
+</div>
+
+<div class="label">수급 동향</div>
+<div class="bullet-section">
+  <p>미국 시장 혼조 마감 이후 외국인 수급 방향성에 주목. 원화 약세(1,482.7원)는 외국인 매도 유인으로 작용할 수 있으나, 반도체 섹터 펀더멘털 강화가 수급 변수를 상쇄 가능.</p>
+</div>
+
+<hr>
+
+<h2>🔍 Watchlist</h2>
+<table>
+  <thead>
+    <tr><th>종목</th><th>종가</th><th>등락</th><th>주요 이슈</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="ticker">TSLA (Tesla)</td>
+      <td>$348.95</td>
+      <td class="pos">+$3.33 (+0.96%)</td>
+      <td>Cybercab 로보택시 2026년 말 양산 예정. NVIDIA DRIVE 자율주행 플랫폼 업그레이드로 경쟁 심화 우려.</td>
+    </tr>
+    <tr>
+      <td class="ticker">NVDA (NVIDIA)</td>
+      <td>$188.63</td>
+      <td class="pos">+$4.72 (+2.57%)</td>
+      <td>SOX 사상 최고 경신 주도. 하이퍼스케일러 4사 AI 인프라 투자 합계 6,500억 달러(+71.1% YoY) 확정으로 수혜 직결.</td>
+    </tr>
+    <tr>
+      <td class="ticker">삼성전자 (005930.KS)</td>
+      <td>206,000원</td>
+      <td class="pos">+2,000 (+0.98%)</td>
+      <td>1Q26 영업이익 신기록, HBM 공급 확대 기대. 목표주가 40만원 상향 조정 잇따름.</td>
+    </tr>
+    <tr>
+      <td class="ticker">SK하이닉스 (000660.KS)</td>
+      <td>1,027,000원</td>
+      <td class="pos">+29,000 (+2.91%)</td>
+      <td>HBM4E 기술 선점, 1c D램 수율 80% 달성. 목표주가 200만원 상향 조정. 금요일 강세 두드러짐.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2>⚡ Today's Key Takeaways</h2>
+<div class="takeaways">
+  <div class="takeaway-item">
+    <span class="takeaway-num">①</span>
+    <span><strong>AI 인프라 빅사이클 가속:</strong> 4대 하이퍼스케일러가 2026년 AI 인프라에 6,500억 달러 투자를 공식화하며 반도체(NVDA, HBM) 수요가 구조적 성장 국면에 진입. SOX 사상 최고치는 이 흐름의 신호탄.</span>
+  </div>
+  <div class="takeaway-item">
+    <span class="takeaway-num">②</span>
+    <span><strong>연준 불확실성 &amp; 국채 금리 주시:</strong> 동결 기조 속에서도 금리 인상 가능성이 테이블에 오르며 10년물 금리가 4.3%대를 유지. 4월 29일 FOMC가 성장주/기술주 밸류에이션의 단기 분기점이 될 전망.</span>
+  </div>
+  <div class="takeaway-item">
+    <span class="takeaway-num">③</span>
+    <span><strong>한국 반도체 '초장기 슈퍼사이클':</strong> KOSPI +1.40% 반등 속 삼성전자·SK하이닉스 실적 전망치가 지속 상향되는 가운데, 메모리 공급 부족과 HBM 가격 상승이 추가 주가 모멘텀 제공 가능.</span>
+  </div>
+</div>
+
+<div class="footer">
+  ⏰ Generated at 10:42 KST &nbsp;|&nbsp; 데이터 출처: yfinance+naver (market_data_2026-04-12.json)<br>
+  본 리포트는 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.
+</div>
+</div>
