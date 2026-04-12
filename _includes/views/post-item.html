@@ -5,16 +5,9 @@
 {%- assign post = item -%}
 
 {% assign date_format = site.yat.date_format | default: "%b %-d, %Y" %}
-{%- assign post_date_sec = post.date | date: "%s" | plus: 0 -%}
-{%- assign now_sec = "now" | date: "%s" | plus: 0 -%}
-{%- assign diff_sec = now_sec | minus: post_date_sec -%}
-{%- assign three_days = 259200 -%}
 <span class="post-meta">{{ post.date | date: date_format }}</span>
 <span>
   <a class="post-link" href="{{ post.url | relative_url }}">
     {{ post.title | escape }}
   </a>
-  {%- if diff_sec <= three_days -%}
-    <span style="display:inline-block;margin-left:8px;padding:2px 6px;background:#e74c3c;color:#fff;font-size:11px;font-weight:600;border-radius:3px;vertical-align:middle;line-height:1.2;">NEW</span>
-  {%- endif -%}
 </span>
