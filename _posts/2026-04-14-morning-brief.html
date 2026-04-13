@@ -1,0 +1,443 @@
+---
+title: Morning Market Brief
+author: "Written by Claude"
+date: "2026-04-14"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily]
+series: stock
+---
+
+<style>
+.morning-brief {
+      --bg: #0a0e17;
+      --bg-panel: #111827;
+      --bg-card: #1a2235;
+      --border: #1e3a5f;
+      --accent: #00bfff;
+      --accent2: #ff9f0a;
+      --green: #00e676;
+      --red: #ff4c4c;
+      --neutral: #7ec8e3;
+      --text: #c8d8e8;
+      --text-muted: #5a7a9a;
+      --text-header: #e8f4ff;
+      --font-mono: 'Consolas', 'Courier New', monospace;
+      --font-sans: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+.morning-brief * { box-sizing: border-box; margin: 0; padding: 0; }
+.morning-brief {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+.morning-brief /* Header */
+    .report-header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 16px;
+      margin-bottom: 28px;
+    }
+.morning-brief .report-header h1 {
+      font-size: 22px;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+.morning-brief .report-header .subtitle {
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-top: 4px;
+      font-family: var(--font-mono);
+    }
+.morning-brief /* Section */
+    .section {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+.morning-brief .section-title {
+      font-size: 13px;
+      font-family: var(--font-mono);
+      color: var(--accent2);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+.morning-brief /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+.morning-brief thead tr {
+      background: #0d1a2e;
+    }
+.morning-brief thead th {
+      color: var(--text-muted);
+      font-weight: normal;
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+.morning-brief tbody tr {
+      border-bottom: 1px solid rgba(30, 58, 95, 0.4);
+    }
+.morning-brief tbody tr:hover {
+      background: rgba(0, 191, 255, 0.03);
+    }
+.morning-brief tbody td {
+      padding: 9px 12px;
+      color: var(--text);
+    }
+.morning-brief .ticker {
+      color: var(--accent);
+      font-weight: bold;
+    }
+.morning-brief .positive { color: var(--green); }
+.morning-brief .negative { color: var(--red); }
+.morning-brief .neutral-val { color: var(--text-muted); }
+.morning-brief /* Bullets */
+    .bullet-list {
+      list-style: none;
+      padding: 0;
+    }
+.morning-brief .bullet-list li {
+      padding: 8px 0 8px 20px;
+      position: relative;
+      border-bottom: 1px dotted rgba(30, 58, 95, 0.5);
+      color: var(--text);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+.morning-brief .bullet-list li:last-child { border-bottom: none; }
+.morning-brief .bullet-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+.morning-brief .bullet-label {
+      color: var(--accent2);
+      font-weight: bold;
+    }
+.morning-brief /* Key Takeaways */
+    .takeaway-list {
+      list-style: none;
+      padding: 0;
+      counter-reset: takeaway;
+    }
+.morning-brief .takeaway-list li {
+      counter-increment: takeaway;
+      padding: 10px 0 10px 36px;
+      position: relative;
+      border-bottom: 1px dotted rgba(30, 58, 95, 0.5);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+.morning-brief .takeaway-list li:last-child { border-bottom: none; }
+.morning-brief .takeaway-list li::before {
+      content: counter(takeaway);
+      position: absolute;
+      left: 0;
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      color: #000;
+      font-weight: bold;
+      font-size: 12px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 10px;
+      font-family: var(--font-mono);
+    }
+.morning-brief /* Outlook badge */
+    .outlook-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+    }
+.morning-brief .badge-up { background: rgba(0, 230, 118, 0.15); color: var(--green); border: 1px solid rgba(0, 230, 118, 0.3); }
+.morning-brief .badge-down { background: rgba(255, 76, 76, 0.15); color: var(--red); border: 1px solid rgba(255, 76, 76, 0.3); }
+.morning-brief .badge-neutral { background: rgba(255, 159, 10, 0.15); color: var(--accent2); border: 1px solid rgba(255, 159, 10, 0.3); }
+.morning-brief /* Two column layout for macro */
+    .macro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .macro-grid { grid-template-columns: 1fr; }
+.morning-brief /* Footer */
+    .report-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      margin-top: 24px;
+      color: var(--text-muted);
+      font-size: 11.5px;
+      font-family: var(--font-mono);
+    }
+.morning-brief .report-footer .disclaimer {
+      margin-top: 6px;
+      color: #3a5a7a;
+    }
+.morning-brief /* Inline tag */
+    .tag {
+      display: inline-block;
+      background: rgba(0, 191, 255, 0.1);
+      border: 1px solid rgba(0, 191, 255, 0.25);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-right: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+.morning-brief /* Sector note */
+    .sector-note {
+      background: rgba(0, 191, 255, 0.04);
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      margin: 12px 0;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+.morning-brief .vix-block {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+</style>
+
+<div class="morning-brief">
+<div class="report-header">
+  <h1>📊 Morning Market Brief — 2026.04.14 (화요일)</h1>
+  <div class="subtitle">⏰ Generated at 06:50 KST &nbsp;|&nbsp; 데이터 기준일: 2026-04-13 &nbsp;|&nbsp; Source: yfinance + Naver Finance</div>
+</div>
+
+<!-- US MARKET -->
+<div class="section">
+  <div class="section-title">🇺🇸 US Market Recap</div>
+
+  <div class="vix-block">
+    <span style="color:var(--text-muted)">VIX</span>
+    <span style="color:var(--green);font-weight:bold;">19.12</span>
+    <span class="negative">▼ -0.11 (-0.57%)</span>
+    <span style="color:var(--text-muted);font-size:11px">공포 완화</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>지수</th>
+        <th>종가</th>
+        <th>전일 대비</th>
+        <th>등락률</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="ticker">S&amp;P 500</span></td>
+        <td>6,886.24</td>
+        <td class="positive">+69.35</td>
+        <td class="positive">▲ +1.02%</td>
+      </tr>
+      <tr>
+        <td><span class="ticker">Nasdaq</span></td>
+        <td>23,183.74</td>
+        <td class="positive">+280.85</td>
+        <td class="positive">▲ +1.23%</td>
+      </tr>
+      <tr>
+        <td><span class="ticker">Dow Jones</span></td>
+        <td>48,218.25</td>
+        <td class="positive">+301.68</td>
+        <td class="positive">▲ +0.63%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ul class="bullet-list">
+    <li><span class="bullet-label">Goldman Sachs 발언 효과</span>: CEO David Solomon이 최근 소프트웨어 주식 급락이 과도하다고 언급하며 기술주 전반에 매수세가 유입됐다. S&P 500은 이란전쟁 개전 이후 최고 수준(6,886pt)을 기록했다.</li>
+    <li><span class="bullet-label">CoreWeave(CRWV) +8.06% 급등</span>: Macquarie 투자의견 상향 및 AI 인프라 계약 모멘텀이 클라우드 GPU 인프라 섹터를 견인했다. AI 인프라 공급업체에 대한 투자심리가 개선되는 신호다.</li>
+    <li><span class="bullet-label">호르무즈 긴장 속 낙관론 우세</span>: 미-이란 평화 협상이 결렬됐으나 시장은 단기 완화 가능성에 베팅했다. WTI 유가는 $98.01로 $100에 근접해 있으며 지정학적 리스크는 여전히 잠재적 하방 요인이다.</li>
+  </ul>
+</div>
+
+<!-- GLOBAL MACRO -->
+<div class="section">
+  <div class="section-title">🌍 Global Macro</div>
+
+  <div class="macro-grid">
+    <div>
+      <table>
+        <thead>
+          <tr><th>미 국채</th><th>금리</th><th>변화</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="ticker">10Y</span></td><td>4.297%</td><td class="negative">▼ -0.020%p</td></tr>
+          <tr><td><span class="ticker">5Y</span></td><td>3.917%</td><td class="negative">▼ -0.022%p</td></tr>
+          <tr><td><span class="ticker">30Y</span></td><td>4.900%</td><td class="negative">▼ -0.014%p</td></tr>
+          <tr><td><span class="ticker">13W</span></td><td>3.603%</td><td class="positive">▲ +0.010%p</td></tr>
+          <tr><td><span style="color:var(--text-muted)">10Y-13W 스프레드</span></td><td colspan="2"><span class="positive">+0.694%p</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table>
+        <thead>
+          <tr><th>원자재/FX</th><th>현재값</th><th>변화</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="ticker">WTI 유가</span></td><td>$98.01</td><td class="positive">▲ +1.49%</td></tr>
+          <tr><td><span class="ticker">금 (Gold)</span></td><td>$4,766.60</td><td class="positive">▲ +0.10%</td></tr>
+          <tr><td><span class="ticker">USD/KRW</span></td><td>1,478.43</td><td class="negative">▲ +0.35% (원화↓)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ul class="bullet-list">
+    <li><span class="bullet-label">연준 금리 인상 가능성 부상</span>: 현 기준금리 3.5~3.75%로 동결 유지 중이나, 이란전쟁발 유가 급등이 인플레이션 재가속 우려를 키우고 있다. Cleveland Fed 총재 Hammack은 금리 인상 가능성을 언급했으며 다음 FOMC는 4월 29일 예정이다.</li>
+    <li><span class="bullet-label">WTI 유가 $100 문턱</span>: 호르무즈 해협 봉쇄로 중동 원유 수출량이 급감하면서 공급 차질이 지속되고 있다. 미 국채 장기물 금리가 소폭 하락했으나 유가 상승으로 인플레이션 압력은 오히려 증가 추세다.</li>
+    <li><span class="bullet-label">금 가격 역대 최고 수준 유지</span>: 지정학적 리스크와 인플레이션 헤지 수요가 맞물리며 금값이 $4,766/온스 수준을 유지하고 있다. 달러/원 환율도 1,478원으로 원화 약세가 지속되면서 수입물가 상승 및 외국인 투자 심리에 영향이 예상된다.</li>
+  </ul>
+</div>
+
+<!-- KOREAN MARKET -->
+<div class="section">
+  <div class="section-title">🇰🇷 Korean Market Outlook</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>지수</th>
+        <th>전일 종가</th>
+        <th>전일 대비</th>
+        <th>오늘 예상 흐름</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="ticker">KOSPI</span></td>
+        <td>5,808.62</td>
+        <td class="negative">▼ -50.25 (-0.86%)</td>
+        <td><span class="badge-up outlook-badge">소폭 반등 기대</span></td>
+      </tr>
+      <tr>
+        <td><span class="ticker">KOSDAQ</span></td>
+        <td>1,099.84</td>
+        <td class="positive">▲ +6.21 (+0.57%)</td>
+        <td><span class="badge-neutral outlook-badge">반도체 소부장 강세 유지</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sector-note">
+    <strong>주목 섹터 — 반도체/AI:</strong> 4월 1~10일 한국 수출이 YoY +36.7% 증가했으며, 반도체만 놓고 보면 YoY +152% 급증해 월간 역대 최고치를 경신했다. HBM(고대역폭메모리)과 eSSD 수요가 AI 데이터센터 투자 확대에 힘입어 폭발적으로 성장 중이며, BOK는 반도체 업사이클이 내년 상반기까지 지속될 것으로 전망했다.
+  </div>
+
+  <ul class="bullet-list">
+    <li><span class="bullet-label">수급 동향</span>: 삼성전자는 전일 -2.43% 약세를 보인 반면 SK하이닉스는 +1.27% 강세를 기록하며 종목 간 차별화가 나타났다. 미국 기술주 반등과 Goldman Sachs 발언이 금일 국내 외국인·기관 수급에 긍정적으로 작용할 전망이다. 원화 약세(1,478원)는 수출주에 유리한 환경을 조성한다.</li>
+  </ul>
+</div>
+
+<!-- WATCHLIST -->
+<div class="section">
+  <div class="section-title">🔍 Watchlist</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>종목</th>
+        <th>전일 종가</th>
+        <th>등락</th>
+        <th>메모</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="ticker">TSLA</span> <span style="color:var(--text-muted);font-size:11px">Tesla</span></td>
+        <td>$352.42</td>
+        <td class="positive">▲ +0.99%</td>
+        <td style="color:var(--text-muted);font-size:12px">기술주 반등 동반 상승, NVIDIA 자율주행 진출 경쟁 심화</td>
+      </tr>
+      <tr>
+        <td><span class="ticker">NVDA</span> <span style="color:var(--text-muted);font-size:11px">NVIDIA</span></td>
+        <td>$189.31</td>
+        <td class="positive">▲ +0.36%</td>
+        <td style="color:var(--text-muted);font-size:12px">AI 인프라 수요 지속, 자율주행 신규 사업 발표로 멀티플 확장</td>
+      </tr>
+      <tr>
+        <td><span class="ticker">005930.KS</span> <span style="color:var(--text-muted);font-size:11px">삼성전자</span></td>
+        <td>₩201,000</td>
+        <td class="negative">▼ -2.43%</td>
+        <td style="color:var(--text-muted);font-size:12px">외국인 매도세, HBM 시장 SK하이닉스 대비 모멘텀 열위</td>
+      </tr>
+      <tr>
+        <td><span class="ticker">000660.KS</span> <span style="color:var(--text-muted);font-size:11px">SK하이닉스</span></td>
+        <td>₩1,040,000</td>
+        <td class="positive">▲ +1.27%</td>
+        <td style="color:var(--text-muted);font-size:12px">HBM 수요 모멘텀 지속, AI 수요 가장 직접적 수혜</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sector-note">
+    <strong>AI/반도체 섹터 메모:</strong> 삼성전자·SK하이닉스 2026년 합산 영업이익 전망치는 370조원으로 상향됐으며, DRAM 가격 YoY +145%, NAND +135% 급등이 전망된다. NVIDIA는 자율주행 시스템 개발 진출을 발표해 Tesla 로보택시 사업과의 경쟁이 심화되고 있다.
+  </div>
+</div>
+
+<!-- KEY TAKEAWAYS -->
+<div class="section">
+  <div class="section-title">⚡ Today's Key Takeaways</div>
+  <ol class="takeaway-list">
+    <li><strong>미국 증시, 이란전쟁 이후 최고치 회복</strong> — Goldman Sachs의 기술주 과매도 발언을 계기로 S&P 500이 6,886pt를 돌파, 전쟁 이후 최고 수준에 도달했다. 단기적으로 기술주·소프트웨어 섹터 중심의 모멘텀이 이어질 전망이다.</li>
+    <li><strong>유가·연준 리스크가 시장의 핵심 변수</strong> — WTI가 $98로 $100에 근접하면서 인플레이션 재가속 우려가 부각됐다. 연준 금리 인상 가능성이 언급되는 상황에서 4월 29일 FOMC를 앞두고 투자자들의 경계심이 고조될 수 있다.</li>
+    <li><strong>한국 반도체, AI 수출 사이클 최대 수혜</strong> — 4월 초 반도체 수출이 역대 최고치를 경신한 가운데 SK하이닉스는 강세를 유지 중이다. KOSPI는 미국 기술주 반등 효과로 금일 소폭 반등이 예상되나, 원화 약세(1,478원)와 유가 상승이 하방 리스크로 작용할 수 있다.</li>
+  </ol>
+</div>
+
+<div class="report-footer">
+  <div>⏰ Generated at 06:50 KST &nbsp;|&nbsp; 데이터 출처: yfinance+naver (market_data_2026-04-14.json)</div>
+  <div class="disclaimer">⚠️ 본 리포트는 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.</div>
+</div>
+</div>
