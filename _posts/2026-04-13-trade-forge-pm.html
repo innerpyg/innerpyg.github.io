@@ -1,0 +1,196 @@
+---
+title: Trade Forge Report
+author: "Written by Claude"
+date: "2026-04-13"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily, Trading]
+series: stock
+---
+
+<style>
+.trade-forge { --bg: #0f1117; --card: #1a1d27; --border: #2a2d3a; --text: #e1e4eb; --muted: #8b8fa3; --green: #22c55e; --red: #ef4444; --yellow: #eab308; --blue: #3b82f6; --accent: #8b5cf6; }
+.trade-forge * { margin: 0; padding: 0; box-sizing: border-box; }
+.trade-forge { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 24px; max-width: 1200px; margin: 0 auto; }
+.trade-forge h1 { font-size: 1.8rem; margin-bottom: 4px; }
+.trade-forge .subtitle { color: var(--muted); margin-bottom: 24px; font-size: 0.9rem; }
+.trade-forge .regime { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 20px; }
+.trade-forge .regime.neutral { background: rgba(234,179,8,0.15); color: var(--yellow); }
+.trade-forge .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.trade-forge .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.trade-forge .card h2 { font-size: 1rem; color: var(--muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.trade-forge .metric { font-size: 1.5rem; font-weight: 700; }
+.trade-forge .metric.up { color: var(--green); }
+.trade-forge .metric.down { color: var(--red); }
+.trade-forge .metric.flat { color: var(--muted); }
+.trade-forge .detail { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+.trade-forge table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.trade-forge th { text-align: left; color: var(--muted); font-size: 0.75rem; text-transform: uppercase; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.trade-forge td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+.trade-forge .pos { color: var(--green); }
+.trade-forge .neg { color: var(--red); }
+.trade-forge .section { margin-bottom: 28px; }
+.trade-forge .section-title { font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.trade-forge .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+.trade-forge .badge.strong-buy { background: rgba(34,197,94,0.2); color: var(--green); }
+.trade-forge .badge.buy { background: rgba(59,130,246,0.2); color: var(--blue); }
+.trade-forge .badge.hold { background: rgba(139,143,163,0.15); color: var(--muted); }
+.trade-forge .badge.watch { background: rgba(234,179,8,0.15); color: var(--yellow); }
+.trade-forge .badge.sell { background: rgba(239,68,68,0.15); color: var(--red); }
+.trade-forge .signal-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; align-items: center; }
+.trade-forge .signal-label { min-width: 90px; }
+.trade-forge .alert { background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.3); border-radius: 8px; padding: 16px; margin-bottom: 24px; }
+.trade-forge .alert-title { color: var(--yellow); font-weight: 600; margin-bottom: 8px; }
+.trade-forge .commentary { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; line-height: 1.8; }
+.trade-forge .no-trade { text-align: center; padding: 24px; color: var(--muted); font-style: italic; }
+.trade-forge .summary-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.trade-forge .summary-row:last-child { border-bottom: none; }
+</style>
+
+<div class="trade-forge">
+<h1>Trade Forge Daily Report</h1>
+<p class="subtitle">2026년 4월 13일 (월) PM Session — 한국시장 마감 후</p>
+<span class="regime neutral">NEUTRAL — VIX 19.23</span>
+
+<div class="alert">
+  <div class="alert-title">⚠ 지정학 리스크 경고</div>
+  트럼프 대통령의 호르무즈 해협 봉쇄 선언으로 WTI 유가 +7.25% 급등($103.57). 원화 약세 1,489.78원(+1.12%). 에너지 수입 부담 증가 — 신규 매수 보류.
+</div>
+
+<div class="section">
+  <div class="section-title">매크로 지표</div>
+  <div class="grid">
+    <div class="card">
+      <h2>KOSPI</h2>
+      <div class="metric down">5,808.62</div>
+      <div class="detail">-50.25 (-0.86%)</div>
+    </div>
+    <div class="card">
+      <h2>S&P 500</h2>
+      <div class="metric down">6,816.89</div>
+      <div class="detail">-7.77 (-0.11%)</div>
+    </div>
+    <div class="card">
+      <h2>NASDAQ</h2>
+      <div class="metric up">22,902.89</div>
+      <div class="detail">+80.47 (+0.35%)</div>
+    </div>
+    <div class="card">
+      <h2>WTI 유가</h2>
+      <div class="metric up">$103.57</div>
+      <div class="detail">+$7.00 (+7.25%) 🔥</div>
+    </div>
+    <div class="card">
+      <h2>USD/KRW</h2>
+      <div class="metric up">1,489.78</div>
+      <div class="detail">+16.50 (+1.12%)</div>
+    </div>
+    <div class="card">
+      <h2>VIX</h2>
+      <div class="metric flat">19.23</div>
+      <div class="detail">-0.26 (-1.33%)</div>
+    </div>
+    <div class="card">
+      <h2>10Y 국채</h2>
+      <div class="metric flat">4.317%</div>
+      <div class="detail">+0.024 (+0.56%)</div>
+    </div>
+    <div class="card">
+      <h2>금</h2>
+      <div class="metric down">$4,747.20</div>
+      <div class="detail">-$14.70 (-0.31%)</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">오늘의 매매 내역</div>
+  <div class="card">
+    <div class="no-trade">PM 세션 매매 없음 — 지정학 리스크 관망</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">🇰🇷 한국 포트폴리오</div>
+  <div class="card">
+    <table>
+      <thead>
+        <tr><th>종목</th><th>수량</th><th>평균단가</th><th>현재가</th><th>평가액</th><th>수익률</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>SK하이닉스</td><td>14</td><td>₩1,027,000</td><td>₩1,040,000</td><td>₩14,560,000</td><td class="pos">+1.27%</td></tr>
+        <tr><td>삼성전자</td><td>72</td><td>₩206,000</td><td>₩201,000</td><td>₩14,472,000</td><td class="neg">-2.43%</td></tr>
+        <tr><td>삼성SDI</td><td>25</td><td>₩480,000</td><td>₩477,500</td><td>₩11,937,500</td><td class="neg">-0.52%</td></tr>
+        <tr><td>KB금융</td><td>51</td><td>₩154,200</td><td>₩156,600</td><td>₩7,986,600</td><td class="pos">+1.56%</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+      <div class="summary-row"><span>현금</span><span>₩50,645,319</span></div>
+      <div class="summary-row"><span>투자금</span><span>₩48,956,100 (49.2%)</span></div>
+      <div class="summary-row"><span>총 자산</span><span style="font-weight:700;">₩99,601,419</span></div>
+      <div class="summary-row"><span>미실현 손익</span><span class="neg">-₩118,100</span></div>
+      <div class="summary-row"><span>일간 변동</span><span class="neg">-₩352,200 (-0.35%)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">🇺🇸 미국 포트폴리오</div>
+  <div class="card">
+    <table>
+      <thead>
+        <tr><th>종목</th><th>수량</th><th>평균단가</th><th>현재가</th><th>평가액</th><th>수익률</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>NVDA</td><td>71</td><td>$188.63</td><td>$188.63</td><td>$13,392.73</td><td style="color:var(--muted)">0.00%</td></tr>
+        <tr><td>AMZN</td><td>51</td><td>$233.65</td><td>$238.38</td><td>$12,157.38</td><td class="pos">+2.02%</td></tr>
+        <tr><td>AVGO</td><td>28</td><td>$354.91</td><td>$371.55</td><td>$10,403.40</td><td class="pos">+4.69%</td></tr>
+        <tr><td>META</td><td>12</td><td>$628.39</td><td>$629.86</td><td>$7,558.32</td><td class="pos">+0.23%</td></tr>
+        <tr><td>GOOGL</td><td>21</td><td>$318.49</td><td>$317.24</td><td>$6,661.04</td><td class="neg">-0.39%</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+      <div class="summary-row"><span>현금</span><span>$50,524.67</span></div>
+      <div class="summary-row"><span>투자금</span><span>$50,172.87 (49.8%)</span></div>
+      <div class="summary-row"><span>총 자산</span><span style="font-weight:700;">$100,697.54</span></div>
+      <div class="summary-row"><span>미실현 손익</span><span class="pos">+$698.54</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">시그널 보드</div>
+  <div class="card">
+    <div class="signal-row"><span class="signal-label"><span class="badge strong-buy">STRONG BUY</span></span> SK하이닉스 · AVGO · AMZN</div>
+    <div class="signal-row"><span class="signal-label"><span class="badge buy">BUY</span></span> NVDA · META</div>
+    <div class="signal-row"><span class="signal-label"><span class="badge hold">HOLD</span></span> KB금융 · 삼성SDI · 신한지주 · GOOGL · SPY · QQQ · MSFT · JPM</div>
+    <div class="signal-row"><span class="signal-label"><span class="badge watch">WATCH</span></span> 삼성전자 · NAVER · TSLA · V · AAPL</div>
+    <div class="signal-row"><span class="signal-label"><span class="badge sell">SELL</span></span> LG에너지솔루션 · 셀트리온 · POSCO홀딩스 · 현대자동차</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">코멘터리</div>
+  <div class="commentary">
+    <p>호르무즈 해협 봉쇄 선언으로 유가가 $103.57까지 급등하며 글로벌 인플레이션 우려가 재점화되었다. 한국 증시는 에너지 수입국 부담으로 KOSPI가 -0.86% 하락했고, 원화도 1,489원대로 약세를 보였다. 이런 환경에서 신규 매수보다는 관망이 적절하다고 판단, PM 세션에서는 매매를 실행하지 않았다.</p>
+    <br>
+    <p>반도체 섹터는 상대적으로 견조하다. SK하이닉스는 PM 종가 1,040,000원(+1.27%)으로 마감하며 5일간 +13.5%의 강한 상승세를 이어갔다. AI 반도체 수요가 지정학 리스크를 상쇄하는 모습이다. 삼성전자는 AM 매수(206,000원) 후 PM 201,000원으로 -2.43% 하락했지만, 지정학 리스크에 따른 일시적 조정으로 판단하고 홀딩한다.</p>
+    <br>
+    <p>미국 시장은 금요일(4/10) 종가 기준. AVGO(+4.69%), AMZN(+2.02%) 등 모멘텀 종목 호조. 유가 급등이 미국 시장에 미칠 영향은 오늘 밤 개장 후 확인 예정.</p>
+    <br>
+    <p><strong>내일 주시:</strong> 유가 추이, 호르무즈 해협 후속 뉴스, 원/달러 1,500원 돌파 가능성, 미국 장 유가 영향 확인.</p>
+  </div>
+</div>
+
+<div style="text-align:center; color:var(--muted); font-size:0.75rem; margin-top:40px; padding-top:16px; border-top:1px solid var(--border);">
+  Trade Forge Simulation — 생성: 2026-04-13 16:00 KST — 모든 수치는 시뮬레이션 전용
+</div>
+</div>
