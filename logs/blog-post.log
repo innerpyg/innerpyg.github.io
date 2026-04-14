@@ -1,0 +1,41 @@
+[2026-04-11 10:21:30] === Blog Auto Post START (session: pm, date: 2026-04-11) ===
+[2026-04-11 10:21:30] [SKIP] trade-forge PM: source not found - /Users/yoongi/Desktop/Study/Claude/Projects/trade-forge/reports/html/daily_2026-04-11-pm.html
+[2026-04-11 10:21:30] No new posts to push.
+[2026-04-11 10:21:30] === Blog Auto Post END ===
+[2026-04-11 10:21:53] === Blog Auto Post START (session: am, date: 2026-04-11) ===
+[2026-04-11 10:21:53] [OK] MorningBrief: /Users/yoongi/Desktop/Study/Claude/Projects/MorningBrief/html/2026-04-11-morning-brief.html -> /Users/yoongi/Desktop/Study/Github/innerpyg.github.io/_posts/2026-04-11-morning-brief.html
+[2026-04-11 10:21:53] [SKIP] trade-forge AM: source not found - /Users/yoongi/Desktop/Study/Claude/Projects/trade-forge/reports/html/daily_2026-04-11-am.html
+[2026-04-11 10:21:53] Pushing 1 new post(s) to GitHub...
+[2026-04-11 10:22:37] === Blog Auto Post START (session: am, date: 2026-04-11) ===
+[2026-04-11 10:22:37] [SKIP] MorningBrief: already exists - /Users/yoongi/Desktop/Study/Github/innerpyg.github.io/_posts/2026-04-11-morning-brief.html
+[2026-04-11 10:22:37] [SKIP] trade-forge AM: source not found - /Users/yoongi/Desktop/Study/Claude/Projects/trade-forge/reports/html/daily_2026-04-11-am.html
+[2026-04-11 10:22:37] No new posts to push.
+[2026-04-11 10:22:37] === Blog Auto Post END ===
+[2026-04-12 07:39:39] === Blog Auto Post START (session: am, date: 2026-04-12) ===
+[2026-04-12 07:39:39] [SKIP] MorningBrief: source not found - /Users/yoongi/Desktop/Study/Claude/Projects/MorningBrief/html/2026-04-12-morning-brief.html
+[2026-04-12 07:39:39] [SKIP] trade-forge AM: source not found - /Users/yoongi/Desktop/Study/Claude/Projects/trade-forge/reports/html/daily_2026-04-12-am.html
+[2026-04-12 07:39:39] No new posts to push.
+[2026-04-12 07:39:39] === Blog Auto Post END ===
+[2026-04-12 10:53:39] === Blog Auto Post START (session: am, date: 2026-04-12) ===
+[2026-04-12 10:53:40] [OK] MorningBrief: /Users/yoongi/Desktop/Study/Claude/Projects/MorningBrief/html/2026-04-12-morning-brief.html -> /Users/yoongi/Desktop/Study/Github/innerpyg.github.io/_posts/2026-04-12-morning-brief.html
+[2026-04-12 10:53:40] [SKIP] trade-forge AM: source not found - /Users/yoongi/Desktop/Study/Claude/Projects/trade-forge/reports/html/daily_2026-04-12-am.html
+[2026-04-12 10:53:40] Pushing 1 new post(s) to GitHub...
+[2026-04-12 10:53:42] [OK] Git push successful
+[2026-04-12 10:53:42] === Blog Auto Post END ===
+[2026-04-13 07:25:31] === Blog Auto Post START (session: am, date: 2026-04-13) ===
+[2026-04-13 07:25:31] [OK] MorningBrief: /Users/yoongi/Desktop/Study/Claude/Projects/MorningBrief/html/2026-04-13-morning-brief.html -> /Users/yoongi/Desktop/Study/Github/innerpyg.github.io/_posts/2026-04-13-morning-brief.html
+[2026-04-13 07:25:31] [OK] trade-forge AM: /Users/yoongi/Desktop/Study/Claude/Projects/trade-forge/reports/html/daily_2026-04-13-am.html -> /Users/yoongi/Desktop/Study/Github/innerpyg.github.io/_posts/2026-04-13-trade-forge-am.html
+[2026-04-13 07:25:31] Pushing 2 new post(s) to GitHub...
+[2026-04-13 07:25:34] [OK] Git push successful
+[2026-04-13 07:25:34] === Blog Auto Post END ===
+[2026-04-13 16:20:18] === Blog Auto Post START (session: pm, date: 2026-04-13) ===
+[2026-04-13 16:20:19] [OK] trade-forge PM: /Users/yoongi/Desktop/Study/Claude/Projects/trade-forge/reports/html/daily_2026-04-13-pm.html -> /Users/yoongi/Desktop/Study/Github/innerpyg.github.io/_posts/2026-04-13-trade-forge-pm.html
+[2026-04-13 16:20:19] Pushing 1 new post(s) to GitHub...
+[2026-04-13 16:20:22] [OK] Git push successful
+[2026-04-13 16:20:22] === Blog Auto Post END ===
+[2026-04-14 07:25:35] === Blog Auto Post START (session: am, date: 2026-04-14) ===
+[2026-04-14 07:25:36] [OK] MorningBrief: /Users/yoongi/Desktop/Study/Claude/Projects/MorningBrief/html/2026-04-14-morning-brief.html -> /Users/yoongi/Desktop/Study/Github/innerpyg.github.io/_posts/2026-04-14-morning-brief.html
+[2026-04-14 07:25:36] [OK] trade-forge AM: /Users/yoongi/Desktop/Study/Claude/Projects/trade-forge/reports/html/daily_2026-04-14-am.html -> /Users/yoongi/Desktop/Study/Github/innerpyg.github.io/_posts/2026-04-14-trade-forge-am.html
+[2026-04-14 07:25:36] Pushing 2 new post(s) to GitHub...
+[2026-04-14 07:25:39] [OK] Git push successful
+[2026-04-14 07:25:39] === Blog Auto Post END ===
