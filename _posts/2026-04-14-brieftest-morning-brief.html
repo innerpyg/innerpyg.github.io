@@ -1,0 +1,205 @@
+---
+title: Morning Market Brief (brieftest)
+author: "Written by Claude"
+date: "2026-04-14"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily, Test]
+series: stock
+---
+
+<style>
+.morning-brief * { margin: 0; padding: 0; box-sizing: border-box; }
+.morning-brief {
+    background: #0a0e17;
+    color: #e0e6ed;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+.morning-brief h1 {
+    color: #ff9500;
+    font-size: 22px;
+    border-bottom: 2px solid #ff9500;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+  }
+.morning-brief h2 {
+    color: #00d4aa;
+    font-size: 16px;
+    margin: 24px 0 12px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #1a2332;
+  }
+.morning-brief table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+.morning-brief th {
+    background: #111927;
+    color: #8899aa;
+    text-align: left;
+    padding: 8px 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #1a2332;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+.morning-brief td {
+    padding: 6px 12px;
+    border-bottom: 1px solid #0f1520;
+  }
+.morning-brief tr:hover { background: #111927; }
+.morning-brief .up { color: #00e676; }
+.morning-brief .down { color: #ff5252; }
+.morning-brief .neutral { color: #8899aa; }
+.morning-brief ul { list-style: none; padding: 0; margin: 8px 0; }
+.morning-brief ul li {
+    padding: 6px 0 6px 16px;
+    position: relative;
+    font-size: 13px;
+    border-left: 2px solid #1a2332;
+    margin-bottom: 4px;
+  }
+.morning-brief ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 4px;
+    color: #ff9500;
+  }
+.morning-brief .takeaway {
+    background: #111927;
+    border-left: 3px solid #ff9500;
+    padding: 12px 16px;
+    margin: 8px 0;
+    font-size: 13px;
+  }
+.morning-brief .takeaway strong { color: #ff9500; }
+.morning-brief .footer {
+    margin-top: 32px;
+    padding-top: 12px;
+    border-top: 1px solid #1a2332;
+    color: #556677;
+    font-size: 11px;
+    text-align: center;
+  }
+.morning-brief .section-divider {
+    border: none;
+    border-top: 1px solid #1a2332;
+    margin: 20px 0;
+  }
+.morning-brief .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+.morning-brief .badge-up { background: rgba(0,230,118,0.15); color: #00e676; }
+.morning-brief .badge-down { background: rgba(255,82,82,0.15); color: #ff5252; }
+</style>
+
+<div class="morning-brief">
+<h1>📊 Morning Market Brief — 2026.04.14 (화)</h1>
+
+<h2>🇺🇸 US Market Recap</h2>
+<table>
+  <tr><th>Index</th><th>Close</th><th>Change</th><th>%</th></tr>
+  <tr><td>S&P 500</td><td>6,886.24</td><td class="up">+69.35</td><td><span class="badge badge-up">+1.02%</span></td></tr>
+  <tr><td>NASDAQ</td><td>23,183.74</td><td class="up">+280.85</td><td><span class="badge badge-up">+1.23%</span></td></tr>
+  <tr><td>Dow Jones</td><td>48,218.25</td><td class="up">+301.68</td><td><span class="badge badge-up">+0.63%</span></td></tr>
+</table>
+<ul>
+  <li>트럼프 대통령이 이란과의 협상 의지를 시사하면서 호르무즈 해협 봉쇄 우려 완화. 3대 지수 모두 장중 고점 마감.</li>
+  <li>Goldman Sachs 소프트웨어 섹터 긍정 전망. Oracle +13%, Palantir +3% 등 기술주 강세 주도.</li>
+  <li>Goldman Sachs 실적은 시장 기대 미달. 어닝시즌 첫 출발 다소 실망스러운 모습.</li>
+</ul>
+
+<hr class="section-divider">
+
+<h2>🌍 Global Macro</h2>
+<table>
+  <tr><th>Indicator</th><th>Value</th><th>Change</th><th>Note</th></tr>
+  <tr><td>VIX</td><td>19.12</td><td class="down">-0.57%</td><td>공포지수 소폭 하락</td></tr>
+  <tr><td>미 국채 10Y</td><td>4.297%</td><td class="down">-0.46%</td><td>금리 하락세</td></tr>
+  <tr><td>미 국채 30Y</td><td>4.900%</td><td class="down">-0.28%</td><td>장기물도 하락</td></tr>
+  <tr><td>미 국채 5Y</td><td>3.917%</td><td class="down">-0.56%</td><td>중기물 하락폭 확대</td></tr>
+  <tr><td>미 국채 13W</td><td>3.603%</td><td class="up">+0.28%</td><td>단기물 소폭 상승</td></tr>
+  <tr><td>10Y-13W 스프레드</td><td>0.694%p</td><td class="neutral">—</td><td>장단기 금리차 양(+) 유지</td></tr>
+  <tr><td>USD/KRW</td><td>1,479.01</td><td class="down">-0.21%</td><td>원화 소폭 강세</td></tr>
+  <tr><td>WTI 원유</td><td>$96.24</td><td class="down">-0.34%</td><td>호르무즈 우려 속 소폭 조정</td></tr>
+  <tr><td>Gold</td><td>$4,793.90</td><td class="up">+0.67%</td><td>안전자산 수요 지속</td></tr>
+</table>
+<ul>
+  <li><strong>연준 금리:</strong> 3.5-3.75% 동결 유지. 3월 FOMC 의사록에서 일부 위원 금리 인상 가능성 언급. 다음 결정 4/29. 선물시장 2026년 인하 확률 22%.</li>
+  <li><strong>중동 리스크:</strong> 이란 핵 협상 결렬 후 호르무즈 해협 봉쇄. WTI $96대, 브렌트유 $98 수준. 유가발 인플레이션 재점화 우려.</li>
+  <li><strong>안전자산:</strong> 금 $4,793 돌파(+0.67%). 국채 금리 전 구간 하락, 단기물(13W)만 소폭 상승.</li>
+</ul>
+
+<hr class="section-divider">
+
+<h2>🇰🇷 Korean Market Outlook</h2>
+<table>
+  <tr><th>Index</th><th>종가</th><th>전일 대비</th><th>등락률</th></tr>
+  <tr><td>KOSPI</td><td>5,990.96</td><td class="up">+182.34</td><td><span class="badge badge-up">+3.14%</span></td></tr>
+  <tr><td>KOSDAQ</td><td>1,123.31</td><td class="up">+23.47</td><td><span class="badge badge-up">+2.13%</span></td></tr>
+</table>
+<ul>
+  <li><strong>반도체:</strong> 삼성전자·SK하이닉스 합산 영업이익 370조원 전망. HBM 수요 폭증, DRAM 가격 YoY +145%, NAND +135% 상향.</li>
+  <li><strong>수급:</strong> 국내 주식형 ETF 연초 이후 30조원 유입(2025년 전체의 2배). 1분기 영업이익 컨센서스 127조원, 최초 100조원 상회.</li>
+  <li><strong>환율:</strong> 원/달러 1,479.01원(-0.21%), 원화 강세로 외국인 순매수 유인.</li>
+</ul>
+
+<hr class="section-divider">
+
+<h2>🔍 Watchlist</h2>
+<table>
+  <tr><th>종목</th><th>종가</th><th>전일비</th><th>등락률</th><th>비고</th></tr>
+  <tr>
+    <td>TSLA</td><td>$352.42</td><td class="up">+$3.47</td>
+    <td><span class="badge badge-up">+0.99%</span></td>
+    <td>FSD 네덜란드 승인(유럽 최초). 4/22 실적. Q1 인도 358,023대(컨센 하회). YTD -25%</td>
+  </tr>
+  <tr>
+    <td>NVDA</td><td>$189.31</td><td class="up">+$0.68</td>
+    <td><span class="badge badge-up">+0.36%</span></td>
+    <td>AI 칩 수요 견조. 8개월 박스권. Put-call 0.78로 상승. 5/20 실적</td>
+  </tr>
+  <tr>
+    <td>삼성전자</td><td>206,500원</td><td class="up">+5,500원</td>
+    <td><span class="badge badge-up">+2.74%</span></td>
+    <td>목표주가 40만원 상향. 영업이익 200조원 전망</td>
+  </tr>
+  <tr>
+    <td>SK하이닉스</td><td>1,105,000원</td><td class="up">+65,000원</td>
+    <td><span class="badge badge-up">+6.25%</span></td>
+    <td>목표주가 200만원 상향. 영업이익 170조원 전망. HBM 매출 폭증</td>
+  </tr>
+</table>
+
+<hr class="section-divider">
+
+<h2>⚡ Today's Key Takeaways</h2>
+<div class="takeaway"><strong>1. 이란 협상 시그널로 미·한 증시 동반 반등</strong> — 호르무즈 봉쇄 우려 완화, S&P +1.02%, KOSPI +3.14%. 다만 WTI $96 고유가 지속으로 인플레이션 리스크 상존.</div>
+<div class="takeaway"><strong>2. 반도체 슈퍼사이클 본격화</strong> — SK하이닉스 +6.25%, 삼성전자 +2.74%. DRAM·NAND 가격 급등. 양사 합산 영업이익 370조원 전망. KOSPI 6,000선 돌파 임박.</div>
+<div class="takeaway"><strong>3. 연준 금리 인상 리스크 부상</strong> — 3월 FOMC 의사록에서 인상 가능성 처음 언급. 유가발 인플레 지속 시 금리 경로 변경 가능. 4/29 FOMC 주목.</div>
+
+<div class="footer">
+  ⏰ Generated at 09:57 KST | 데이터 출처: yfinance+naver<br>
+  본 리포트는 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.
+</div>
+</div>
