@@ -1,0 +1,421 @@
+---
+title: Trade Forge Report
+author: "Written by Claude"
+date: "2026-04-22"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily, Trading]
+series: stock
+---
+
+<style>
+.trade-forge {
+    --bg: #ffffff;
+    --fg: #0a0a0a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --card: #f9fafb;
+    --accent: #0066cc;
+    --up: #008060;
+    --down: #d13438;
+    --mono: ui-monospace, SFMono-Regular, 'JetBrains Mono', Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .trade-forge {
+      --bg: #0b0d12;
+      --fg: #e6e8eb;
+      --muted: #8a919c;
+      --border: #1f2430;
+      --card: #131721;
+      --accent: #4da3ff;
+      --up: #2ecc71;
+      --down: #ff6b6b;
+    }
+.trade-forge .tf-report { background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Pretendard', sans-serif; max-width: 960px; margin-inline: auto; padding: 2.5rem 1.5rem; font-feature-settings: "tnum"; line-height: 1.55; }
+.trade-forge .tf-report header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; }
+.trade-forge .tf-report .eyebrow { color: var(--muted); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.trade-forge .tf-report h1 { margin: 0.5rem 0 0.25rem; font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
+.trade-forge .tf-report .sub { color: var(--muted); font-size: 0.875rem; font-family: var(--mono); }
+.trade-forge .tf-report .regime-badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 4px; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; font-weight: 600; margin-left: 0.5rem; border: 1px solid var(--border); }
+.trade-forge .tf-report .regime-RISK_ON { color: var(--up); border-color: var(--up); }
+.trade-forge .tf-report .regime-NEUTRAL { color: var(--accent); border-color: var(--accent); }
+.trade-forge .tf-report .regime-RISK_OFF, .trade-forge .tf-report .regime-CRISIS { color: var(--down); border-color: var(--down); }
+.trade-forge .tf-report section { margin-bottom: 2.5rem; }
+.trade-forge .tf-report h2 { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0 0 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+.trade-forge .tf-report .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.trade-forge .tf-report .cell { background: var(--bg); padding: 1rem; }
+.trade-forge .tf-report .cell .label { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.trade-forge .tf-report .cell .value { font-family: var(--mono); font-size: 1.5rem; font-weight: 600; margin-top: 0.35rem; letter-spacing: -0.01em; }
+.trade-forge .tf-report .cell .delta { font-family: var(--mono); font-size: 0.8rem; margin-top: 0.25rem; }
+.trade-forge .tf-report .up { color: var(--up); }
+.trade-forge .tf-report .down { color: var(--down); }
+.trade-forge .tf-report .table-wrap { overflow-x: auto; }
+.trade-forge .tf-report table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; table-layout: auto; }
+.trade-forge .tf-report th, .trade-forge .tf-report td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+.trade-forge .tf-report th { color: var(--muted); font-weight: 500; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+.trade-forge .tf-report td.num { text-align: right; white-space: nowrap; }
+.trade-forge .tf-report td.name { white-space: nowrap; }
+.trade-forge .tf-report td.reason { font-family: inherit; font-size: 0.82rem; line-height: 1.5; color: var(--fg); word-break: keep-all; }
+.trade-forge .tf-report .tag-buy { color: var(--up); font-weight: 600; }
+.trade-forge .tf-report .tag-sell { color: var(--down); font-weight: 600; }
+.trade-forge .tf-report .tag-hold { color: var(--muted); }
+.trade-forge .tf-report ul.signals { padding: 0; margin: 0; list-style: none; }
+.trade-forge .tf-report ul.signals li { padding: 0.65rem 0; border-bottom: 1px dashed var(--border); font-size: 0.925rem; line-height: 1.6; font-family: inherit; }
+.trade-forge .tf-report ul.signals li:last-child { border-bottom: none; }
+.trade-forge .tf-report ul.signals li::before { content: "—"; color: var(--muted); margin-right: 0.5rem; }
+.trade-forge .tf-report .summary-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 1rem; }
+.trade-forge .tf-report .summary-strip .cell .label { color: var(--muted); }
+.trade-forge .tf-report .commentary { font-family: inherit; font-size: 0.95rem; line-height: 1.65; color: var(--fg); padding: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 4px; }
+.trade-forge .tf-report footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.75rem; font-family: var(--mono); }
+.trade-forge .tf-report .risk-banner { background: rgba(209, 52, 56, 0.08); border: 1px solid var(--down); border-radius: 4px; padding: 1rem 1.25rem; margin-bottom: 2rem; }
+.trade-forge .tf-report .risk-banner .risk-title { font-family: var(--mono); font-size: 0.85rem; font-weight: 700; color: var(--down); letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.trade-forge .tf-report .risk-banner ul { margin: 0; padding-left: 1.25rem; font-size: 0.85rem; }
+.trade-forge .tf-report .risk-banner li { padding: 0.2rem 0; }
+.trade-forge .tf-report .risk-banner .rule-tag { font-family: var(--mono); font-size: 0.7rem; padding: 0.1rem 0.4rem; border: 1px solid var(--down); border-radius: 3px; margin-right: 0.5rem; color: var(--down); }
+.trade-forge .tf-report .lesson-card { background: var(--card); border-left: 3px solid var(--accent); padding: 1.1rem 1.25rem; border-radius: 0 4px 4px 0; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Pretendard', sans-serif; }
+.trade-forge .tf-report .lesson-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--fg); letter-spacing: -0.01em; }
+.trade-forge .tf-report .lesson-body { font-size: 0.92rem; line-height: 1.7; color: var(--fg); white-space: pre-line; }
+.trade-forge .tf-report details.glossary { border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Pretendard', sans-serif; }
+.trade-forge .tf-report details.glossary summary { cursor: pointer; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 0.3rem 0; font-weight: 600; }
+.trade-forge .tf-report details.glossary[open] summary { margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.trade-forge .tf-report details.glossary dl { margin: 0; padding: 0; font-size: 0.85rem; line-height: 1.6; }
+.trade-forge .tf-report details.glossary dt { font-weight: 700; margin-top: 0.5rem; color: var(--fg); }
+.trade-forge .tf-report details.glossary dd { margin: 0.15rem 0 0 0; color: var(--muted); }
+.trade-forge .tf-report .table-wrap { -webkit-overflow-scrolling: touch; }
+
+  @media (max-width: 640px) {
+    .tf-report { padding: 1.5rem 1rem; }
+.trade-forge .tf-report h1 { font-size: 1.35rem; }
+.trade-forge .tf-report .sub { font-size: 0.78rem; }
+.trade-forge .tf-report .cell { padding: 0.75rem; }
+.trade-forge .tf-report .cell .value { font-size: 1.15rem; }
+.trade-forge .tf-report .grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.trade-forge .tf-report .summary-strip { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.trade-forge .tf-report table { font-size: 0.72rem; }
+.trade-forge .tf-report th, .trade-forge .tf-report td { padding: 0.4rem 0.45rem; }
+.trade-forge .tf-report td.reason { font-size: 0.76rem; }
+.trade-forge .tf-report .commentary { font-size: 0.88rem; padding: 0.85rem; }
+</style>
+
+<div class="trade-forge">
+<article class="tf-report">
+
+<header>
+  <div class="eyebrow">Trade Forge · 2026.04.22 (수) · AM Session</div>
+  <h1>미-이란 휴전 불확실성에 미국 증시 소폭 하락, KOSPI 6,388 신고가 후 관망
+<span class="regime-badge regime-NEUTRAL">NEUTRAL</span>  </h1>
+  <div class="sub">VIX 19.50 · USD/KRW 1,486.14 · 10Y 4.29% · Generated 07:13 KST</div>
+</header>
+
+<section>
+  <h2>Portfolio Snapshot</h2>
+  <div class="summary-strip">
+    <div class="cell">
+      <div class="label">KR Total</div>
+      <div class="value">₩104,827,731</div>
+<div class="delta up">+4.83% (inception)</div>    </div>
+    <div class="cell">
+      <div class="label">US Total</div>
+      <div class="value">$101,816.25</div>
+<div class="delta up">+1.82% (inception)</div>    </div>
+    <div class="cell">
+      <div class="label">Cash</div>
+      <div class="value">₩27,033,331 / $30,243.75</div>
+    </div>
+    <div class="cell">
+      <div class="label">Positions</div>
+      <div class="value">7 KR / 7 US</div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Benchmark Comparison (Since Inception)</h2>
+  <div class="grid">
+    <div class="cell">
+      <div class="label">KR Portfolio vs KOSPI</div>
+      <div class="value down">
+-2.92% α
+      </div>
+      <div class="delta">
+        포트 <span class="up">+6.12%</span> ·
+        벤치 <span class="up">+9.04%</span>
+      </div>
+      <div class="delta" style="color: var(--muted); font-size: 0.7rem;">Since 2026-04-10</div>
+    </div>
+    <div class="cell">
+      <div class="label">US Portfolio vs S&P 500</div>
+      <div class="value up">
++0.14% α
+      </div>
+      <div class="delta">
+        포트 <span class="up">+3.65%</span> ·
+        벤치 <span class="up">+3.51%</span>
+      </div>
+      <div class="delta" style="color: var(--muted); font-size: 0.7rem;">Since 2026-04-10</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Macro Environment</h2>
+  <div class="grid">
+    <div class="cell">
+      <div class="label">S&P 500</div>
+      <div class="value">7,064.01</div>
+      <div class="delta down">
+-0.63%
+      </div>
+    </div>
+    <div class="cell">
+      <div class="label">NASDAQ</div>
+      <div class="value">24,259.96</div>
+      <div class="delta down">
+-0.59%
+      </div>
+    </div>
+    <div class="cell">
+      <div class="label">KOSPI</div>
+      <div class="value">6,388.47</div>
+      <div class="delta up">
++2.72%
+      </div>
+    </div>
+    <div class="cell">
+      <div class="label">VIX</div>
+      <div class="value">19.50</div>
+      <div class="delta up">
++3.34%
+      </div>
+    </div>
+    <div class="cell">
+      <div class="label">USD/KRW</div>
+      <div class="value">1,486.14</div>
+      <div class="delta up">
++1.43%
+      </div>
+    </div>
+    <div class="cell">
+      <div class="label">10Y Treasury</div>
+      <div class="value">4.292%</div>
+      <div class="delta up">
++0.99%
+      </div>
+    </div>
+    <div class="cell">
+      <div class="label">WTI Oil</div>
+      <div class="value">$90.22</div>
+      <div class="delta up">
++0.68%
+      </div>
+    </div>
+    <div class="cell">
+      <div class="label">Gold</div>
+      <div class="value">$4,738.50</div>
+      <div class="delta down">
+-1.42%
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Today's Trades</h2>
+  <p style="color: var(--muted); font-family: var(--mono); font-size: 0.875rem;">— No trades executed —</p>
+</section>
+
+<section>
+  <h2>Holdings</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Ticker</th><th>Name</th><th class="num">Qty</th><th class="num">Avg Cost</th><th class="num">Current</th><th class="num">P&amp;L</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>NVDA</td>
+        <td class="name">NVIDIA</td>
+        <td class="num">71</td>
+        <td class="num">$188.63</td>
+        <td class="num">$199.88</td>
+        <td class="num up">
++5.97%        </td>
+      </tr>
+      <tr>
+        <td>AMZN</td>
+        <td class="name">Amazon</td>
+        <td class="num">45</td>
+        <td class="num">$233.65</td>
+        <td class="num">$249.91</td>
+        <td class="num up">
++6.96%        </td>
+      </tr>
+      <tr>
+        <td>AVGO</td>
+        <td class="name">Broadcom</td>
+        <td class="num">28</td>
+        <td class="num">$354.91</td>
+        <td class="num">$402.17</td>
+        <td class="num up">
++13.32%        </td>
+      </tr>
+      <tr>
+        <td>AAPL</td>
+        <td class="name">Apple</td>
+        <td class="num">38</td>
+        <td class="num">$270.26</td>
+        <td class="num">$266.17</td>
+        <td class="num down">
+-1.51%        </td>
+      </tr>
+      <tr>
+        <td>MSFT</td>
+        <td class="name">Microsoft</td>
+        <td class="num">23</td>
+        <td class="num">$420.30</td>
+        <td class="num">$424.16</td>
+        <td class="num up">
++0.92%        </td>
+      </tr>
+      <tr>
+        <td>META</td>
+        <td class="name">Meta</td>
+        <td class="num">12</td>
+        <td class="num">$628.39</td>
+        <td class="num">$668.84</td>
+        <td class="num up">
++6.44%        </td>
+      </tr>
+      <tr>
+        <td>GOOGL</td>
+        <td class="name">Alphabet</td>
+        <td class="num">21</td>
+        <td class="num">$318.49</td>
+        <td class="num">$332.29</td>
+        <td class="num up">
++4.33%        </td>
+      </tr>
+      <tr>
+        <td>005930.KS</td>
+        <td class="name">삼성전자</td>
+        <td class="num">70</td>
+        <td class="num">₩206,000</td>
+        <td class="num">₩219,000</td>
+        <td class="num up">
++6.31%        </td>
+      </tr>
+      <tr>
+        <td>000660.KS</td>
+        <td class="name">SK하이닉스</td>
+        <td class="num">12</td>
+        <td class="num">₩1,027,000</td>
+        <td class="num">₩1,224,000</td>
+        <td class="num up">
++19.18%        </td>
+      </tr>
+      <tr>
+        <td>068270.KS</td>
+        <td class="name">셀트리온</td>
+        <td class="num">59</td>
+        <td class="num">₩201,500</td>
+        <td class="num">₩203,000</td>
+        <td class="num up">
++0.74%        </td>
+      </tr>
+      <tr>
+        <td>005380.KS</td>
+        <td class="name">현대자동차</td>
+        <td class="num">20</td>
+        <td class="num">₩534,267</td>
+        <td class="num">₩546,000</td>
+        <td class="num up">
++2.20%        </td>
+      </tr>
+      <tr>
+        <td>005490.KS</td>
+        <td class="name">POSCO홀딩스</td>
+        <td class="num">26</td>
+        <td class="num">₩385,193</td>
+        <td class="num">₩421,500</td>
+        <td class="num up">
++9.43%        </td>
+      </tr>
+      <tr>
+        <td>105560.KS</td>
+        <td class="name">KB금융</td>
+        <td class="num">51</td>
+        <td class="num">₩154,200</td>
+        <td class="num">₩160,400</td>
+        <td class="num up">
++4.02%        </td>
+      </tr>
+      <tr>
+        <td>108490.KQ</td>
+        <td class="name">로보티즈</td>
+        <td class="num">20</td>
+        <td class="num">₩271,636</td>
+        <td class="num">₩287,000</td>
+        <td class="num up">
++5.66%        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>Key Signals</h2>
+  <ul class="signals">
+<li>SK하이닉스 +19.18% — 자동 익절 한도(+20%) 임박, HBM 강세 지속 속 금일 KR 장 모니터링 필수</li><li>2차전지 섹터 모멘텀 폭발(벤츠 K-배터리 수주): 삼성SDI +19.89%, LG에너지솔루션 +11.42%, POSCO홀딩스 +8.22%</li><li>미-이란 휴전 연장 불확실성 + Warsh 연준 인준 청문회 → 미국 증시 관망세, VIX 19.50</li><li>USD/KRW 1,486원 돌파, 원화 약세 심화 — 수출주(반도체·자동차) 수혜 vs 수입원가 부담</li><li>셀트리온 4일 연속 하락(209,000→203,000), 모멘텀 약화 주시 필요</li>  </ul>
+</section>
+
+<section>
+  <h2>Commentary</h2>
+  <div class="commentary">미국 증시는 미-이란 휴전 연장 불확실성과 Warsh 차기 연준 의장 인준 청문회 속 3대 지수 모두 소폭 하락 마감. VIX 19.50으로 NEUTRAL 체제 유지 중이나, 10Y 금리 4.29%로 상승하고 원화는 1,486원까지 약세를 보이며 매크로 긴장감이 높아지고 있다. 한국 시장은 전일 벤츠 K-배터리 수주 호재로 2차전지·소재 섹터가 폭등하며 KOSPI 6,388 역대 신고가를 갱신했고, 보유 중인 POSCO홀딩스(+9.43%)와 SK하이닉스(+19.18%)가 수익률을 견인 중이다. 오늘 AM 세션은 뚜렷한 매매 시그널 없이 전 포지션 유지로 관망한다.</div>
+</section>
+
+<section>
+  <h2>📚 오늘의 공부</h2>
+  <div class="lesson-card">
+    <div class="lesson-title">섹터 로테이션이란?</div>
+    <div class="lesson-body">주식 시장에서는 돈이 한 업종에서 다른 업종으로 이동하는 현상이 반복됩니다. 이것을 '섹터 로테이션'(업종 순환)이라고 합니다. 마치 놀이공원에서 사람들이 인기 놀이기구 쪽으로 몰려가듯, 투자자들의 관심이 특정 업종으로 집중되는 것이죠.
+
+어제 한국 시장에서 이 현상이 뚜렷하게 나타났습니다. 벤츠가 한국산 배터리(K-배터리)를 대량 수주했다는 뉴스가 나오자, 2차전지 관련 종목이 일제히 급등했습니다. 삼성SDI +19.89%, LG에너지솔루션 +11.42%, POSCO홀딩스 +8.22%가 대표적입니다. 우리 포트폴리오의 POSCO홀딩스도 매수 후 +9.43% 수익을 기록 중입니다.
+
+반면 같은 날 금융주(KB금융 -0.31%, 신한지주 -0.20%)와 바이오(셀트리온 -1.22%)는 오히려 소폭 하락했습니다. 돈이 2차전지 쪽으로 몰리면서 다른 업종에서는 관심이 줄어든 것입니다.
+
+왜 이게 중요할까요? 포트폴리오를 여러 업종에 분산해 두면, 특정 섹터가 부진해도 다른 섹터의 상승으로 균형을 맞출 수 있습니다. 우리 시뮬레이션 포트폴리오가 반도체·바이오·금융·소재·로봇 등 다양한 섹터를 보유하는 이유가 바로 이것입니다. (이 포트폴리오는 교육용 시뮬레이션이며, 실제 투자 권유가 아닙니다.)</div>
+  </div>
+</section>
+
+<section>
+<details class="glossary">
+<summary>📖 용어 빠르게 찾기 (초보자용 치트시트)</summary>
+<dl>
+  <dt>Regime (시장 체제)</dt><dd>VIX 기준 4단계 분류. RISK_ON(&lt;15) = 공격적 시장, NEUTRAL(15~25) = 보통, RISK_OFF(25~35) = 방어적, CRISIS(&gt;35) = 위기.</dd>
+  <dt>Unrealized P&amp;L (미실현 손익)</dt><dd>보유 중인 포지션의 장부상 손익. 아직 팔지 않아서 확정되지 않은 숫자. 주가 움직이면 매일 변함.</dd>
+  <dt>Realized P&amp;L (실현 손익)</dt><dd>이미 매도해서 확정된 손익. 세금/수수료 계산은 여기서 이루어짐.</dd>
+  <dt>Avg Cost (평균 매수가)</dt><dd>여러 번 나눠 산 경우의 가중평균 매수 단가. "본전" 가격.</dd>
+  <dt>Position Size</dt><dd>한 종목이 포트폴리오에서 차지하는 비중. trade-forge 규칙: 종목당 최대 15%, 전체 포지션 50% 이내.</dd>
+  <dt>Cash Ratio</dt><dd>현금 비중. 50%면 절반은 투자, 절반은 대기 상태.</dd>
+  <dt>Momentum (모멘텀)</dt><dd>최근 오름세가 지속될 거라는 전략. 오르는 주식을 사서 더 오를 때 파는 접근.</dd>
+  <dt>Technical (기술적 분석)</dt><dd>차트 패턴/거래량 기반 판단. 이동평균선, RSI, MACD 등이 대표적.</dd>
+  <dt>Macro (매크로)</dt><dd>거시경제 환경. 금리/환율/유가/VIX 같은 '시장 전체'에 영향 주는 요인.</dd>
+  <dt>Commission (수수료)</dt><dd>매매 비용. 한국 0.015%, 미국 $0 (여기 시뮬레이션 기준).</dd>
+  <dt>HBM</dt><dd>고대역폭 메모리. AI 칩용 고급 메모리 — SK하이닉스·삼성전자 주력.</dd>
+</dl>
+</details>
+</section>
+
+<footer>⏰ Generated at 07:13 KST · Source: yfinance + Naver Finance · 시뮬레이션 결과이며 실제 투자 판단은 본인 책임입니다.</footer>
+
+</article>
+</div>
