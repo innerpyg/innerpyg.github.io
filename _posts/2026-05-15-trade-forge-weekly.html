@@ -1,0 +1,172 @@
+---
+title: Trade Forge Weekly Settlement
+author: "Written by Claude"
+date: "2026-05-15"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Weekly, Settlement]
+series: stock
+---
+
+<style>
+.trade-forge-weekly {
+    --bg: #ffffff;
+    --fg: #0a0a0a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --card: #f9fafb;
+    --accent: #0066cc;
+    --up: #008060;
+    --down: #d13438;
+    --mono: ui-monospace, SFMono-Regular, 'JetBrains Mono', Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .trade-forge-weekly {
+      --bg: #0b0d12;
+      --fg: #e6e8eb;
+      --muted: #8a919c;
+      --border: #1f2430;
+      --card: #131721;
+      --accent: #4da3ff;
+      --up: #2ecc71;
+      --down: #ff6b6b;
+    }
+.trade-forge-weekly .tf-report { background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Pretendard', sans-serif; max-width: 960px; margin-inline: auto; padding: 2.5rem 1.5rem; font-feature-settings: "tnum"; line-height: 1.55; }
+.trade-forge-weekly .tf-report header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem; }
+.trade-forge-weekly .tf-report .eyebrow { color: var(--muted); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.trade-forge-weekly .tf-report h1 { margin: 0.5rem 0 0.25rem; font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
+.trade-forge-weekly .tf-report .sub { color: var(--muted); font-size: 0.875rem; font-family: var(--mono); }
+.trade-forge-weekly .tf-report section { margin-bottom: 2.5rem; }
+.trade-forge-weekly .tf-report h2 { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0 0 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+.trade-forge-weekly .tf-report .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.trade-forge-weekly .tf-report .cell { background: var(--bg); padding: 1rem; }
+.trade-forge-weekly .tf-report .cell .label { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.trade-forge-weekly .tf-report .cell .value { font-family: var(--mono); font-size: 1.5rem; font-weight: 600; margin-top: 0.35rem; letter-spacing: -0.01em; }
+.trade-forge-weekly .tf-report .cell .delta { font-family: var(--mono); font-size: 0.8rem; margin-top: 0.25rem; }
+.trade-forge-weekly .tf-report .up { color: var(--up); }
+.trade-forge-weekly .tf-report .down { color: var(--down); }
+.trade-forge-weekly .tf-report table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.875rem; }
+.trade-forge-weekly .tf-report th, .trade-forge-weekly .tf-report td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); }
+.trade-forge-weekly .tf-report th { color: var(--muted); font-weight: 500; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.trade-forge-weekly .tf-report td.num { text-align: right; }
+.trade-forge-weekly .tf-report .status-settled { color: var(--up); font-weight: 600; }
+.trade-forge-weekly .tf-report .status-below_threshold { color: var(--muted); }
+.trade-forge-weekly .tf-report .status-initialized { color: var(--accent); }
+.trade-forge-weekly .tf-report .status-cash_insufficient { color: var(--down); }
+.trade-forge-weekly .tf-report .commentary { font-family: inherit; font-size: 0.95rem; line-height: 1.65; color: var(--fg); padding: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 4px; }
+.trade-forge-weekly .tf-report footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.75rem; font-family: var(--mono); }
+.trade-forge-weekly .tf-report .rules { font-size: 0.825rem; color: var(--muted); padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 4px; }
+.trade-forge-weekly .tf-report .rules ul { margin: 0.25rem 0 0 1rem; padding: 0; }
+.trade-forge-weekly .tf-report .rules li { margin: 0.2rem 0; }
+</style>
+
+<div class="trade-forge-weekly">
+<article class="tf-report">
+
+<header>
+  <div class="eyebrow">Trade Forge · Weekly Settlement · 2026.05.15 (금)</div>
+  <h1>주간 정산 리포트</h1>
+  <div class="sub">Generated 17:00 KST · Week ending 2026-05-15</div>
+</header>
+
+<section>
+  <h2>Settlement Summary</h2>
+  <div class="grid">
+    <div class="cell">
+      <div class="label">KR · Weekly P&amp;L</div>
+        <div class="value up">₩+722,964.19</div>
+        <div class="delta">base ₩106,591,807.35 → ₩107,314,771.54</div>
+    </div>
+    <div class="cell">
+      <div class="label">KR · Withdrawn (50%)</div>
+      <div class="value">₩361,482.10</div>
+      <div class="delta">next base ₩106,953,289.44</div>
+    </div>
+    <div class="cell">
+      <div class="label">US · Weekly P&amp;L</div>
+        <div class="value up">$+2,185.69</div>
+        <div class="delta">base $102,789.03 → $104,974.72</div>
+    </div>
+    <div class="cell">
+      <div class="label">US · Withdrawn (50%)</div>
+      <div class="value">$1,092.85</div>
+      <div class="delta">next base $103,881.87</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Detail</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Market</th>
+        <th class="num">Start Equity</th>
+        <th class="num">End Equity</th>
+        <th class="num">Profit</th>
+        <th class="num">Withdrawn</th>
+        <th class="num">Next Base</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>KR</td>
+        <td class="num">₩106,591,807.35</td>
+        <td class="num">₩107,314,771.54</td>
+        <td class="num up">₩+722,964.19</td>
+        <td class="num">₩361,482.10</td>
+        <td class="num">₩106,953,289.44</td>
+        <td><span class="status-settled">settled</span></td>
+      </tr>
+      <tr>
+        <td>US</td>
+        <td class="num">$102,789.03</td>
+        <td class="num">$104,974.72</td>
+        <td class="num up">$+2,185.69</td>
+        <td class="num">$1,092.85</td>
+        <td class="num">$103,881.87</td>
+        <td><span class="status-settled">settled</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Cumulative Settled Cash</h2>
+  <div class="grid">
+    <div class="cell">
+      <div class="label">KR · Total Withdrawn (all-time)</div>
+      <div class="value">₩6,953,289.46</div>
+    </div>
+    <div class="cell">
+      <div class="label">US · Total Withdrawn (all-time)</div>
+      <div class="value">$3,798.20</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Rules</h2>
+  <div class="rules">
+    <ul>
+      <li>기준 자산 = 총자산 (포지션 시가 + 현금)</li>
+      <li>KR 주간 수익 ≥ 100,000원 또는 US 주간 수익 ≥ $100일 때 수익의 50%를 현금 전환</li>
+      <li>전환된 현금은 포트폴리오에서 제거, 다음 주 기준 = 정산 후 총자산</li>
+      <li>매주 금요일 17:00 KST 자동 실행</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Trade Forge Weekly Settlement · 2026.05.15 (금) · Auto-generated</footer>
+</article>
+</div>
