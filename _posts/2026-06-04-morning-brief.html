@@ -1,0 +1,252 @@
+---
+title: Morning Market Brief
+author: "Written by Claude"
+date: "2026-06-04"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily]
+series: stock
+---
+
+<style>
+.morning-brief {
+    --bg: #fffdf9;
+    --fg: #1a1a1a;
+    --muted: #6b6055;
+    --border: #e8e0d4;
+    --card: #fff9f0;
+    --accent: #c4482c;
+    --up: #1a7f5a;
+    --down: #c4482c;
+    --serif: 'Noto Serif KR', 'Source Serif Pro', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Pretendard', sans-serif;
+    --mono: ui-monospace, 'JetBrains Mono', Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .morning-brief {
+      --bg: #12110f;
+      --fg: #ede8df;
+      --muted: #a99f92;
+      --border: #2a2722;
+      --card: #1a1815;
+      --accent: #ff7a5c;
+      --up: #4ade80;
+      --down: #ff7a5c;
+    }
+.morning-brief .mb-report { background: var(--bg); color: var(--fg); font-family: var(--serif); max-width: 860px; margin-inline: auto; padding: 2.5rem 1.5rem 2rem; line-height: 1.7; font-feature-settings: "tnum"; }
+.morning-brief .mb-report header { border-bottom: 2px solid var(--fg); padding-bottom: 1.5rem; margin-bottom: 2.5rem; }
+.morning-brief .mb-report .kicker { font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report h1 { font-family: var(--serif); font-size: 2.4rem; line-height: 1.15; margin: 0.75rem 0 0.5rem; font-weight: 700; letter-spacing: -0.01em; }
+.morning-brief .mb-report .dek { font-family: var(--sans); color: var(--muted); font-size: 1.05rem; line-height: 1.5; }
+.morning-brief .mb-report .meta { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin-top: 1rem; }
+.morning-brief .mb-report h2 { font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-weight: 700; border-top: 1px solid var(--border); padding-top: 1.5rem; margin: 2.5rem 0 1rem; }
+.morning-brief .mb-report p.lede { font-size: 1.1rem; line-height: 1.7; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 3.2rem; float: left; font-weight: 700; line-height: 0.9; margin: 0.15rem 0.6rem 0 0; color: var(--accent); font-family: var(--serif); }
+.morning-brief .mb-report .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report .stat { padding: 1rem 1.25rem; border-right: 1px solid var(--border); font-family: var(--sans); }
+.morning-brief .mb-report .stat:last-child { border-right: none; }
+.morning-brief .mb-report .stat .lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report .stat .val { font-family: var(--mono); font-size: 1.4rem; font-weight: 600; margin-top: 0.25rem; letter-spacing: -0.01em; }
+.morning-brief .mb-report .stat .chg { font-family: var(--mono); font-size: 0.8rem; margin-top: 0.1rem; }
+.morning-brief .mb-report .up { color: var(--up); }
+.morning-brief .mb-report .down { color: var(--down); }
+.morning-brief .mb-report ol.analysis { padding-left: 1.25rem; font-family: var(--sans); font-size: 0.975rem; line-height: 1.65; }
+.morning-brief .mb-report ol.analysis li { margin-bottom: 0.75rem; padding-left: 0.5rem; }
+.morning-brief .mb-report ol.analysis li::marker { color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.925rem; margin-top: 0.5rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.7rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report td.num { font-family: var(--mono); text-align: right; }
+.morning-brief .mb-report blockquote.takeaway { border-left: 3px solid var(--accent); padding: 0.25rem 0 0.25rem 1.25rem; margin: 1rem 0; font-family: var(--sans); font-style: italic; font-size: 1.02rem; line-height: 1.6; }
+.morning-brief .mb-report footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
+.morning-brief .mb-report .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.morning-brief .mb-report .lesson-card { background: var(--card, #f5f2ec); border-left: 3px solid var(--accent); padding: 1.1rem 1.25rem; border-radius: 0 4px 4px 0; margin: 0.75rem 0 1rem; font-family: var(--sans); }
+.morning-brief .mb-report .lesson-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report .lesson-body { font-size: 0.95rem; line-height: 1.7; color: var(--fg); white-space: pre-line; }
+.morning-brief .mb-report details.glossary { margin-top: 2.5rem; font-family: var(--sans); border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 1rem; }
+.morning-brief .mb-report details.glossary summary { cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--muted); padding: 0.3rem 0; }
+.morning-brief .mb-report details.glossary[open] summary { margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report details.glossary dl { margin: 0; padding: 0; font-size: 0.85rem; line-height: 1.6; }
+.morning-brief .mb-report details.glossary dt { font-weight: 700; margin-top: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report details.glossary dd { margin: 0.15rem 0 0 0; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .mb-report { padding: 1.5rem 1rem 1.5rem; }
+.morning-brief .mb-report h1 { font-size: 1.75rem; }
+.morning-brief .mb-report .dek { font-size: 0.95rem; }
+.morning-brief .mb-report p.lede { font-size: 1rem; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 2.6rem; margin: 0.1rem 0.4rem 0 0; }
+.morning-brief .mb-report .stat { padding: 0.75rem 1rem; }
+.morning-brief .mb-report .stat .val { font-size: 1.2rem; }
+.morning-brief .mb-report table { font-size: 0.82rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.55rem 0.5rem; }
+.morning-brief .mb-report blockquote.takeaway { font-size: 0.95rem; padding-left: 1rem; }
+</style>
+
+<div class="morning-brief">
+<article class="mb-report">
+
+<header>
+  <div class="kicker">Morning Market Brief</div>
+  <h1>이란 미사일에 유가 급등, 월가 일제히 하락</h1>
+<div class="dek">이란의 쿠웨이트·바레인 미사일 공격으로 WTI가 2.6% 급등하며 국채금리와 함께 시장을 압박했다. 반도체주는 상대적으로 선방했으나, 다우는 1.2% 넘게 빠지며 조정 흐름을 보였다.</div>  <div class="meta">2026.06.04 (목) · 07:16 KST · yfinance + Naver Finance</div>
+</header>
+
+<p class="lede">6월 3일(현지시간) 뉴욕 증시는 이란의 중동 미사일 공격 소식에 유가가 급등하면서 3대 지수 모두 하락 마감했다. 다우가 1.21% 하락하며 낙폭이 가장 컸고, 나스닥과 S&P 500도 각각 0.89%, 0.74% 내렸다. 다만 반도체 섹터는 마벨 테크놀로지(+5.17%) 등 일부 종목이 강세를 이어가며 하락폭을 제한했다.</p>
+
+<h2>🇺🇸 US Market Recap</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">S&P 500</div>
+    <div class="val">7,553.68</div>
+    <div class="chg down">
+-0.74%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">NASDAQ</div>
+    <div class="val">26,853.98</div>
+    <div class="chg down">
+-0.89%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">DOW</div>
+    <div class="val">50,687.07</div>
+    <div class="chg down">
+-1.21%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">VIX</div>
+    <div class="val">16.06</div>
+    <div class="chg up">
++1.84%
+    </div>
+  </div>
+</div>
+
+<h2>Key Drivers</h2>
+<ol class="analysis">
+<li>이란이 쿠웨이트·바레인에 미사일을 발사하며 중동 지정학 리스크가 급격히 부각됐다. WTI 원유가 2.6% 급등하고, 안전자산 선호로 국채금리가 동반 상승하며 증시를 압박했다.</li><li>반도체주는 상대적으로 선방했다. NVIDIA가 3.62% 하락했으나, 마벨 테크놀로지(+5.17%) 등 일부 칩 종목은 AI 수요 기대감에 강세를 유지하며 섹터 내 차별화가 뚜렷했다.</li><li>연준 6월 FOMC(16~17일) 앞두고 금리 동결(3.50~3.75%) 전망이 99%로 굳어졌다. 나바로 백악관 고문이 연준에 '금리 인상을 생각도 하지 말라'고 경고하며 정치적 압력이 부각됐다.</li></ol>
+
+<h2>🌍 Global Macro</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Indicator</th><th class="num">Value</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr><td>10Y Treasury</td><td class="num">4.491%</td><td>+3.6bp</td></tr>
+    <tr><td>USD/KRW</td><td class="num">1,531.03</td><td>+1.31%</td></tr>
+    <tr><td>WTI Oil</td><td class="num">$96.20</td><td>+2.60%</td></tr>
+    <tr><td>Gold</td><td class="num">$4,462.70</td><td>-0.59%</td></tr>
+  </tbody>
+</table>
+</div>
+<ol class="analysis" style="margin-top: 1rem;">
+<li>WTI가 $96.20으로 급등하며 인플레이션 재점화 우려를 키웠다. 이란 미사일 공격이 중동 원유 공급 불안을 자극한 것이 직접적 원인이다.</li><li>원·달러 환율이 1,531원으로 1.31% 급등했다. 글로벌 위험회피 심리와 유가 상승에 따른 경상수지 부담이 원화 약세를 가속했으며, 5월 외환보유액도 환율 방어에 8.8억 달러 감소했다.</li><li>10년물 국채금리가 4.491%로 상승하고, 30년물도 4.99%에 근접했다. 에너지 가격 상승이 인플레이션 기대를 자극하며 금리 하락 기대를 후퇴시키고 있다.</li></ol>
+
+<h2>🇰🇷 Korean Market Outlook</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">KOSPI</div>
+    <div class="val">8,801.49</div>
+    <div class="chg up">
++0.15%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">KOSDAQ</div>
+    <div class="val">1,026.03</div>
+    <div class="chg down">
+-2.29%
+    </div>
+  </div>
+</div>
+<p style="font-family: var(--sans); margin-top: 1rem;"><strong>주목 섹터:</strong> 반도체(삼성전자 시총 2천조 돌파), 메모리 중심 초양극화</p><p style="font-family: var(--sans);"><strong>수급 동향:</strong> 삼성전자·SK하이닉스 시총이 전체의 50.4%를 차지하며 역대 최고 집중도. 코스피 사상 최고치 경신에도 10개 중 9개 종목 하락하는 극단적 쏠림 장세 지속.</p>
+<h2>🔍 Watchlist</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Ticker</th><th>Name</th><th class="num">Close</th><th class="num">Change</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>TSLA</td>
+      <td>Tesla</td>
+      <td class="num">$423.70</td>
+      <td class="num down">
+-0.01%      </td>
+      <td>SpaceX IPO 기대감 vs OpenAI 자율주행 경쟁 부각</td>
+    </tr>
+    <tr>
+      <td>NVDA</td>
+      <td>NVIDIA</td>
+      <td class="num">$214.75</td>
+      <td class="num down">
+-3.62%      </td>
+      <td>PC 시장 진출 발표, 커스텀 실리콘 경쟁 우려로 하락</td>
+    </tr>
+    <tr>
+      <td>005930</td>
+      <td>삼성전자</td>
+      <td class="num">₩360,500</td>
+      <td class="num up">
++3.30%      </td>
+      <td>시총 2천조 돌파, HBM4E 샘플 제출 호재, 목표가 61만원</td>
+    </tr>
+    <tr>
+      <td>000660</td>
+      <td>SK하이닉스</td>
+      <td class="num">₩2,360,000</td>
+      <td class="num down">
+-0.13%      </td>
+      <td>시총 1,500조 돌파, 목표가 400만원 상향</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>⚡ Today's Takeaways</h2>
+<blockquote class="takeaway">중동 지정학 리스크가 유가와 환율을 동시에 밀어올리며 한국 수입물가 부담이 가중되고 있다. 원·달러 1,530원대는 외국인 투자심리에 부담 요인이다.</blockquote>
+<blockquote class="takeaway">코스피가 사상 최고치를 경신했지만 삼성전자·SK하이닉스 양극화가 극심하다. 반도체 2종목이 시총의 절반을 넘어선 만큼, 반도체 외 섹터는 소외되고 있어 포트폴리오 분산에 유의해야 한다.</blockquote>
+<blockquote class="takeaway">6월 FOMC(16~17일)와 MSCI 한국 시장 재분류 결정이 월내 최대 이벤트다. 금리 동결이 기정사실화된 가운데, 인플레이션 재점화 시 하반기 금리 경로가 재조정될 수 있다.</blockquote>
+
+<h2>📚 오늘의 공부</h2>
+<div class="lesson-card">
+  <div class="lesson-title">유가 급등과 증시의 관계</div>
+  <div class="lesson-body">오늘 뉴스에서 이란이 미사일을 쏘면서 기름값이 크게 올랐다는 소식이 있었습니다. WTI라는 미국 기준 원유 가격이 하루 만에 2.6퍼센트 올라 배럴당 96달러 20센트가 됐는데요, 이게 왜 주식시장에 영향을 줄까요?
+
+기름값이 오르면 물건을 만들고 운반하는 비용이 전부 올라갑니다. 그러면 물가(물건의 가격)가 함께 오르게 되는데, 이걸 '인플레이션'이라고 합니다. 물가가 오르면 중앙은행(미국의 연준)이 금리를 높게 유지하거나 올려야 해서, 기업들이 돈을 빌리는 비용이 커집니다.
+
+실제로 오늘 미국 10년 만기 국채금리가 4.491퍼센트로 올랐고, 다우지수는 1.21퍼센트 하락했습니다. 한국도 예외가 아닙니다. 원유를 거의 전량 수입하는 한국은 기름값이 오르면 달러가 더 많이 필요해져서 원·달러 환율도 1,531원으로 뛰었습니다.
+
+이처럼 중동에서 일어난 사건 하나가 기름값, 금리, 환율, 주가까지 연쇄적으로 흔들 수 있습니다. 뉴스에서 '지정학 리스크'라는 말이 나오면, 이런 연결고리를 떠올려 보세요. 나의 투자에도 영향을 줄 수 있으니까요.</div>
+</div>
+
+<details class="glossary">
+<summary>📖 용어 빠르게 찾기 (초보자용 치트시트)</summary>
+<dl>
+  <dt>VIX (공포지수)</dt><dd>S&P 500의 향후 30일 변동성 예측. 20↓ 안정, 20~25 보통, 25↑ 긴장, 35↑ 위기.</dd>
+  <dt>10Y Treasury</dt><dd>미국 10년물 국채 수익률. 장기 금리 + 인플레 기대의 기준점. 오르면 기술주 부담, 은행주 수혜.</dd>
+  <dt>USD/KRW</dt><dd>원/달러 환율. 올라가면 원화 약세 = 수출주(삼전, 현대차) 유리 / 수입품/여행 부담.</dd>
+  <dt>S&P 500</dt><dd>미국 대형주 500개 평균. 미 증시 '대표선수' 지수.</dd>
+  <dt>NASDAQ</dt><dd>기술주 중심 미국 지수. AI·빅테크 비중 큼.</dd>
+  <dt>KOSPI / KOSDAQ</dt><dd>KOSPI = 한국 대형주, KOSDAQ = 한국 중소형/기술주.</dd>
+  <dt>bp (basis point)</dt><dd>0.01%. 금리 이야기할 때 쓰는 단위 (예: +3bp = +0.03%).</dd>
+  <dt>RISK ON / OFF</dt><dd>시장 심리. RISK ON = 위험자산(주식) 선호, RISK OFF = 안전자산(금·국채) 회피 이동.</dd>
+  <dt>외국인·기관 수급</dt><dd>누가 사고 누가 파는지. 외국인 순매수 = 한국 주식 긍정적 신호.</dd>
+  <dt>HBM</dt><dd>고대역폭 메모리. AI 칩에 들어가는 고급 메모리 — SK하이닉스·삼성전자 주력 상품.</dd>
+</dl>
+</details>
+
+<footer>⏰ Generated at 07:16 KST · Source: yfinance + Naver Finance · 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.</footer>
+
+</article>
+</div>
