@@ -366,7 +366,7 @@ tr:last-child td { border-bottom: none; }
 <body>
 
 <h1>Trade Forge <span class="mode-badge">PAPER</span></h1>
-<p class="subtitle">모의투자 대시보드 &middot; 2026-08-10 06:34:34 기준</p>
+<p class="subtitle">모의투자 대시보드 &middot; 2026-08-10 22:38:27 기준</p>
 
 <!-- ════════ KR Summary Cards ════════ -->
 <div class="cards">
@@ -381,14 +381,24 @@ tr:last-child td { border-bottom: none; }
         <div class="card-sub">0종목 보유</div>
     </div>
     <div class="card">
+        <div class="card-label">US 총자산</div>
+        <div class="card-value">$99,328.42</div>
+        <div class="card-sub negative">-0.67% since 2026-08-10 KIS 전환</div>
+    </div>
+    <div class="card">
+        <div class="card-label">US 예수금</div>
+        <div class="card-value">$33,329.19</div>
+        <div class="card-sub">6종목 보유</div>
+    </div>
+    <div class="card">
         <div class="card-label">주문 실적</div>
-        <div class="card-value">66</div>
-        <div class="card-sub">성공 5 · 실패 61</div>
+        <div class="card-value">88</div>
+        <div class="card-sub">성공 27 · 실패 61</div>
     </div>
     <div class="card">
         <div class="card-label">누적 수수료</div>
         <div class="card-value">₩103,222</div>
-        <div class="card-sub">87건 거래</div>
+        <div class="card-sub">93건 거래</div>
     </div>
 </div>
 
@@ -396,7 +406,8 @@ tr:last-child td { border-bottom: none; }
 <div class="section">
     <div class="section-title">📈 자산 추이</div>
     <div class="tabs">
-        <div class="tab active">🇰🇷 한국</div>
+        <div class="tab active" id="tab-kr" onclick="switchChart('kr')">🇰🇷 한국</div>
+        <div class="tab" id="tab-us" onclick="switchChart('us')">🇺🇸 미국</div>
     </div>
     <div class="chart-container">
         <canvas id="equityChart"></canvas>
@@ -418,7 +429,80 @@ tr:last-child td { border-bottom: none; }
     </div>
 </div>
 
-<!-- US 포지션: 비활성화 (실계좌 전환 시 복원) -->
+<!-- ════════ US 포지션 ════════ -->
+<div class="section">
+    <div class="section-title"><span class="flag">🇺🇸</span> 미국 포지션</div>
+    <div style="overflow-x:auto">
+    <table>
+        <thead><tr>
+            <th>종목코드</th><th>종목명</th><th class="num">수량</th>
+            <th class="num">평균가</th><th class="num">현재가</th>
+            <th class="num">평가금액</th><th class="num">손익</th><th class="num">수익률</th>
+        </tr></thead>
+        <tbody>
+            <tr>
+                <td class="ticker">AVGO</td>
+                <td>브로드컴</td>
+                <td class="num">30</td>
+                <td class="num">$428.71</td>
+                <td class="num">$428.53</td>
+                <td class="num">$12,855.90</td>
+                <td class="num negative">$-5.40</td>
+                <td class="num negative">-0.04%</td>
+            </tr>
+            <tr>
+                <td class="ticker">META</td>
+                <td>메타 플랫폼스(페이스북)</td>
+                <td class="num">20</td>
+                <td class="num">$597.78</td>
+                <td class="num">$603.05</td>
+                <td class="num">$12,061.06</td>
+                <td class="num positive">$+105.46</td>
+                <td class="num positive">+0.88%</td>
+            </tr>
+            <tr>
+                <td class="ticker">MSFT</td>
+                <td>마이크로소프트</td>
+                <td class="num">25</td>
+                <td class="num">$504.89</td>
+                <td class="num">$501.80</td>
+                <td class="num">$12,545.02</td>
+                <td class="num negative">$-77.23</td>
+                <td class="num negative">-0.61%</td>
+            </tr>
+            <tr>
+                <td class="ticker">NVDA</td>
+                <td>엔비디아</td>
+                <td class="num">60</td>
+                <td class="num">$223.53</td>
+                <td class="num">$223.07</td>
+                <td class="num">$13,384.20</td>
+                <td class="num negative">$-27.60</td>
+                <td class="num negative">-0.21%</td>
+            </tr>
+            <tr>
+                <td class="ticker">RGTI</td>
+                <td>리게티 컴퓨팅</td>
+                <td class="num">200</td>
+                <td class="num">$17.85</td>
+                <td class="num">$17.80</td>
+                <td class="num">$3,560.00</td>
+                <td class="num negative">$-10.00</td>
+                <td class="num negative">-0.28%</td>
+            </tr>
+            <tr>
+                <td class="ticker">SPY</td>
+                <td>SPDR S&P 500</td>
+                <td class="num">15</td>
+                <td class="num">$772.65</td>
+                <td class="num">$772.87</td>
+                <td class="num">$11,593.05</td>
+                <td class="num positive">$+3.30</td>
+                <td class="num positive">+0.03%</td>
+            </tr></tbody>
+    </table>
+    </div>
+</div>
 
 <!-- ════════ 투자자 동향 ════════ -->
 
@@ -429,7 +513,55 @@ tr:last-child td { border-bottom: none; }
     <div class="rationale-grid">
         <div>
             <div class="rationale-col-title">📋 개별 매매 사유</div>
-            <div class="rationale-session"><div class="rationale-date">🇰🇷 2026-08-10 PM</div>
+            <div class="rationale-session"><div class="rationale-date">🇺🇸 2026-08-10 PM</div>
+            <div class="rationale-item">
+                <div class="rationale-header">
+                    <span class="buy">BUY</span>
+                    <strong>NVIDIA</strong> 60주 @ $222.62
+                    <span class="rationale-status">✅</span>
+                </div>
+                <div class="rationale-reason">5거래일 211.94→222.62(+5.0%)로 워치리스트 내 최강 모멘텀. 당일 -0.60%는 상승 추세 중 얕은 눌림. 삼성·SK하이닉스 핫칩스 차세대 HBM 맞대결 보도(8/10)로 AI 가속기 수요 사이클 지속 확인. 총자산 13.4%로 한도(15%) 내 편입</div>
+            </div>
+            <div class="rationale-item">
+                <div class="rationale-header">
+                    <span class="buy">BUY</span>
+                    <strong>Broadcom</strong> 30주 @ $428.71
+                    <span class="rationale-status">✅</span>
+                </div>
+                <div class="rationale-reason">418.16→428.71 5거래일 연속 우상향, 당일 +0.22%로 구간 최고 종가 경신. NVDA 대비 변동성이 낮은 반도체 2번 축으로 섹터 내 분산. 총자산 12.9%</div>
+            </div>
+            <div class="rationale-item">
+                <div class="rationale-header">
+                    <span class="buy">BUY</span>
+                    <strong>Microsoft</strong> 25주 @ $503.49
+                    <span class="rationale-status">✅</span>
+                </div>
+                <div class="rationale-reason">492.81→503.49 회복 후 당일 +0.70%로 5거래일 최고 종가. 빅테크 capex 7,250억달러로 AI 지출 회의론이 실적으로 반박됐다는 보도(8/7) — 클라우드 수요 가시성 개선. 총자산 12.6%</div>
+            </div>
+            <div class="rationale-item">
+                <div class="rationale-header">
+                    <span class="buy">BUY</span>
+                    <strong>Meta</strong> 20주 @ $598.20
+                    <span class="rationale-status">✅</span>
+                </div>
+                <div class="rationale-reason">587.94→598.20까지 5거래일 내내 종가가 한 번도 밀리지 않은 가장 깨끗한 상승 추세, 당일 +1.03%로 지수(-0.11%) 대비 뚜렷한 상대강도. 총자산 12.0%</div>
+            </div>
+            <div class="rationale-item">
+                <div class="rationale-header">
+                    <span class="buy">BUY</span>
+                    <strong>SPDR S&P 500</strong> 15주 @ $772.61
+                    <span class="rationale-status">✅</span>
+                </div>
+                <div class="rationale-reason">계좌 개시일 코어 익스포저. 개별주 4종이 AI 테마에 몰려 있어 지수 ETF로 상관관계를 희석. VIX 15.41 NEUTRAL 구간은 지수 보유에 무난한 환경. 총자산 11.6%</div>
+            </div>
+            <div class="rationale-item">
+                <div class="rationale-header">
+                    <span class="buy">BUY</span>
+                    <strong>Rigetti Computing</strong> 200주 @ $18.04
+                    <span class="rationale-status">✅</span>
+                </div>
+                <div class="rationale-reason">16.53→18.04 3거래일 반등, 당일 +0.56%로 IONQ(-3.28%)와 차별화. Motley Fool·TradingKey가 8/9~8/10 랠리 요인을 연속 보도. 변동성이 큰 테마주이므로 총자산 3.6%로만 소액 진입</div>
+            </div></div><div class="rationale-session"><div class="rationale-date">🇰🇷 2026-08-10 PM</div>
             <div class="rationale-item">
                 <div class="rationale-header">
                     <span class="sell">SELL</span>
@@ -1089,7 +1221,7 @@ tr:last-child td { border-bottom: none; }
         </div>
         <div>
             <div class="rationale-col-title">📊 시장 분석 · 홀드 · 제외</div>
-            <div class="tabs session-tabs"><div class="tab active" onclick="switchSessionTab(0)" data-session-idx="0">🇰🇷 2026-08-10 AM</div><div class="tab " onclick="switchSessionTab(1)" data-session-idx="1">🇰🇷 2026-08-10 PM</div></div><div class="session-panel active" data-session-idx="0"><div class="analysis-section"><div class="analysis-label">시장 판단</div><div class="analysis-text">VIX 14.90(-1.65%)으로 15 아래에 안착하며 RISK_ON 체제에 진입했다. 지난 금요일 미국장은 7월 고용지표 하회를 계기로 9월 인상 확률이 급락하면서 S&P500이 7,757.64(+0.62%) 사상 최고 마감, 나스닥은 26,690.62(+1.30%)로 4월 이후 최고의 주간을 기록했다. 10년물 4.66%(-0.01%p), 13주-10년 스프레드 +0.95%p로 금리 곡선은 정상이며 금리 부담이 완화되는 방향이다. 원/달러는 1,410.08원으로 -0.86% 절상돼 외국인 수급에는 우호적이나 수출주 마진에는 소폭 역풍이며, 오늘 코스피는 6,279.47(+0.33%)로 강보합 출발했다.</div></div><div class="analysis-section"><div class="analysis-label">섹터 동향</div><div class="analysis-text">2차전지가 가장 뚜렷한 강세다. 삼성SDI +7.49%, LG화학 +5.75%, 에코프로비엠 +4.39%, LG에너지솔루션 +4.35%로 섹터 전반이 동반 상승했고 전고체 배터리 테마 보도가 이를 뒷받침한다. 반면 반도체는 SK하이닉스 -4.88%(8/5 고점 1,668,000원 대비 -14.7%)로 조정이 깊고 삼성전자도 +0.22% 반등에 그쳐 주도권을 내줬으며, 로봇주도 에스피지 -6.18%·레인보우로보틱스 -5.01%로 차익 실현이 나왔다. 금융은 신한지주 +2.42%·KB금융 +2.51%·하나금융 +1.93%로 배당·금리 논리에 힘입어 꾸준하고, 플랫폼은 NAVER -7.08% 급락으로 온도차가 크다.</div></div><div class="analysis-section"><div class="analysis-label">보유 종목 평가</div><div class="analysis-text">총자산 11,283,701원 중 현금 6,329,701원(56.1%)으로 현금 비중이 과도하게 높은 상태였다. 셀트리온 +15.38%(199,300원, 4일 연속 상승 후 당일 고가 마감)와 신한지주 +13.10%(110,000원)가 수익을 견인 중이고 LG에너지솔루션도 +6.67%로 2차전지 반등의 수혜를 받고 있어 세 종목 모두 추세가 살아 있다. 문제는 삼성전자 단 하나로, 평단 260,500원 대비 -11.32%로 자동 손절선 -7%를 크게 이탈한 채 방치돼 있었다.</div></div><div class="analysis-section"><div class="analysis-label">전략</div><div class="analysis-text">RISK_ON 체제 + 코스피 강보합이라는 우호적 환경에서 현금 56%는 지나치게 방어적이므로, 손절 규정 집행과 강세 섹터 편입을 동시에 진행했다. 삼성전자 1주를 규정대로 손절하고, 그 자금과 유휴 현금을 2차전지 최강 모멘텀인 삼성SDI 3주(+7.49%)와 소재 4일 연속 상승 종목인 POSCO홀딩스 4주(+3.76%)에 배분한다. 거래 후 포지션 5종 7,424,000원(65.8%)·현금 3,857,795원(34.2%)으로 종목당 15%·전체 80%·동일그룹 2종·일일 10회 한도를 모두 충족한다.</div></div><div class="analysis-section"><div class="analysis-label">홀드 사유</div><ul class="analysis-list"><li>홀드: 셀트리온 — +15.38%로 익절선 +20% 미달이고 4거래일 연속 상승 중 당일 고가 마감(199,300원)이라 추세가 훼손되지 않았다. 4중작용 비만 신약 비임상 결과 연내 공개 모멘텀도 유효</li><li>홀드: 신한지주 — +13.10%, 당일 +2.42%로 은행 섹터 동반 강세. 금리 동결 장기화 국면의 배당 매력 논리가 유지돼 익절선까지 여유를 둔다</li><li>홀드: LG에너지솔루션 — +6.67%, 당일 +4.35%로 2차전지 섹터 강세에 정확히 올라타 있다. 추가 매수는 LG 그룹 2종 슬롯을 남겨두기 위해 보류</li></ul></div><div class="analysis-section"><div class="analysis-label">제외 사유</div><ul class="analysis-list"><li>제외: SK하이닉스 — 당일 -4.88%, 8/5 고점 1,668,000원 대비 -14.7% 급락 중이라 하락 추세 진입은 기술적으로 불리. 1주 1,422,000원(총자산의 12.6%)으로 진입 부담도 큼</li><li>제외: NAVER — 당일 -7.08% 급락으로 추세 붕괴. AI 인프라 투자 전략 보도는 있으나 낙폭 확대 국면에서 잡을 이유가 없음</li><li>제외: KB금융·하나금융지주 — 종목 자체는 강세이나 신한지주 보유로 금융 섹터가 이미 채워져 분산 효과가 낮음</li><li>제외: LG화학 — 당일 +5.75%로 매력적이나 LG에너지솔루션 보유 상태에서 담으면 LG 그룹 2종 슬롯을 소진하고 2차전지 편중이 과해짐. 삼성SDI로 대체</li><li>제외: 에스피지(-6.18%)·레인보우로보틱스(-5.01%)·로보티즈(-1.71%) — 로봇 섹터 동반 조정 국면으로 진입 시점이 아님</li></ul></div><div class="analysis-section"><div class="analysis-label">관심 종목</div><ul class="analysis-list"><li>관심: LG화학 — 4거래일 연속 상승(249,500→276,000). LG에너지솔루션 익절 시 교체 편입 1순위</li><li>관심: 에코프로비엠 — 당일 +4.39%, 2차전지 양극재. 삼성SDI·POSCO홀딩스와 중복도가 높아 이번엔 보류했으나 섹터 확산 시 재검토</li><li>관심: 에이비엘바이오 — 당일 +3.96%, 80,400→86,600원 4일 연속 상승. 셀트리온 익절 후 바이오 익스포저 승계 후보</li><li>관심: SK하이닉스 — 급락 후 반등 확인 시 반도체 대장주로 복귀 검토. 1,409,000원 지지 여부가 관건</li><li>관심: 에이피알 — 당일 +1.72%, 반도체 사이클과 상관관계가 낮은 실적 성장주 대안</li></ul></div><div class="analysis-section"><div class="analysis-label">리스크 메모</div><div class="analysis-text risk">유동 워치리스트는 10슬롯이 모두 찬 상태이며 이번 세션에는 교체를 정당화할 만한 신규 종목이 없어 변경하지 않았다. 금주 미국 인플레이션 지표 발표와 호르무즈 해협 관련 협상 뉴스가 변동성 요인이며, 유가 78.82달러(+0.82%)와 금 4,399.40달러(+1.35%) 동반 강세는 지정학 리스크가 완전히 해소되지 않았음을 시사한다. 원/달러 1,410원대의 추가 절상은 현대차·기아 등 수출주 마진에 부담이므로 자동차 섹터 편입은 보류한다.</div></div></div><div class="session-panel " data-session-idx="1"><div class="analysis-section"><div class="analysis-label">시장 판단</div><div class="analysis-text">VIX 14.90(-1.65%)으로 15선을 밑돌며 RISK_ON 체제에 진입했고, 코스피는 6,292.04로 +0.53% 상승 마감했다. 원/달러는 1,416.98원으로 -0.37% 원화 강세, WTI는 77.79달러로 -0.5% 안정된 반면 금은 4,406.70달러로 +1.52% 급등해 안전자산 수요가 병존하는 혼재 국면이다. 미국은 8/7 기준 S&P500 +0.62%, 나스닥 +1.3%로 강세였고 7월 고용지표 하회로 9월 금리 인상 기대가 후퇴했으나, 10년물 4.66%·30년물 5.211%로 장기금리 절대 레벨은 여전히 높다. 10년물-13주물 스프레드는 0.95%p로 완만한 정상 커브를 유지 중이다.</div></div><div class="analysis-section"><div class="analysis-label">섹터 동향</div><div class="analysis-text">금융이 가장 뚜렷한 약세로 신한지주 -3.36%, 하나금융지주 -3.04%, KB금융 -2.39%가 일제히 밀리며 최근 방어주 순환매 자금이 이탈했다. 반대로 로봇(로보티즈 +6.75%, 두산로보틱스 +4.67%, 에스피지 +4.33%, 레인보우로보틱스 +3.98%)과 2차전지·소재(삼성SDI +5.12%, 에코프로비엠 +6.36%, LG에너지솔루션 +1.94%, POSCO홀딩스 +1.66%)가 섹터 단위로 동반 상승했고, 증권(미래에셋증권 +6.64%)과 바이오(에이비엘바이오 +7.16%)도 강했다. 반도체는 대형주 삼성전자 -0.43%·SK하이닉스 -0.70%가 조정을 이어간 반면 AI 기판주 이수페타시스가 +11.66%로 홀로 급등해 밸류체인 내 자금 이동이 관찰된다.</div></div><div class="analysis-section"><div class="analysis-label">보유 종목 평가</div><div class="analysis-text">삼성전자는 평단 260,500원 대비 -11.71%로 손절선 -7%를 크게 이탈해 규정에 따라 1주 전량 정리했다. 신한지주는 -3.36% 하락했으나 평가손익 +9.29%를 유지 중이고 최근 고점 110,000원 대비 -3.36%로 트레일링 스탑 -5%에 미달해 보유를 유지했으며, 셀트리온은 +0.48%로 5거래일 연속 상승하며 평가손익 +15.93%로 익절선 +20%에 근접했다. LG에너지솔루션은 +1.94%로 5거래일 최고 종가를 경신하며 평가손익 +8.74%로 추세가 살아있다.</div></div><div class="analysis-section"><div class="analysis-label">전략</div><div class="analysis-text">현금 비중이 56.6%로 과도하게 유휴 상태였고 VIX 14.90 RISK_ON 체제가 확인돼, 손절 1건으로 확보한 재원을 포함해 신고가 돌파 2종목에 각각 총자산 약 9.9%씩 분산 투입했다. 종목 선정은 기술적 신고가 돌파와 거래량 수반을 1차 필터로, 기존 포트폴리오(금융·바이오·2차전지)와 상관관계가 낮은 섹터를 2차 필터로 적용해 이수페타시스(AI 기판)와 두산로보틱스(로봇)를 골랐다. 매수 후에도 포지션 비중은 약 62%, 현금은 약 39%로 전체 80% 한도와 현금 20% 하한을 모두 충족한다.</div></div><div class="analysis-section"><div class="analysis-label">홀드 사유</div><ul class="analysis-list"><li>홀드: 신한지주 -- 당일 -3.36%로 금융 섹터 동반 약세를 겪었으나 평가손익 +9.29% 유지, 최근 고점 110,000원 대비 -3.36%로 트레일링 스탑 -5% 미도달</li><li>홀드: 셀트리온 -- +0.48%로 5거래일 연속 상승(185,800원→200,250원), 평가손익 +15.93%로 익절선 +20% 미도달. 비만 신약 비임상 결과 연내 공개 모멘텀 유효</li><li>홀드: LG에너지솔루션 -- +1.94%로 5거래일 최고 종가 367,000원 경신, 평가손익 +8.74%. 2차전지 섹터 강세 흐름의 직접 수혜</li></ul></div><div class="analysis-section"><div class="analysis-label">제외 사유</div><ul class="analysis-list"><li>제외: SK하이닉스 -- -0.70%로 4거래일 연속 하락(1,668,000원→1,412,000원, -15.4%), 하락 추세 진행 중이라 기술적 진입 시점 아님</li><li>제외: 삼성SDI -- +5.12%로 강하나 5거래일 +15.0% 급등 후 진입은 추격매수 부담이 크고, LG에너지솔루션으로 이미 2차전지 익스포저 보유</li><li>제외: 에이비엘바이오 -- +7.16% 모멘텀은 우수하나 셀트리온 비중이 이미 총자산 17.9%로 바이오 섹터 집중도가 과다</li><li>제외: KB금융·하나금융지주 -- 각각 -2.39%, -3.04%로 금융 섹터 전반 자금 이탈 국면이고 신한지주로 이미 금융 익스포저 보유</li><li>제외: 에스피지 -- +4.33%이나 종가 106,100원이 8/4 종가 108,800원을 여전히 밑돌아 로봇 섹터 내 상대강도가 두산로보틱스보다 열위</li><li>제외: 레인보우로보틱스 -- +3.98%이나 종가 483,500원이 8/6 종가 489,500원 아래로 신고가 미돌파, 주당 단가가 높아 분할 조정도 어려움</li><li>제외: 카카오·NAVER -- 각각 -1.25%, -0.48%로 AI 수익화 기사에도 시세는 무반응, 매수 근거가 되는 수치 신호 부재</li></ul></div><div class="analysis-section"><div class="analysis-label">관심 종목</div><ul class="analysis-list"><li>관심: 삼성SDI -- 전고체 배터리 테마 자금 유입으로 5거래일 +15.0%. 눌림목 형성 시 2차전지 두 번째 축으로 검토 (삼성 그룹 보유 0종이라 그룹 한도 여유)</li><li>관심: 미래에셋증권 -- +6.64%로 5거래일 최고 종가 돌파. 은행주가 밀리는 가운데 증권주만 강세라 거래대금 증가 수혜 여부를 다음 세션 거래량으로 확인</li><li>관심: 에코프로비엠 -- +6.36%로 5거래일 최고 종가(107,000원) 돌파. 2차전지 순환 반등의 양극재 대표주로 추세 지속성 관찰</li><li>관심: 로보티즈 -- +6.75%로 신고가 돌파. 두산로보틱스와 함께 로봇 섹터 이중 편입은 집중도상 보류했으나 섹터 주도주 교체 시 대안</li><li>관심: 셀트리온 -- +15.93%로 익절선 +20%(207,276원)까지 3.5% 남음. 도달 시 규정대로 익절 집행 예정</li><li>관심: 삼성전자 -- 손절 후 재진입 후보. 5일 이동 추세가 하락에서 반전하고 거래량이 회복되면 반도체 대형주 익스포저 재구축 검토</li></ul></div><div class="analysis-section"><div class="analysis-label">리스크 메모</div><div class="analysis-text risk">셀트리온 평가금액이 2,002,500원으로 총자산의 17.9%에 달해 종목당 15% 한도를 초과한 상태다. 신규 매수가 아닌 주가 상승에 따른 자연 증가분이며, 익절선 +20%(207,276원) 도달 시 규정대로 정리해 비중을 정상화할 계획이므로 추가 매수는 하지 않는다. 미국발 리스크로는 호르무즈 해협 협상과 인플레이션 지표 발표 대기가 겹쳐 있고, 연준이 3.50~3.75%에서 5연속 동결했으나 인상 가능성을 배제하지 못한다는 이코노미스트 견해가 남아 있어 금리 재상승 시 금융주와 성장주 방향이 엇갈릴 수 있다. 금 +1.52% 급등은 RISK_ON 지표와 상충하는 신호이므로 VIX가 15선을 다시 상회하면 신규 편입을 중단한다.</div></div></div>
+            <div class="tabs session-tabs"><div class="tab active" onclick="switchSessionTab(0)" data-session-idx="0">🇰🇷 2026-08-10 AM</div><div class="tab " onclick="switchSessionTab(1)" data-session-idx="1">🇺🇸 2026-08-10 PM</div><div class="tab " onclick="switchSessionTab(2)" data-session-idx="2">🇰🇷 2026-08-10 PM</div></div><div class="session-panel active" data-session-idx="0"><div class="analysis-section"><div class="analysis-label">시장 판단</div><div class="analysis-text">VIX 14.90(-1.65%)으로 15 아래에 안착하며 RISK_ON 체제에 진입했다. 지난 금요일 미국장은 7월 고용지표 하회를 계기로 9월 인상 확률이 급락하면서 S&P500이 7,757.64(+0.62%) 사상 최고 마감, 나스닥은 26,690.62(+1.30%)로 4월 이후 최고의 주간을 기록했다. 10년물 4.66%(-0.01%p), 13주-10년 스프레드 +0.95%p로 금리 곡선은 정상이며 금리 부담이 완화되는 방향이다. 원/달러는 1,410.08원으로 -0.86% 절상돼 외국인 수급에는 우호적이나 수출주 마진에는 소폭 역풍이며, 오늘 코스피는 6,279.47(+0.33%)로 강보합 출발했다.</div></div><div class="analysis-section"><div class="analysis-label">섹터 동향</div><div class="analysis-text">2차전지가 가장 뚜렷한 강세다. 삼성SDI +7.49%, LG화학 +5.75%, 에코프로비엠 +4.39%, LG에너지솔루션 +4.35%로 섹터 전반이 동반 상승했고 전고체 배터리 테마 보도가 이를 뒷받침한다. 반면 반도체는 SK하이닉스 -4.88%(8/5 고점 1,668,000원 대비 -14.7%)로 조정이 깊고 삼성전자도 +0.22% 반등에 그쳐 주도권을 내줬으며, 로봇주도 에스피지 -6.18%·레인보우로보틱스 -5.01%로 차익 실현이 나왔다. 금융은 신한지주 +2.42%·KB금융 +2.51%·하나금융 +1.93%로 배당·금리 논리에 힘입어 꾸준하고, 플랫폼은 NAVER -7.08% 급락으로 온도차가 크다.</div></div><div class="analysis-section"><div class="analysis-label">보유 종목 평가</div><div class="analysis-text">총자산 11,283,701원 중 현금 6,329,701원(56.1%)으로 현금 비중이 과도하게 높은 상태였다. 셀트리온 +15.38%(199,300원, 4일 연속 상승 후 당일 고가 마감)와 신한지주 +13.10%(110,000원)가 수익을 견인 중이고 LG에너지솔루션도 +6.67%로 2차전지 반등의 수혜를 받고 있어 세 종목 모두 추세가 살아 있다. 문제는 삼성전자 단 하나로, 평단 260,500원 대비 -11.32%로 자동 손절선 -7%를 크게 이탈한 채 방치돼 있었다.</div></div><div class="analysis-section"><div class="analysis-label">전략</div><div class="analysis-text">RISK_ON 체제 + 코스피 강보합이라는 우호적 환경에서 현금 56%는 지나치게 방어적이므로, 손절 규정 집행과 강세 섹터 편입을 동시에 진행했다. 삼성전자 1주를 규정대로 손절하고, 그 자금과 유휴 현금을 2차전지 최강 모멘텀인 삼성SDI 3주(+7.49%)와 소재 4일 연속 상승 종목인 POSCO홀딩스 4주(+3.76%)에 배분한다. 거래 후 포지션 5종 7,424,000원(65.8%)·현금 3,857,795원(34.2%)으로 종목당 15%·전체 80%·동일그룹 2종·일일 10회 한도를 모두 충족한다.</div></div><div class="analysis-section"><div class="analysis-label">홀드 사유</div><ul class="analysis-list"><li>홀드: 셀트리온 — +15.38%로 익절선 +20% 미달이고 4거래일 연속 상승 중 당일 고가 마감(199,300원)이라 추세가 훼손되지 않았다. 4중작용 비만 신약 비임상 결과 연내 공개 모멘텀도 유효</li><li>홀드: 신한지주 — +13.10%, 당일 +2.42%로 은행 섹터 동반 강세. 금리 동결 장기화 국면의 배당 매력 논리가 유지돼 익절선까지 여유를 둔다</li><li>홀드: LG에너지솔루션 — +6.67%, 당일 +4.35%로 2차전지 섹터 강세에 정확히 올라타 있다. 추가 매수는 LG 그룹 2종 슬롯을 남겨두기 위해 보류</li></ul></div><div class="analysis-section"><div class="analysis-label">제외 사유</div><ul class="analysis-list"><li>제외: SK하이닉스 — 당일 -4.88%, 8/5 고점 1,668,000원 대비 -14.7% 급락 중이라 하락 추세 진입은 기술적으로 불리. 1주 1,422,000원(총자산의 12.6%)으로 진입 부담도 큼</li><li>제외: NAVER — 당일 -7.08% 급락으로 추세 붕괴. AI 인프라 투자 전략 보도는 있으나 낙폭 확대 국면에서 잡을 이유가 없음</li><li>제외: KB금융·하나금융지주 — 종목 자체는 강세이나 신한지주 보유로 금융 섹터가 이미 채워져 분산 효과가 낮음</li><li>제외: LG화학 — 당일 +5.75%로 매력적이나 LG에너지솔루션 보유 상태에서 담으면 LG 그룹 2종 슬롯을 소진하고 2차전지 편중이 과해짐. 삼성SDI로 대체</li><li>제외: 에스피지(-6.18%)·레인보우로보틱스(-5.01%)·로보티즈(-1.71%) — 로봇 섹터 동반 조정 국면으로 진입 시점이 아님</li></ul></div><div class="analysis-section"><div class="analysis-label">관심 종목</div><ul class="analysis-list"><li>관심: LG화학 — 4거래일 연속 상승(249,500→276,000). LG에너지솔루션 익절 시 교체 편입 1순위</li><li>관심: 에코프로비엠 — 당일 +4.39%, 2차전지 양극재. 삼성SDI·POSCO홀딩스와 중복도가 높아 이번엔 보류했으나 섹터 확산 시 재검토</li><li>관심: 에이비엘바이오 — 당일 +3.96%, 80,400→86,600원 4일 연속 상승. 셀트리온 익절 후 바이오 익스포저 승계 후보</li><li>관심: SK하이닉스 — 급락 후 반등 확인 시 반도체 대장주로 복귀 검토. 1,409,000원 지지 여부가 관건</li><li>관심: 에이피알 — 당일 +1.72%, 반도체 사이클과 상관관계가 낮은 실적 성장주 대안</li></ul></div><div class="analysis-section"><div class="analysis-label">리스크 메모</div><div class="analysis-text risk">유동 워치리스트는 10슬롯이 모두 찬 상태이며 이번 세션에는 교체를 정당화할 만한 신규 종목이 없어 변경하지 않았다. 금주 미국 인플레이션 지표 발표와 호르무즈 해협 관련 협상 뉴스가 변동성 요인이며, 유가 78.82달러(+0.82%)와 금 4,399.40달러(+1.35%) 동반 강세는 지정학 리스크가 완전히 해소되지 않았음을 시사한다. 원/달러 1,410원대의 추가 절상은 현대차·기아 등 수출주 마진에 부담이므로 자동차 섹터 편입은 보류한다.</div></div></div><div class="session-panel " data-session-idx="1"><div class="analysis-section"><div class="analysis-label">시장 판단</div><div class="analysis-text">VIX 15.41(+3.42%)로 NEUTRAL 체제 하단에 위치하며, 3대 지수는 S&P -0.11%, 나스닥 -0.29%, 다우 -0.13%로 방향성 없는 관망 흐름이다. 금리 쪽이 부담 요인으로, 10년물 4.676%·30년물 5.221%로 소폭 상승했고 10년-13주 스프레드는 0.958%p로 여전히 정상(우상향) 곡선을 유지한다. 연준은 3.50~3.75%에서 5연속 동결했고 9월 인상 기대가 후퇴했다는 보도(CBS, 8/7)가 나오면서 금리 공포는 완화되는 국면이다. 다만 금 4,389.40(+1.12%)과 WTI 79.49(+1.68%)의 동반 강세, 호르무즈 해협 관련 헤드라인은 잔존 지정학 리스크를 시사한다.</div></div><div class="analysis-section"><div class="analysis-label">섹터 동향</div><div class="analysis-text">빅테크와 반도체가 갈라졌다. MSFT +0.70%, META +1.03%로 소프트웨어·플랫폼 대형주가 지수를 웃돈 반면 AAPL -2.14%, GOOGL은 5거래일간 377.65→356.00으로 추세 훼손이 뚜렷하다. 반도체는 NVDA -0.60%, TSM -0.69%, MU -1.64%로 당일은 쉬어가지만 NVDA·AVGO의 5거래일 추세선은 온전히 살아 있어 조정이 아닌 눌림으로 판단한다. 양자컴퓨팅은 RGTI +0.56% vs IONQ -3.28%로 종목별 차별화가 시작됐고, 금융(JPM +0.04%, V +0.14%)과 헬스케어(UNH +1.24%)는 자금 유입 신호가 약하다.</div></div><div class="analysis-section"><div class="analysis-label">보유 종목 평가</div><div class="analysis-text">금일이 계좌 개시일로 보유 포지션은 없었고 현금 $100,000 전액이 미투자 상태였다. 따라서 기존 종목 평가는 해당 사항이 없으며, 이번 세션은 첫 포트폴리오 구축이 과제였다. 신규 6종 매수 후 투자금 $65,966.90(66.0%), 현금 $34,033.10(34.0%)이 되며 전 종목이 종목당 15% 한도 아래에 위치한다.</div></div><div class="analysis-section"><div class="analysis-label">전략</div><div class="analysis-text">NEUTRAL 체제이고 지수가 보합권이라 첫날 전량 투입 대신 총자산의 66%만 배분해 34%를 예비 현금으로 남겼다 — 이 데이터가 미국 장 초반(한국시간 22:35, 현지 09:35) 스냅샷이라 종가가 확정되지 않은 점을 감안한 보수적 배분이다. 기술적 40%·모멘텀 35% 축에서는 5거래일 추세가 훼손되지 않은 META·AVGO·MSFT·NVDA를 골랐고, 매크로 25% 축에서는 금리 상승이 부담인 고밸류 성장주 대신 실적으로 뒷받침되는 대형주로 한정했다. AAPL·GOOGL·MU·V·IONQ는 추세 훼손 또는 당일 급락으로 제외했다.</div></div><div class="analysis-section"><div class="analysis-label">홀드 사유</div><ul class="analysis-list"><li>홀드: 현금 34.0% -- 계좌 개시일이며 장 초반 데이터 기준이라 종가 확정 후 추가 배분 여지를 남김</li><li>홀드: 잔여 워치리스트 8종 -- 진입 근거가 모멘텀 상위 6종에 미치지 못해 다음 세션 재평가</li></ul></div><div class="analysis-section"><div class="analysis-label">제외 사유</div><ul class="analysis-list"><li>제외: Apple -- 당일 -2.14%로 5거래일 저점 이탈, 313.33에서 306.62까지 밀리며 지지선 붕괴</li><li>제외: Alphabet -- 8/4 377.65에서 8/10 356.00까지 -5.7% 하락 추세, 당일 +0.48% 반등은 추세 전환 근거로 불충분</li><li>제외: Micron -- 당일 -1.64%, 8/5 고점 893.19 대비 -3.4%로 반도체 내 상대약세</li><li>제외: IonQ -- 당일 -3.28%, 같은 양자 섹터 RGTI(+0.56%) 대비 열위</li><li>제외: Visa -- 8/6 370.47 이후 하락 전환, 당일 +0.14%로 반등 동력 부재</li><li>제외: Amazon/Tesla -- 각각 -0.11%, -0.01%로 방향성 부재, 진입 우위 없음</li><li>제외: JPMorgan/UnitedHealth -- 금리 상승 수혜 논리는 있으나 5거래일 추세가 횡보라 모멘텀 점수 미달</li><li>제외: QQQ -- SPY와 중복 익스포저, 개별 빅테크 보유로 이미 나스닥 베타 확보</li></ul></div><div class="analysis-section"><div class="analysis-label">관심 종목</div><ul class="analysis-list"><li>관심: Micron -- HBM 사이클 대표주, 863달러대에서 하락 멈추고 반등 확인되면 반도체 3번 축으로 진입 검토</li><li>관심: Taiwan Semiconductor -- 417.15로 5거래일 박스권, 상단 424 돌파 시 파운드리 익스포저로 편입 검토</li><li>관심: Alphabet -- 낙폭 과대 구간 진입, 356 지지 후 반등 확인되면 빅테크 저가 매수 후보</li><li>관심: Amazon -- 274달러 지지 견고, 방향성 확정 시 빅테크 4번 축 후보</li><li>관심: IonQ -- RGTI와의 양자 섹터 페어. IONQ 급락이 섹터 이탈인지 종목 이슈인지 다음 세션 교차 확인 필요</li></ul></div><div class="analysis-section"><div class="analysis-label">리스크 메모</div><div class="analysis-text risk">단일 섹터 기준으로는 한도를 넘지 않으나(투자금 대비 반도체 39.7%, 빅테크 37.2%), 두 섹터가 사실상 하나의 AI 테마 상관 클러스터라 투자금의 77%가 동일 리스크에 노출된다. 직전 회고(수익 97%가 AI 반도체 단일 테마)를 감안해 SPY 11.6%와 현금 34%로 완충했고, 다음 세션에 AI 테마와 상관이 낮은 축(헬스케어·금융·소비재) 편입을 우선 검토한다. 금리 측면에서 30년물 5.221%는 고밸류 성장주에 상시 부담이며, 금(+1.12%)·유가(+1.68%) 동반 강세와 호르무즈 해협 협상 헤드라인은 지정학 변동성 재확대 가능성을 시사한다. 또한 이번 데이터는 미국 장 초반 스냅샷(거래량이 과거 대비 5~10% 수준)이라 종가 기준 판단과 괴리가 생길 수 있어 다음 세션에 확정 종가로 포지션을 재점검한다.</div></div></div><div class="session-panel " data-session-idx="2"><div class="analysis-section"><div class="analysis-label">시장 판단</div><div class="analysis-text">VIX 14.90(-1.65%)으로 15선을 밑돌며 RISK_ON 체제에 진입했고, 코스피는 6,292.04로 +0.53% 상승 마감했다. 원/달러는 1,416.98원으로 -0.37% 원화 강세, WTI는 77.79달러로 -0.5% 안정된 반면 금은 4,406.70달러로 +1.52% 급등해 안전자산 수요가 병존하는 혼재 국면이다. 미국은 8/7 기준 S&P500 +0.62%, 나스닥 +1.3%로 강세였고 7월 고용지표 하회로 9월 금리 인상 기대가 후퇴했으나, 10년물 4.66%·30년물 5.211%로 장기금리 절대 레벨은 여전히 높다. 10년물-13주물 스프레드는 0.95%p로 완만한 정상 커브를 유지 중이다.</div></div><div class="analysis-section"><div class="analysis-label">섹터 동향</div><div class="analysis-text">금융이 가장 뚜렷한 약세로 신한지주 -3.36%, 하나금융지주 -3.04%, KB금융 -2.39%가 일제히 밀리며 최근 방어주 순환매 자금이 이탈했다. 반대로 로봇(로보티즈 +6.75%, 두산로보틱스 +4.67%, 에스피지 +4.33%, 레인보우로보틱스 +3.98%)과 2차전지·소재(삼성SDI +5.12%, 에코프로비엠 +6.36%, LG에너지솔루션 +1.94%, POSCO홀딩스 +1.66%)가 섹터 단위로 동반 상승했고, 증권(미래에셋증권 +6.64%)과 바이오(에이비엘바이오 +7.16%)도 강했다. 반도체는 대형주 삼성전자 -0.43%·SK하이닉스 -0.70%가 조정을 이어간 반면 AI 기판주 이수페타시스가 +11.66%로 홀로 급등해 밸류체인 내 자금 이동이 관찰된다.</div></div><div class="analysis-section"><div class="analysis-label">보유 종목 평가</div><div class="analysis-text">삼성전자는 평단 260,500원 대비 -11.71%로 손절선 -7%를 크게 이탈해 규정에 따라 1주 전량 정리했다. 신한지주는 -3.36% 하락했으나 평가손익 +9.29%를 유지 중이고 최근 고점 110,000원 대비 -3.36%로 트레일링 스탑 -5%에 미달해 보유를 유지했으며, 셀트리온은 +0.48%로 5거래일 연속 상승하며 평가손익 +15.93%로 익절선 +20%에 근접했다. LG에너지솔루션은 +1.94%로 5거래일 최고 종가를 경신하며 평가손익 +8.74%로 추세가 살아있다.</div></div><div class="analysis-section"><div class="analysis-label">전략</div><div class="analysis-text">현금 비중이 56.6%로 과도하게 유휴 상태였고 VIX 14.90 RISK_ON 체제가 확인돼, 손절 1건으로 확보한 재원을 포함해 신고가 돌파 2종목에 각각 총자산 약 9.9%씩 분산 투입했다. 종목 선정은 기술적 신고가 돌파와 거래량 수반을 1차 필터로, 기존 포트폴리오(금융·바이오·2차전지)와 상관관계가 낮은 섹터를 2차 필터로 적용해 이수페타시스(AI 기판)와 두산로보틱스(로봇)를 골랐다. 매수 후에도 포지션 비중은 약 62%, 현금은 약 39%로 전체 80% 한도와 현금 20% 하한을 모두 충족한다.</div></div><div class="analysis-section"><div class="analysis-label">홀드 사유</div><ul class="analysis-list"><li>홀드: 신한지주 -- 당일 -3.36%로 금융 섹터 동반 약세를 겪었으나 평가손익 +9.29% 유지, 최근 고점 110,000원 대비 -3.36%로 트레일링 스탑 -5% 미도달</li><li>홀드: 셀트리온 -- +0.48%로 5거래일 연속 상승(185,800원→200,250원), 평가손익 +15.93%로 익절선 +20% 미도달. 비만 신약 비임상 결과 연내 공개 모멘텀 유효</li><li>홀드: LG에너지솔루션 -- +1.94%로 5거래일 최고 종가 367,000원 경신, 평가손익 +8.74%. 2차전지 섹터 강세 흐름의 직접 수혜</li></ul></div><div class="analysis-section"><div class="analysis-label">제외 사유</div><ul class="analysis-list"><li>제외: SK하이닉스 -- -0.70%로 4거래일 연속 하락(1,668,000원→1,412,000원, -15.4%), 하락 추세 진행 중이라 기술적 진입 시점 아님</li><li>제외: 삼성SDI -- +5.12%로 강하나 5거래일 +15.0% 급등 후 진입은 추격매수 부담이 크고, LG에너지솔루션으로 이미 2차전지 익스포저 보유</li><li>제외: 에이비엘바이오 -- +7.16% 모멘텀은 우수하나 셀트리온 비중이 이미 총자산 17.9%로 바이오 섹터 집중도가 과다</li><li>제외: KB금융·하나금융지주 -- 각각 -2.39%, -3.04%로 금융 섹터 전반 자금 이탈 국면이고 신한지주로 이미 금융 익스포저 보유</li><li>제외: 에스피지 -- +4.33%이나 종가 106,100원이 8/4 종가 108,800원을 여전히 밑돌아 로봇 섹터 내 상대강도가 두산로보틱스보다 열위</li><li>제외: 레인보우로보틱스 -- +3.98%이나 종가 483,500원이 8/6 종가 489,500원 아래로 신고가 미돌파, 주당 단가가 높아 분할 조정도 어려움</li><li>제외: 카카오·NAVER -- 각각 -1.25%, -0.48%로 AI 수익화 기사에도 시세는 무반응, 매수 근거가 되는 수치 신호 부재</li></ul></div><div class="analysis-section"><div class="analysis-label">관심 종목</div><ul class="analysis-list"><li>관심: 삼성SDI -- 전고체 배터리 테마 자금 유입으로 5거래일 +15.0%. 눌림목 형성 시 2차전지 두 번째 축으로 검토 (삼성 그룹 보유 0종이라 그룹 한도 여유)</li><li>관심: 미래에셋증권 -- +6.64%로 5거래일 최고 종가 돌파. 은행주가 밀리는 가운데 증권주만 강세라 거래대금 증가 수혜 여부를 다음 세션 거래량으로 확인</li><li>관심: 에코프로비엠 -- +6.36%로 5거래일 최고 종가(107,000원) 돌파. 2차전지 순환 반등의 양극재 대표주로 추세 지속성 관찰</li><li>관심: 로보티즈 -- +6.75%로 신고가 돌파. 두산로보틱스와 함께 로봇 섹터 이중 편입은 집중도상 보류했으나 섹터 주도주 교체 시 대안</li><li>관심: 셀트리온 -- +15.93%로 익절선 +20%(207,276원)까지 3.5% 남음. 도달 시 규정대로 익절 집행 예정</li><li>관심: 삼성전자 -- 손절 후 재진입 후보. 5일 이동 추세가 하락에서 반전하고 거래량이 회복되면 반도체 대형주 익스포저 재구축 검토</li></ul></div><div class="analysis-section"><div class="analysis-label">리스크 메모</div><div class="analysis-text risk">셀트리온 평가금액이 2,002,500원으로 총자산의 17.9%에 달해 종목당 15% 한도를 초과한 상태다. 신규 매수가 아닌 주가 상승에 따른 자연 증가분이며, 익절선 +20%(207,276원) 도달 시 규정대로 정리해 비중을 정상화할 계획이므로 추가 매수는 하지 않는다. 미국발 리스크로는 호르무즈 해협 협상과 인플레이션 지표 발표 대기가 겹쳐 있고, 연준이 3.50~3.75%에서 5연속 동결했으나 인상 가능성을 배제하지 못한다는 이코노미스트 견해가 남아 있어 금리 재상승 시 금융주와 성장주 방향이 엇갈릴 수 있다. 금 +1.52% 급등은 RISK_ON 지표와 상충하는 신호이므로 VIX가 15선을 다시 상회하면 신규 편입을 중단한다.</div></div></div>
         </div>
     </div>
 </div>
@@ -1104,6 +1236,72 @@ tr:last-child td { border-bottom: none; }
             <th class="num">수량</th><th class="num">가격</th><th>상태</th><th>주문번호</th>
         </tr></thead>
         <tbody>
+            <tr>
+                <td>2026-08-10T22:38:15</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">NVDA</td>
+                <td>NVIDIA</td>
+                <td class="num">60</td>
+                <td class="num">$222.62</td>
+                <td class="status-ok">accepted</td>
+                <td class="order-id">0000039007</td>
+            </tr>
+            <tr>
+                <td>2026-08-10T22:38:15</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">AVGO</td>
+                <td>Broadcom</td>
+                <td class="num">30</td>
+                <td class="num">$428.71</td>
+                <td class="status-ok">accepted</td>
+                <td class="order-id">0000039008</td>
+            </tr>
+            <tr>
+                <td>2026-08-10T22:38:17</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">MSFT</td>
+                <td>Microsoft</td>
+                <td class="num">25</td>
+                <td class="num">$503.49</td>
+                <td class="status-ok">accepted</td>
+                <td class="order-id">0000039010</td>
+            </tr>
+            <tr>
+                <td>2026-08-10T22:38:18</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">META</td>
+                <td>Meta</td>
+                <td class="num">20</td>
+                <td class="num">$598.20</td>
+                <td class="status-ok">accepted</td>
+                <td class="order-id">0000039012</td>
+            </tr>
+            <tr>
+                <td>2026-08-10T22:38:19</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">SPY</td>
+                <td>SPDR S&P 500</td>
+                <td class="num">15</td>
+                <td class="num">$772.61</td>
+                <td class="status-ok">accepted</td>
+                <td class="order-id">0000039013</td>
+            </tr>
+            <tr>
+                <td>2026-08-10T22:38:21</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">RGTI</td>
+                <td>Rigetti Computing</td>
+                <td class="num">200</td>
+                <td class="num">$18.04</td>
+                <td class="status-ok">accepted</td>
+                <td class="order-id">0000039016</td>
+            </tr>
             <tr>
                 <td>2026-08-10T15:15:32</td>
                 <td>KR</td>
@@ -1204,6 +1402,50 @@ tr:last-child td { border-bottom: none; }
                 <td class="order-id">—</td>
             </tr>
             <tr>
+                <td>2026-08-06T22:42:04</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">UNH</td>
+                <td>UnitedHealth</td>
+                <td class="num">1</td>
+                <td class="num">$410.40</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260806224204</td>
+            </tr>
+            <tr>
+                <td>2026-08-06T04:36:37</td>
+                <td>US</td>
+                <td class="sell">SELL</td>
+                <td class="ticker">AMZN</td>
+                <td>Amazon</td>
+                <td class="num">3</td>
+                <td class="num">$271.29</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260806043637</td>
+            </tr>
+            <tr>
+                <td>2026-08-06T04:36:37</td>
+                <td>US</td>
+                <td class="sell">SELL</td>
+                <td class="ticker">GOOGL</td>
+                <td>Alphabet</td>
+                <td class="num">3</td>
+                <td class="num">$361.89</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260806043637</td>
+            </tr>
+            <tr>
+                <td>2026-08-06T04:36:37</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">META</td>
+                <td>Meta</td>
+                <td class="num">1</td>
+                <td class="num">$588.64</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260806043637</td>
+            </tr>
+            <tr>
                 <td>2026-08-06T15:14:17</td>
                 <td>KR</td>
                 <td class="sell">SELL</td>
@@ -1292,6 +1534,39 @@ tr:last-child td { border-bottom: none; }
                 <td class="order-id">—</td>
             </tr>
             <tr>
+                <td>2026-08-05T04:53:18</td>
+                <td>US</td>
+                <td class="sell">SELL</td>
+                <td class="ticker">UNH</td>
+                <td>UnitedHealth</td>
+                <td class="num">3</td>
+                <td class="num">$408.99</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260805045318</td>
+            </tr>
+            <tr>
+                <td>2026-08-05T04:53:18</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">AVGO</td>
+                <td>Broadcom</td>
+                <td class="num">1</td>
+                <td class="num">$420.16</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260805045318</td>
+            </tr>
+            <tr>
+                <td>2026-08-05T04:53:18</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">TSLA</td>
+                <td>Tesla</td>
+                <td class="num">1</td>
+                <td class="num">$327.93</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260805045318</td>
+            </tr>
+            <tr>
                 <td>2026-08-05T15:13:42</td>
                 <td>KR</td>
                 <td class="sell">SELL</td>
@@ -1367,6 +1642,17 @@ tr:last-child td { border-bottom: none; }
                 <td class="num">₩226,500</td>
                 <td class="status-err">error</td>
                 <td class="order-id">—</td>
+            </tr>
+            <tr>
+                <td>2026-08-04T05:01:04</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">NVDA</td>
+                <td>NVIDIA</td>
+                <td class="num">3</td>
+                <td class="num">$207.76</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260804050104</td>
             </tr>
             <tr>
                 <td>2026-08-04T15:13:40</td>
@@ -1457,6 +1743,28 @@ tr:last-child td { border-bottom: none; }
                 <td class="order-id">—</td>
             </tr>
             <tr>
+                <td>2026-08-03T22:56:32</td>
+                <td>US</td>
+                <td class="sell">SELL</td>
+                <td class="ticker">AAPL</td>
+                <td>Apple</td>
+                <td class="num">3</td>
+                <td class="num">$308.35</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260803225632</td>
+            </tr>
+            <tr>
+                <td>2026-08-03T22:56:32</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">GOOGL</td>
+                <td>Alphabet</td>
+                <td class="num">3</td>
+                <td class="num">$368.06</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260803225632</td>
+            </tr>
+            <tr>
                 <td>2026-08-03T15:14:03</td>
                 <td>KR</td>
                 <td class="sell">SELL</td>
@@ -1510,6 +1818,28 @@ tr:last-child td { border-bottom: none; }
                 <td class="num">₩186,700</td>
                 <td class="status-err">error</td>
                 <td class="order-id">—</td>
+            </tr>
+            <tr>
+                <td>2026-07-31T04:35:06</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">MSFT</td>
+                <td>Microsoft</td>
+                <td class="num">1</td>
+                <td class="num">$456.84</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260731043506</td>
+            </tr>
+            <tr>
+                <td>2026-07-31T04:35:06</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">AMZN</td>
+                <td>Amazon</td>
+                <td class="num">3</td>
+                <td class="num">$239.59</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260731043506</td>
             </tr>
             <tr>
                 <td>2026-07-31T15:17:00</td>
@@ -1600,6 +1930,17 @@ tr:last-child td { border-bottom: none; }
                 <td class="order-id">—</td>
             </tr>
             <tr>
+                <td>2026-07-30T22:39:35</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">MSFT</td>
+                <td>Microsoft</td>
+                <td class="num">2</td>
+                <td class="num">$447.28</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260730223935</td>
+            </tr>
+            <tr>
                 <td>2026-07-30T15:15:42</td>
                 <td>KR</td>
                 <td class="sell">SELL</td>
@@ -1655,6 +1996,17 @@ tr:last-child td { border-bottom: none; }
                 <td class="order-id">—</td>
             </tr>
             <tr>
+                <td>2026-07-29T07:56:40</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">AAPL</td>
+                <td>Apple</td>
+                <td class="num">3</td>
+                <td class="num">$339.83</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260729075640</td>
+            </tr>
+            <tr>
                 <td>2026-07-29T15:14:04</td>
                 <td>KR</td>
                 <td class="sell">SELL</td>
@@ -1686,6 +2038,28 @@ tr:last-child td { border-bottom: none; }
                 <td class="num">₩220,000</td>
                 <td class="status-err">error</td>
                 <td class="order-id">—</td>
+            </tr>
+            <tr>
+                <td>2026-07-28T07:16:53</td>
+                <td>US</td>
+                <td class="sell">SELL</td>
+                <td class="ticker">GOOGL</td>
+                <td>Alphabet</td>
+                <td class="num">3</td>
+                <td class="num">$327.61</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260728071653</td>
+            </tr>
+            <tr>
+                <td>2026-07-28T07:16:53</td>
+                <td>US</td>
+                <td class="buy">BUY</td>
+                <td class="ticker">V</td>
+                <td>Visa</td>
+                <td class="num">3</td>
+                <td class="num">$362.39</td>
+                <td class="status-sim">SIM filled</td>
+                <td class="order-id">SIM-20260728071653</td>
             </tr>
             <tr>
                 <td>2026-07-28T09:52:13</td>
@@ -1835,7 +2209,7 @@ tr:last-child td { border-bottom: none; }
 </div>
 
 <p style="text-align:center; color:var(--text-dim); font-size:0.75rem; margin-top:32px;">
-    Trade Forge Broker Dashboard &middot; 마지막 동기화: 2026-08-10T15:30:01
+    Trade Forge Broker Dashboard &middot; 마지막 동기화: 2026-08-10T22:38:24
 </p>
 
 <script>
@@ -1844,17 +2218,24 @@ const krData = {
     equity: [9998134.0, 9946134.0, 9932134.0, 9932134.0, 10010655.0, 10212625.0, 10239625.0, 10121391.0, 10121391.0, 10121391.0, 10474391.0, 10474391.0, 10852271.0, 10852721.0, 10937221.0, 10937221.0, 11030301.0, 10948701.0, 11064629.0, 11122699.0, 10724228.0, 10758508.0, 10741008.0, 10729758.0, 10966788.0, 10991998.0, 11002148.0, 11002148.0, 11065048.0, 11215168.0, 11431068.0, 12086487.0, 12114297.0, 12124097.0, 12043382.0, 11768978.0, 11952569.0, 11663569.0, 11726069.0, 12107069.0, 12282529.0, 12157479.0, 12200609.0, 12266711.0, 12235461.0, 12034211.0, 12171081.0, 12389791.0, 11818151.0, 11992551.0, 12000790.0, 11901090.0, 11827503.0, 12114232.0, 12026762.0, 11967602.0, 11756161.0, 11660091.0, 11882532.0, 11451235.0, 11374315.0, 11575695.0, 11194735.0, 10784231.0, 10841201.0, 10824451.0, 10924701.0, 10888701.0, 10909701.0, 10957951.0, 10783701.0, 10714201.0, 10908701.0, 10966701.0, 10879701.0, 10947701.0, 11039201.0, 11156201.0, 11283701.0, 50000000.0],
     cash: [10000000.0, 3679134.0, 3679134.0, 3679134.0, 3679134.0, 5071155.0, 5071155.0, 4851625.0, 4851625.0, 4851625.0, 6126391.0, 6126391.0, 6126391.0, 6126391.0, 6913421.0, 6913421.0, 6913421.0, 6063301.0, 6063301.0, 9642129.0, 9642129.0, 6607699.0, 7492728.0, 9344758.0, 9344758.0, 9344758.0, 5970288.0, 5970288.0, 2785048.0, 2785048.0, 2785048.0, 5060668.0, 5060668.0, 8260087.0, 8260087.0, 9062782.0, 9062782.0, 11768978.0, 8134069.0, 8134069.0, 8134069.0, 6945309.0, 5663129.0, 7108609.0, 9319769.0, 10466711.0, 10466711.0, 10466711.0, 8999411.0, 5297491.0, 4961651.0, 3328681.0, 4269390.0, 4269390.0, 4215446.0, 4129582.0, 3227462.0, 3585111.0, 3585111.0, 4862491.0, 4219022.0, 7475485.0, 5861375.0, 2620435.0, 2620435.0, 6590231.0, 6329701.0, 6329701.0, 6329701.0, 6329701.0, 6329701.0, 6329701.0, 6329701.0, 6329701.0, 6329701.0, 6329701.0, 6329701.0, 6329701.0, 6329701.0, 50000000.0]
 };
-const krEvents = [{"date": "2026-08-10", "label": "계좌 전환"}];
+const usData = {
+    labels: ["2026-08-10"],
+    equity: [99328.42],
+    cash: [33329.19]
+};
+const tfEvents = { kr: [{"date": "2026-08-10", "label": "계좌 전환"}], us: [{"date": "2026-08-10", "label": "KIS 전환"}] };
+let currentMarket = 'kr';
 let currentChart = null;
 
 // 이벤트 마커 플러그인 — 계좌 전환 등 특이 시점에 세로 점선 + 라벨 표시
 const eventLinePlugin = {
     id: 'eventLines',
     afterDatasetsDraw(chart) {
-        if (!krEvents || !krEvents.length) return;
+        const evs = tfEvents[currentMarket] || [];
+        if (!evs.length) return;
         const {ctx, chartArea, scales} = chart;
         if (!chartArea || !scales.x) return;
-        krEvents.forEach(ev => {
+        evs.forEach(ev => {
             const idx = chart.data.labels.indexOf(ev.date);
             if (idx === -1) return;
             const xPos = scales.x.getPixelForValue(idx);
@@ -1946,7 +2327,10 @@ function createChart(data, currency) {
 }
 
 function switchChart(market) {
-    createChart(krData, 'KRW');
+    currentMarket = market;
+    document.getElementById('tab-kr').classList.toggle('active', market === 'kr');
+    document.getElementById('tab-us').classList.toggle('active', market === 'us');
+    createChart(market === 'kr' ? krData : usData, market === 'kr' ? 'KRW' : 'USD');
 }
 
 // 세션 탭 전환
