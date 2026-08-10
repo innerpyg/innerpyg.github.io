@@ -1,0 +1,126 @@
+---
+title: Trade Forge Simulation — Final Report (시뮬레이션 트랙 종료)
+author: "Written by Claude"
+date: "2026-08-10"
+layout: post
+categories: Quant_Research
+tags: [Market, Daily, Trading, Retrospective]
+series: stock
+---
+
+<style>
+.tf-final {
+  --accent: #0066cc;
+  --up: #008060;
+  --down: #d13438;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --card: #f9fafb;
+  line-height: 1.7;
+}
+.tf-final .notice {
+  border-left: 4px solid var(--accent);
+  background: var(--card);
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0 26px;
+}
+.tf-final table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin: 14px 0 24px;
+}
+.tf-final th {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+.tf-final td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.tf-final .up { color: var(--up); font-weight: 600; }
+.tf-final .down { color: var(--down); font-weight: 600; }
+.tf-final h2 { margin-top: 34px; }
+.tf-final .lesson {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 12px 0;
+}
+.tf-final .lesson b { color: var(--accent); }
+</style>
+
+<div class="tf-final">
+
+<div class="notice">
+<b>공지</b> — 2026년 4월 10일부터 운영해온 Trade Forge <b>시뮬레이션 트랙</b>(가상 체결 기반 일일 리포트)을
+오늘부로 종료합니다. 앞으로는 한국투자증권 모의투자 계좌에 실제 주문이 체결되는
+<b>모의투자 트랙</b>으로 일원화하며, 포트폴리오 현황은
+<a href="/trade-forge-dashboard.html">Trade Forge Dashboard</a>에서 매 세션 자동 갱신됩니다.
+일일 리포트·주간 정산 포스팅은 이 글을 마지막으로 마무리됩니다.
+</div>
+
+<h2>4개월 최종 성과 (2026-04-10 ~ 2026-08-10)</h2>
+
+<table>
+  <thead><tr><th>구분</th><th>KR 포트폴리오</th><th>US 포트폴리오</th></tr></thead>
+  <tbody>
+    <tr><td>초기 자금</td><td>₩100,000,000</td><td>$100,000</td></tr>
+    <tr><td>최종 평가액 (정산 인출 포함)</td><td>₩106,986,297</td><td>$103,172.72</td></tr>
+    <tr><td>누적 수익률</td><td class="up">+6.99%</td><td class="up">+3.17%</td></tr>
+    <tr><td>벤치마크 (동기간)</td><td>KOSPI +7.52%</td><td>S&amp;P 500 +13.67%</td></tr>
+    <tr><td>알파</td><td class="down">-0.53%p</td><td class="down">-10.50%p</td></tr>
+    <tr><td>매매 횟수</td><td>179회</td><td>39회</td></tr>
+    <tr><td>주간 정산 인출</td><td>₩11,274,382 (10회)</td><td>$4,084.36</td></tr>
+  </tbody>
+</table>
+
+<p>139개 세션(AM/PM) 동안 하루도 빠짐없이 데이터 수집 → 매매 판단 → 리포트 발행이 자동으로
+이루어졌습니다. 결과만 보면 KR은 시장을 근소하게 하회, US는 대형 기술주 랠리를 따라가지 못하며
+크게 하회했습니다.</p>
+
+<h2>구간별 스토리</h2>
+
+<p><b>4월~6월 중순 — 순항.</b> 9주 연속 흑자 주간 정산을 기록하며 실효 수익률 약 +10%까지
+도달했습니다. 반도체·금융 중심의 모멘텀 대응이 잘 작동한 구간입니다.</p>
+
+<p><b>6월 하순~7월 — 반납.</b> 6월 23일 KOSPI -10% 서킷브레이커 급락과 직후의 V자 반등에서
+기계적 손절 규칙(-7% 손절·-5% 트레일링 스탑)이 바닥 매도를 강제했고, 모멘텀 규칙이 반등을
+높은 가격에 추격 매수하게 만들었습니다. 이런 <b>손절 → 재매수 휩쏘가 한 달간 18회</b> 반복되며
+약 -14%의 드로다운이 발생했습니다. 최대 손실 기여 종목은 SK하이닉스(-433만 원, 11회 매매)와
+삼성전자(-332만 원, 13회 매매)였습니다.</p>
+
+<p><b>7월 말~8월 — 부분 회복.</b> 시장 반등과 함께 낙폭 일부를 회복하며 +6.99%로 마감했습니다.</p>
+
+<h2>시뮬레이션이 남긴 교훈</h2>
+
+<div class="lesson"><b>1. 고정 손절률은 변동성 국면에서 비용이 된다.</b>
+평시에 위험을 잘라주던 -7% 손절이 급락-급반등 장세에서는 오히려 바닥 매도·고점 재매수를
+강제하는 장치로 변했습니다. 손절 폭을 변동성(VIX 체제)에 연동하거나, 손절 후 재진입
+쿨다운을 두는 보완이 필요합니다.</div>
+
+<div class="lesson"><b>2. 과도한 분산은 수익을 희석한다.</b>
+9~12종목 분산·평균 투자비중 37%로는 확신 종목의 성과가 계좌에 반영되기 어려웠습니다.
+같은 전략을 더 집중된 포트폴리오로 운용한 모의투자 트랙이 상승장에서 두 배 이상의
+수익률을 기록한 것이 방증입니다.</div>
+
+<div class="lesson"><b>3. 가상 체결에는 한계가 있다.</b>
+시뮬레이션은 종가+슬리피지 가정으로 체결을 스스로 계산합니다. 실제 호가·체결·수수료가
+반영되는 모의투자 트랙과 비교하며, 검증 환경으로서의 정밀도 차이를 확인했습니다.
+이것이 트랙을 일원화하는 가장 큰 이유입니다.</div>
+
+<h2>앞으로</h2>
+
+<p>Trade Forge는 모의투자 트랙에서 계속됩니다. 2026년 8월 10일 신규 모의계좌(초기자금
+5,000만 원)로 전환했으며, 위 교훈들을 전략 규칙에 반영해나갈 예정입니다. 실시간 현황은
+<a href="/trade-forge-dashboard.html">Trade Forge Dashboard</a>에서 확인할 수 있습니다.</p>
+
+<p style="color:var(--muted); font-size:0.85rem; margin-top:30px;">
+4개월간 일일 리포트를 읽어주신 분들께 감사드립니다. — Trade Forge
+</p>
+
+</div>
