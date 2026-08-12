@@ -1,0 +1,255 @@
+---
+title: Morning Market Brief
+author: "Written by Claude"
+date: "2026-08-13"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily]
+series: stock
+---
+
+<style>
+.morning-brief {
+    --bg: #fffdf9;
+    --fg: #1a1a1a;
+    --muted: #6b6055;
+    --border: #e8e0d4;
+    --card: #fff9f0;
+    --accent: #c4482c;
+    --up: #1a7f5a;
+    --down: #c4482c;
+    --serif: 'Noto Serif KR', 'Source Serif Pro', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Pretendard', sans-serif;
+    --mono: ui-monospace, 'JetBrains Mono', Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .morning-brief {
+      --bg: #12110f;
+      --fg: #ede8df;
+      --muted: #a99f92;
+      --border: #2a2722;
+      --card: #1a1815;
+      --accent: #ff7a5c;
+      --up: #4ade80;
+      --down: #ff7a5c;
+    }
+.morning-brief .mb-report { background: var(--bg); color: var(--fg); font-family: var(--serif); max-width: 860px; margin-inline: auto; padding: 2.5rem 1.5rem 2rem; line-height: 1.7; font-feature-settings: "tnum"; }
+.morning-brief .mb-report header { border-bottom: 2px solid var(--fg); padding-bottom: 1.5rem; margin-bottom: 2.5rem; }
+.morning-brief .mb-report .kicker { font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report h1 { font-family: var(--serif); font-size: 2.4rem; line-height: 1.15; margin: 0.75rem 0 0.5rem; font-weight: 700; letter-spacing: -0.01em; }
+.morning-brief .mb-report .dek { font-family: var(--sans); color: var(--muted); font-size: 1.05rem; line-height: 1.5; }
+.morning-brief .mb-report .meta { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin-top: 1rem; }
+.morning-brief .mb-report h2 { font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-weight: 700; border-top: 1px solid var(--border); padding-top: 1.5rem; margin: 2.5rem 0 1rem; }
+.morning-brief .mb-report p.lede { font-size: 1.1rem; line-height: 1.7; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 3.2rem; float: left; font-weight: 700; line-height: 0.9; margin: 0.15rem 0.6rem 0 0; color: var(--accent); font-family: var(--serif); }
+.morning-brief .mb-report .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report .stat { padding: 1rem 1.25rem; border-right: 1px solid var(--border); font-family: var(--sans); }
+.morning-brief .mb-report .stat:last-child { border-right: none; }
+.morning-brief .mb-report .stat .lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report .stat .val { font-family: var(--mono); font-size: 1.4rem; font-weight: 600; margin-top: 0.25rem; letter-spacing: -0.01em; }
+.morning-brief .mb-report .stat .chg { font-family: var(--mono); font-size: 0.8rem; margin-top: 0.1rem; }
+.morning-brief .mb-report .up { color: var(--up); }
+.morning-brief .mb-report .down { color: var(--down); }
+.morning-brief .mb-report ol.analysis { padding-left: 1.25rem; font-family: var(--sans); font-size: 0.975rem; line-height: 1.65; }
+.morning-brief .mb-report ol.analysis li { margin-bottom: 0.75rem; padding-left: 0.5rem; }
+.morning-brief .mb-report ol.analysis li::marker { color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.925rem; margin-top: 0.5rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.7rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report td.num { font-family: var(--mono); text-align: right; }
+.morning-brief .mb-report blockquote.takeaway { border-left: 3px solid var(--accent); padding: 0.25rem 0 0.25rem 1.25rem; margin: 1rem 0; font-family: var(--sans); font-style: italic; font-size: 1.02rem; line-height: 1.6; }
+.morning-brief .mb-report footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
+.morning-brief .mb-report .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.morning-brief .mb-report .lesson-card { background: var(--card, #f5f2ec); border-left: 3px solid var(--accent); padding: 1.1rem 1.25rem; border-radius: 0 4px 4px 0; margin: 0.75rem 0 1rem; font-family: var(--sans); }
+.morning-brief .mb-report .lesson-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report .lesson-body { font-size: 0.95rem; line-height: 1.7; color: var(--fg); white-space: pre-line; }
+.morning-brief .mb-report details.glossary { margin-top: 2.5rem; font-family: var(--sans); border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 1rem; }
+.morning-brief .mb-report details.glossary summary { cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--muted); padding: 0.3rem 0; }
+.morning-brief .mb-report details.glossary[open] summary { margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report details.glossary dl { margin: 0; padding: 0; font-size: 0.85rem; line-height: 1.6; }
+.morning-brief .mb-report details.glossary dt { font-weight: 700; margin-top: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report details.glossary dd { margin: 0.15rem 0 0 0; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .mb-report { padding: 1.5rem 1rem 1.5rem; }
+.morning-brief .mb-report h1 { font-size: 1.75rem; }
+.morning-brief .mb-report .dek { font-size: 0.95rem; }
+.morning-brief .mb-report p.lede { font-size: 1rem; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 2.6rem; margin: 0.1rem 0.4rem 0 0; }
+.morning-brief .mb-report .stat { padding: 0.75rem 1rem; }
+.morning-brief .mb-report .stat .val { font-size: 1.2rem; }
+.morning-brief .mb-report table { font-size: 0.82rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.55rem 0.5rem; }
+.morning-brief .mb-report blockquote.takeaway { font-size: 0.95rem; padding-left: 1rem; }
+</style>
+
+<div class="morning-brief">
+<article class="mb-report">
+
+<header>
+  <div class="kicker">Morning Market Brief</div>
+  <h1>물가 둔화에 안도, 코스피 3.68% 급등</h1>
+<div class="dek">미국 7월 CPI가 예상에 부합하면서 9월 금리 동결 기대가 살아났습니다. AI 실적 훈풍까지 겹쳐 코스피는 6,579.04로 사상 최고 수준까지 올랐습니다.</div>  <div class="meta">2026.08.13 (목) · 07:09 KST · yfinance + Naver Finance + Google News RSS</div>
+</header>
+
+<p class="lede">간밤 뉴욕 증시는 미국 7월 소비자물가 상승률이 3.4%로 예상에 부합하자 안도하며 S&P 500이 0.26%, 나스닥이 0.54% 올랐습니다. CoreWeave와 슈퍼마이크로의 호실적이 AI 랠리에 불을 붙여 엔비디아가 224.09달러로 3.03% 뛰었고, VIX는 14.55로 4.78% 내려 경계심이 크게 풀렸습니다. 한국 증시는 삼성전자 주주환원 기대까지 겹쳐 코스피가 3.68% 급등한 6,579.04로 마감했습니다.</p>
+
+<h2>🇺🇸 US Market Recap</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">S&P 500</div>
+    <div class="val">7,748.50</div>
+    <div class="chg up">
++0.26%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">NASDAQ</div>
+    <div class="val">26,588.49</div>
+    <div class="chg up">
++0.54%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">DOW</div>
+    <div class="val">53,770.27</div>
+    <div class="chg down">
+-0.04%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">VIX</div>
+    <div class="val">14.55</div>
+    <div class="chg down">
+-4.78%
+    </div>
+  </div>
+</div>
+
+<h2>Key Drivers</h2>
+<ol class="analysis">
+<li>미국 7월 소비자물가지수(CPI)가 전월 대비 0.1%, 전년 대비 3.4% 올라 시장 예상에 부합했습니다. 근원 CPI도 전월 대비 0.2%, 전년 대비 2.5%로 안정적이어서 9월 FOMC 금리 동결 기대가 되살아났습니다.</li><li>AI 인프라 실적이 지수를 끌어올렸습니다. CoreWeave가 적자 폭을 줄이며 18% 급등했고, 슈퍼마이크로는 분기 총마진 17.5%와 600억 달러 신규 수주를 발표하며 9% 넘게 뛰었습니다. 이 훈풍으로 엔비디아가 3.03% 올랐습니다.</li><li>삼성전자 주주환원 기대가 한국 증시를 밀어올렸습니다. 연간 주주환원 규모가 최대 200조원까지 확대될 수 있다는 증권가 전망과 배당수익률 7% 계산이 확산되면서 삼성전자가 6.68%, SK하이닉스가 5.54% 급등했습니다.</li><li>다우지수는 0.04% 내려 3대 지수 중 유일하게 소폭 하락했습니다. 상승이 AI·기술주에 집중된 쏠림 장세였다는 뜻입니다.</li></ol>
+
+<h2>🌍 Global Macro</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Indicator</th><th class="num">Value</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr><td>10Y Treasury</td><td class="num">4.682%</td><td>−0.2bp</td></tr>
+    <tr><td>USD/KRW</td><td class="num">1,416.79</td><td>−0.04%</td></tr>
+    <tr><td>WTI Oil</td><td class="num">$82.58</td><td>−0.75%</td></tr>
+    <tr><td>Gold</td><td class="num">$4,469.00</td><td>+1.96%</td></tr>
+  </tbody>
+</table>
+</div>
+<ol class="analysis" style="margin-top: 1rem;">
+<li>국채금리는 만기별로 엇갈렸습니다. 3개월물이 3.707%로 2.3bp, 5년물이 4.375%로 1.0bp, 10년물이 4.682%로 0.2bp 내린 반면 30년물만 5.247%로 1.1bp 올랐습니다.</li><li>10년물과 3개월물 금리차는 0.975%포인트로 전일보다 확대되며 플러스를 유지했습니다. 장단기 금리 역전 신호는 없습니다.</li><li>금이 온스당 4,469달러로 1.96% 급등했습니다. 물가 둔화로 연준 동결 기대가 커지며 실질금리 하락 전망이 금값을 밀어올린 것으로, VIX가 동시에 내린 만큼 공포 매수가 아닌 금리 기대에 따른 상승으로 볼 수 있습니다.</li><li>WTI 유가는 배럴당 82.58달러로 0.75% 내렸고, 원/달러 환율은 1,416.79원으로 0.04% 하락해 사실상 보합이었습니다. 유가 하락은 인플레이션 압력 완화 쪽으로 작용합니다.</li></ol>
+
+<h2>🇰🇷 Korean Market Outlook</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">KOSPI</div>
+    <div class="val">6,579.04</div>
+    <div class="chg up">
++3.68%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">KOSDAQ</div>
+    <div class="val">858.91</div>
+    <div class="chg up">
++0.12%
+    </div>
+  </div>
+</div>
+<p style="font-family: var(--sans); margin-top: 1rem;"><strong>주목 섹터:</strong> 반도체(삼성전자·SK하이닉스), AI 메모리</p><p style="font-family: var(--sans);"><strong>수급 동향:</strong> 외국인·기관 동반 순매수로 대형 반도체 집중 매수, 코스피 3일 연속 상승하며 6,600선 근접. 반면 코스닥은 0.12% 상승에 그쳐 대형주 쏠림이 뚜렷</p>
+<h2>🔍 Watchlist</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Ticker</th><th>Name</th><th class="num">Close</th><th class="num">Change</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>TSLA</td>
+      <td>Tesla</td>
+      <td class="num">$327.51</td>
+      <td class="num down">
+-1.59%      </td>
+      <td>1억3,500만 달러 리베이트 프로그램 물량이 1주일 만에 소진됐다는 소식과 애널리스트 신중론이 겹쳐 하락</td>
+    </tr>
+    <tr>
+      <td>NVDA</td>
+      <td>NVIDIA</td>
+      <td class="num">$224.09</td>
+      <td class="num up">
++3.03%      </td>
+      <td>슈퍼마이크로·CoreWeave 호실적으로 AI 수요 확인, 3% 넘게 상승</td>
+    </tr>
+    <tr>
+      <td>005930</td>
+      <td>삼성전자</td>
+      <td class="num">₩255,500</td>
+      <td class="num up">
++6.68%      </td>
+      <td>주주환원 최대 200조원 기대와 배당수익률 7% 전망에 6%대 급등, 장중 26만500원까지 상승</td>
+    </tr>
+    <tr>
+      <td>000660</td>
+      <td>SK하이닉스</td>
+      <td class="num">₩1,504,000</td>
+      <td class="num up">
++5.54%      </td>
+      <td>AI 메모리 공급 부족 지속 전망에 150만원선 회복, 상위 투자자 순매수 유입</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>⚡ Today's Takeaways</h2>
+<blockquote class="takeaway">미국 7월 CPI가 예상에 부합해 9월 FOMC 동결 쪽으로 무게가 옮겨갔습니다. 다만 7월 회의에서 3명이 인상 소수의견을 냈고 8월 CPI가 한 번 더 남아 있어 확정된 그림은 아닙니다.</blockquote>
+<blockquote class="takeaway">코스피는 3.68% 올랐지만 코스닥은 0.12% 상승에 머물렀습니다. 지수 상승분이 삼성전자·SK하이닉스 두 종목에 크게 의존한 쏠림 장세라는 점을 감안해야 합니다.</blockquote>
+<blockquote class="takeaway">삼성전자 급등의 근거는 '발표'가 아니라 '기대'입니다. 실제 주주환원 정책이 시장 전망보다 작게 나올 경우 되돌림 위험이 있습니다.</blockquote>
+<blockquote class="takeaway">VIX가 14.55로 4.78% 내려 위험 선호가 강해졌습니다. 물가 부담이 걷히면서 변동성 지표가 낮은 구간에 머물러 있습니다.</blockquote>
+
+<h2>📚 오늘의 공부</h2>
+<div class="lesson-card">
+  <div class="lesson-title">주주환원이 뭔데 주가가 뛰나?</div>
+  <div class="lesson-body">어제 삼성전자가 6.68% 올라 25만5,500원에 마감했습니다. 실적 발표도, 신제품 공개도 없었는데 왜 이렇게 올랐을까요? 시장이 주목한 건 '주주환원'이라는 말이었습니다.
+
+주주환원은 회사가 번 돈을 주주에게 돌려주는 것을 뜻합니다. 방법은 크게 두 가지입니다. 배당(이익을 현금으로 나눠주기), 그리고 자사주 매입·소각(회사가 자기 주식을 사서 없애기)입니다. 주식 수가 줄면 남은 1주가 가진 몫이 커집니다.
+
+증권가에서는 삼성전자의 연간 주주환원 규모가 최대 200조원까지 늘 수 있다는 전망이 나왔습니다. 현재 주가에서 배당수익률이 7%를 넘을 수 있다는 계산도 함께 나왔습니다. 은행 예금보다 높은 수치이니 사려는 사람이 몰릴 이유가 됩니다.
+
+주의할 점도 있습니다. 어제 오른 것은 '발표'가 아니라 '기대'였습니다. 실제 정책이 기대보다 작으면 주가는 되돌아갈 수 있습니다.
+
+왜 이게 내게 중요할까요? 주가는 회사가 얼마를 버는지뿐 아니라, 번 돈을 주주와 어떻게 나누는지에도 반응합니다.</div>
+</div>
+
+<details class="glossary">
+<summary>📖 용어 빠르게 찾기 (초보자용 치트시트)</summary>
+<dl>
+  <dt>VIX (공포지수)</dt><dd>S&P 500의 향후 30일 변동성 예측. 20↓ 안정, 20~25 보통, 25↑ 긴장, 35↑ 위기.</dd>
+  <dt>10Y Treasury</dt><dd>미국 10년물 국채 수익률. 장기 금리 + 인플레 기대의 기준점. 오르면 기술주 부담, 은행주 수혜.</dd>
+  <dt>USD/KRW</dt><dd>원/달러 환율. 올라가면 원화 약세 = 수출주(삼전, 현대차) 유리 / 수입품/여행 부담.</dd>
+  <dt>S&P 500</dt><dd>미국 대형주 500개 평균. 미 증시 '대표선수' 지수.</dd>
+  <dt>NASDAQ</dt><dd>기술주 중심 미국 지수. AI·빅테크 비중 큼.</dd>
+  <dt>KOSPI / KOSDAQ</dt><dd>KOSPI = 한국 대형주, KOSDAQ = 한국 중소형/기술주.</dd>
+  <dt>bp (basis point)</dt><dd>0.01%. 금리 이야기할 때 쓰는 단위 (예: +3bp = +0.03%).</dd>
+  <dt>RISK ON / OFF</dt><dd>시장 심리. RISK ON = 위험자산(주식) 선호, RISK OFF = 안전자산(금·국채) 회피 이동.</dd>
+  <dt>외국인·기관 수급</dt><dd>누가 사고 누가 파는지. 외국인 순매수 = 한국 주식 긍정적 신호.</dd>
+  <dt>HBM</dt><dd>고대역폭 메모리. AI 칩에 들어가는 고급 메모리 — SK하이닉스·삼성전자 주력 상품.</dd>
+</dl>
+</details>
+
+<footer>⏰ Generated at 07:09 KST · Source: yfinance + Naver Finance + Google News RSS · 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.</footer>
+
+</article>
+</div>
