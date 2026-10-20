@@ -1,0 +1,114 @@
+---
+title: Weekly Paper Brief
+author: "Written by Claude"
+date: "2026-10-20"
+layout: post
+categories: Research
+tags: [Papers, Weekly]
+series: paper
+---
+
+<style>
+.paper-brief {--bg:#faf9f6;--fg:#1a1a1a;--muted:#6b6b6b;--line:#e3e0d8;--accent:#1f6f54;--card:#ffffff;
+      --a:#1f6f54;--b:#8a6d1f;--c:#6d4fa3;--sans:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;--serif:Georgia,"Noto Serif KR",serif}
+
+@media (prefers-color-scheme:dark){.paper-brief{--bg:#161614;--fg:#eceae4;--muted:#9a9890;--line:#33322d;--accent:#5fb893;--card:#1f1f1c;--a:#5fb893;--b:#d4b356;--c:#a98fd6}
+.paper-brief {margin:0;background:var(--bg);color:var(--fg);font-family:var(--serif);line-height:1.65}
+.paper-brief .wrap {max-width:760px;margin:0 auto;padding:2rem 16px 4rem}
+.paper-brief .kicker {font-family:var(--sans);font-size:.8rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
+.paper-brief h1 {font-size:1.7rem;line-height:1.3;margin:.3rem 0 .2rem}
+.paper-brief .meta {font-family:var(--sans);color:var(--muted);font-size:.85rem;margin-bottom:1.6rem}
+.paper-brief h2 {font-family:var(--sans);font-size:1.05rem;margin:2.2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+.paper-brief .flow {font-size:1.02rem}
+.paper-brief .paper {background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:.9rem 0}
+.paper-brief .ptitle {font-family:var(--sans);font-weight:700;line-height:1.45}
+.paper-brief .ptitle a {color:var(--fg);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.paper-brief .pvenue {font-family:var(--sans);font-size:.78rem;color:var(--muted);margin:.15rem 0 .6rem}
+.paper-brief .tag {display:inline-block;font-family:var(--sans);font-size:.68rem;padding:.1rem .45rem;border-radius:99px;color:#fff;margin-right:.3rem;vertical-align:1px}
+.paper-brief .tag.A {background:var(--a)}
+.paper-brief .tag.B {background:var(--b)}
+.paper-brief .tag.C {background:var(--c)}
+.paper-brief .paper ol {margin:.2rem 0 .6rem 1.2rem;padding:0;font-size:.95rem}
+.paper-brief .paper ol li {margin:.25rem 0}
+.paper-brief .rel {font-family:var(--sans);font-size:.88rem;background:color-mix(in srgb,var(--accent) 9%,transparent);border-left:3px solid var(--accent);padding:.5rem .7rem;border-radius:0 6px 6px 0}
+.paper-brief .one {margin:.55rem 0;font-size:.95rem}
+.paper-brief .one .pvenue {display:inline;margin-left:.4rem}
+.paper-brief .lev {color:var(--muted);font-family:var(--sans);font-size:.85rem;margin:.15rem 0 0 1.1rem}
+.paper-brief .foot {margin-top:3rem;font-family:var(--sans);font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:.8rem}
+</style>
+
+<div class="paper-brief">
+<div class="wrap">
+<div class="kicker">Weekly Paper Brief</div>
+<h1>SNP 너머로: SV·모자이시즘·MS 단백체의 부상</h1>
+<div class="meta">2026.10.20 (화) · 수집 창 2026-10-13 ~ 2026-10-20 · 후보 50편 (원천 576편)</div>
+
+<h2>이번 주 흐름</h2><p class="flow">이번 주의 큰 줄기는 '기존 분석이 보지 못하던 변이 층위'의 본격 가시화다. UK Biobank 46.7만 명 WGS 기반 SV PheWAS(Cell), HitSV(Nat Biotechnol), T2T assembly 기반 체세포 변이 지도 등이 구조변이와 GRCh38 밖 영역을 전면에 올렸고, SMaHT 컨소시엄이 Cell·Cell Genomics에 벤치마크 패키지를 동시 출간하며 정상 조직 체세포 모자이시즘을 하나의 분야로 정식화했다. 단백체 쪽에서는 질량분석 기반 혈청 pQTL, 최초의 phosQTL, 혈장 단백체 장기 노화시계가 나오며 '표적 패널 단일 측정'에서 다층 단백체 유전학으로 확장되는 흐름이 뚜렷하다. 방법론 측면에서는 GPU LD 계산, G×E 척도 아티팩트 경고, MassNet·DNACipher 같은 AI 코퍼스/서열-기능 모델이 바이오뱅크 규모 분석의 인프라를 다시 짜고 있다.</p>
+
+
+<h2>📌 필독 3편</h2>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42880286/">A phenome-wide structural variant map from 467,152 UK Biobank genomes.</a></div>
+  <div class="pvenue">Cell</div>
+  <ol><li>UK Biobank 46.7만 명 WGS에서 160만 개 구조변이(SV)를 찾아 이진·정량 형질과 2,923개 혈장 단백질 형질 전반에 대해 PheWAS를 수행, 28,184개 건강 결과 연관을 보고했다.</li><li>발견된 SV의 82.25%는 기존 CNV 연구로는 검출 범위 밖이었고, pQTL 분석에서 3,467개 SV가 1,690개 단백질과 연결되었으며 그 효과는 SV 유형·위치에 따라 달랐다.</li><li>기존 GWAS 유전자좌에서 연관 SV의 32.21%가 기능 영역과 겹쳐, SNP 중심 해석이 놓친 원인 변이 후보로 SV가 부상하고 있음을 보여준다 — 바이오뱅크 WGS 시대의 '다음 변이 층위'를 여는 자원이다.</li></ol>
+  <div class="rel">🔗 어레이 기반 CNV 분석과 직결된다: 어레이 CNV가 잡지 못하는 SV가 대다수라는 점은 기존 CNV 결과의 해석 한계를 가늠하는 기준이 되고, SV-pQTL 결과는 단백체 GWAS·colocalization 시 SNP 외 SV를 후보로 함께 보아야 할 근거가 된다.</div>
+</div>
+
+<div class="paper">
+  <div><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42880231/">Comprehensive benchmarking of somatic mutation detection by the SMaHT Network.</a></div>
+  <div class="pvenue">Cell</div>
+  <ol><li>SMaHT(Somatic Mosaicism across Human Tissues) 컨소시엄이 체세포 변이 검출을 위한 대규모 벤치마크와 커뮤니티 자원(9개 샘플, >1,000× short-read, 100–400× long-read)을 공개했다.</li><li>세포주와 공여자 조직으로 시퀀싱 기술·실험법·계산법을 비교했고, 공여자 특이적·pangenome 기반 diploid assembly를 쓰면 난해 영역까지 검출이 개선되며, 6종 duplex 기술과 단일세포 시퀀싱도 함께 평가했다.</li><li>bulk·단일세포·duplex가 상호보완적이라는 '로드맵'을 제시한 것으로, 같은 주 Cell·Cell Genomics에 SMaHT 관련 논문이 동시 출간되며 정상 조직 모자이시즘이 독립된 연구 분야로 자리잡는 신호다.</li></ol>
+  <div class="rel">🔗 직접 연관은 없으나, 낮은 VAF 변이 검출 문제는 어레이 데이터에서 모자이크 CNV/LoY를 다룰 때의 민감도 한계와 같은 맥락이며, 레퍼런스(GRCh38 vs pangenome) 선택이 결과를 바꾼다는 교훈은 imputation 레퍼런스 선택에도 그대로 적용된다.</div>
+</div>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42860425/">Genome-wide analysis of 439 mass spectrometry-based proteomic profiles in a population of 15,035 Scottish individuals.</a></div>
+  <div class="pvenue">Nat Commun</div>
+  <ol><li>Generation Scotland 15,035명의 혈청에서 질량분석(LC-MS/MS)으로 정량한 고존재량 단백질 439개 그룹에 대해 GWAS를 수행, 398개 단백질에서 1,553개 독립 SNP 신호를 찾았다.</li><li>기존 대규모 단백질 GWAS가 주로 친화도 기반 표적 패널(SomaScan·Olink 등)로 저존재량 단백질에 집중했던 것과 달리, 질량분석은 혈중에서 실제 기능하는 고존재량 단백질과 그 isoform을 측정한다 — 이를 바탕으로 two-sample MR로 79개 질환 결과를 검정했다.</li><li>13개 단백질과 신경정신·심혈관 질환 등 17개 결과 사이의 잠정적 인과 연관을 보고하며, 질량분석 기반 pQTL이 표적 패널 연구를 '보완'하는 축으로 커지고 있음을 보여준다.</li></ol>
+  <div class="rel">🔗 SomaScan pQTL 작업의 직접적인 비교·검증 자료다. 압타머(SomaScan)는 단백질의 특정 형태(에피토프)에 결합하므로 결합을 바꾸는 변이가 가짜 cis-pQTL을 만들 수 있는데, 측정 원리가 다른 MS 기반 신호와 겹치는지 확인하면 플랫폼 아티팩트를 걸러낼 수 있다.</div>
+</div>
+
+
+
+
+<h2>👀 주목</h2>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42881276/" style="color:inherit">Structural variant detection across sequencing technologies.</a><span class="pvenue">Nat Biotechnol</span><br>HitSV: 반복서열·신호밀도 인지형 breakpoint 인식과 haplotype 단위 local assembly로 long/short/hybrid 모두에서 기존 SV caller 대비 genotype F1을 높였고, 1KGP phase 4 SV 콜셋을 31.5% 확장했다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42874583/" style="color:inherit">Choice of phenotype scale is critical in biobank-based G × E tests.</a><span class="pvenue">Cell Genom</span><br>바이오뱅크 G×E 신호 상당수가 표현형 척도 변환(log·power)만으로 사라지는 '척도 아티팩트'임을 보였다 — UKB 32개 표현형에서 PGS×성별 상호작용의 45%가 power 변환으로 설명되며, 척도 선택 가이드라인을 제시.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42860408/" style="color:inherit">Atlas of genetic architecture and exploratory temporal interaction networks of plasma protein-based organ and system aging.</a><span class="pvenue">Nat Commun</span><br>UKB 53,014명 혈장 단백체로 16개 장기·시스템별 노화시계를 구축, 1,059개 질환과 연관을 보이고 China Kadoorie Biobank에서 외부 검증했으며 261개 유전자좌를 찾았다.</div>
+
+<div class="one"><span class="tag A">업무</span><a href="https://doi.org/10.64898/2026.10.17.26365814" style="color:inherit">Genetic determinants of protein phosphorylation in humans</a><span class="pvenue">medrxiv (genetic and genomic medicine)</span><br>최초의 인산화단백체 GWAS: 324명 폐·신장 조직에서 8,000여 인산화 부위를 검정해 단백질 양과 독립적인 phosQTL 46개를 찾았고, pQTL로는 놓친 질환 기전(예: STK4 인산화와 신기능)을 제시.</div>
+
+<div class="one"><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42880232/" style="color:inherit">Somatic epimutations cap genetic determinism in the human diploid chromatin epigenome.</a><span class="pvenue">Cell</span><br>Fiber-seq 기반 FIRE로 6 Gbp diploid 게놈의 크로마틴 접근성을 haplotype 단위로 정량, HLA 유전자좌의 haplotype 선택적 접근성과 클론 확장으로 전파되는 체세포 epimutation을 보고.</div>
+
+<div class="one"><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42880233/" style="color:inherit">A telomere-to-telomere map of somatic mutation burden and functional impact in a cancer.</a><span class="pvenue">Cell</span><br>공여자 near-T2T diploid assembly와 흑색종 심층 short/long-read 시퀀싱으로 체세포 변이의 16%가 GRCh38에 없는 서열에 위치함을 보였다 — 센트로미어·위성반복이 돌연변이·이수성 breakpoint 핫스팟.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42875489/" style="color:inherit">Divergent genomic evolution in astrocytomas and oligodendrogliomas.</a><span class="pvenue">Nature</span><br>GLASS 컨소시엄 183명 IDH 변이 신경교종의 종단 WGS/WES로, 재발 성상세포종에서는 국소 증폭·CDKN2A/B 동형 결실과 염색체 불안정성이, 희소돌기아교종에서는 PI3K·NOTCH1 변이가 진화 경로를 가름을 보였다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42895827/" style="color:inherit">ARCHER-LD: Rapid Long-Range Linkage Disequilibrium Calculations at Biobank Scale using GPU Acceleration.</a><span class="pvenue">Bioinformatics</span><br>ARCHER-LD: 멀티 GPU로 바이오뱅크 규모 전체 변이쌍 LD를 계산 — PMBB 57,170명 chr1에서 PLINK 대비 약 28배 빠르며, 외부 레퍼런스 패널 없이 자체 데이터 LD 사용을 가능케 한다.</div>
+
+
+
+
+<h2>🛰 기회 레이더</h2>
+
+<div class="one"><span class="tag C">기회</span><a href="https://pubmed.ncbi.nlm.nih.gov/42875595/" style="color:inherit">MassNet: billion-scale AI-ready mass spectral corpus empowering scalable deep learning in proteomics.</a><span class="pvenue">Nat Methods</span><br>질량분석 단백체용 15억 개 MS/MS 스펙트럼 'AI-ready' 코퍼스와 표준 텐서 포맷(MSDT)을 공개하고, 이를 학습한 de novo 펩타이드 서열분석 모델 XuanjiNovo가 human Astral 데이터에서 기존 대비 38–144% 성능 향상.
+<div class="lev">💡 텍스트·이미지처럼 단백체도 '대규모 코퍼스 → 파운데이션 모델' 단계에 진입했다는 신호로, 질량분석 데이터 엔지니어링과 딥러닝을 겸비한 인력 수요가 커질 영역이다.</div></div>
+
+<div class="one"><span class="tag C">기회</span><a href="https://doi.org/10.1101/2025.06.05.658079" style="color:inherit">Comprehensive molecular impact mapping of common and rare variants at GWAS loci</a><span class="pvenue">biorxiv (genetics)</span><br>DNACipher: 524kb 서열로 38,582개 세포유형/assay 조합(AlphaGenome의 6배 이상)의 변이 효과를 예측하고, DVIM으로 10개 형질 GWAS 유전자좌의 일반·희귀 변이를 우선순위화해 9개 형질에서 90% 이상 유전자좌에 후보를 제시.
+<div class="lev">💡 sequence-to-function 모델이 fine-mapping 후속 분석의 표준 도구가 되어가고 있어, GWAS 실무자에게 이런 모델의 예측을 해석·검증하는 역량이 차별점이 된다.</div></div>
+
+<div class="one"><span class="tag C">기회</span><a href="https://pubmed.ncbi.nlm.nih.gov/42869994/" style="color:inherit">Human-artificial intelligence collaboration for comanaging epilepsy in real time.</a><span class="pvenue">Nat Med</span><br>이식형 뇌전증 기기의 EEG 바이오마커를 LLM 기반 AI가 스마트폰 앱으로 환자와 실시간 양방향 소통하고, 환자 피드백만으로 발작 검출기를 재학습해 오경보를 줄였다(13명 검증).
+<div class="lev">💡 LLM이 의료기기·생체신호 파이프라인 안으로 들어가는 흐름으로, 생물의학 데이터 처리와 LLM 시스템 통합을 함께 다룰 수 있는 인력의 활동 영역이 임상 현장으로 넓어지고 있다.</div></div>
+
+
+
+<div class="foot">bioRxiv · medRxiv · PubMed 최근 7일 — 키워드 3트랙 자동 수집 후 Claude 선별 · PaperBrief</div>
+</div>
+</div>
