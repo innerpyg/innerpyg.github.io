@@ -1,0 +1,132 @@
+---
+title: Weekly Paper Brief
+author: "Written by Claude"
+date: "2026-10-26"
+layout: post
+categories: Research
+tags: [Papers, Weekly]
+series: paper
+---
+
+<style>
+.paper-brief {--bg:#faf9f6;--fg:#1a1a1a;--muted:#6b6b6b;--line:#e3e0d8;--accent:#1f6f54;--card:#ffffff;
+      --a:#1f6f54;--b:#8a6d1f;--c:#6d4fa3;--m:#2c6e9e;--sans:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;--serif:Georgia,"Noto Serif KR",serif}
+
+@media (prefers-color-scheme:dark){.paper-brief{--bg:#161614;--fg:#eceae4;--muted:#9a9890;--line:#33322d;--accent:#5fb893;--card:#1f1f1c;--a:#5fb893;--b:#d4b356;--c:#a98fd6;--m:#6aa9d8}
+.paper-brief {margin:0;background:var(--bg);color:var(--fg);font-family:var(--serif);line-height:1.65}
+.paper-brief .wrap {max-width:760px;margin:0 auto;padding:2rem 16px 4rem}
+.paper-brief .kicker {font-family:var(--sans);font-size:.8rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
+.paper-brief h1 {font-size:1.7rem;line-height:1.3;margin:.3rem 0 .2rem}
+.paper-brief .meta {font-family:var(--sans);color:var(--muted);font-size:.85rem;margin-bottom:1.6rem}
+.paper-brief h2 {font-family:var(--sans);font-size:1.05rem;margin:2.2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+.paper-brief .flow {font-size:1.02rem}
+.paper-brief .paper {background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:.9rem 0}
+.paper-brief .ptitle {font-family:var(--sans);font-weight:700;line-height:1.45}
+.paper-brief .ptitle a {color:var(--fg);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.paper-brief .pvenue {font-family:var(--sans);font-size:.78rem;color:var(--muted);margin:.15rem 0 .6rem}
+.paper-brief .tag {display:inline-block;font-family:var(--sans);font-size:.68rem;padding:.1rem .45rem;border-radius:99px;color:#fff;margin-right:.3rem;vertical-align:1px}
+.paper-brief .tag.A {background:var(--a)}
+.paper-brief .tag.B {background:var(--b)}
+.paper-brief .tag.C {background:var(--c)}
+.paper-brief .tag.M {background:var(--m)}
+.paper-brief .paper ol {margin:.2rem 0 .6rem 1.2rem;padding:0;font-size:.95rem}
+.paper-brief .paper ol li {margin:.25rem 0}
+.paper-brief .rel {font-family:var(--sans);font-size:.88rem;background:color-mix(in srgb,var(--accent) 9%,transparent);border-left:3px solid var(--accent);padding:.5rem .7rem;border-radius:0 6px 6px 0}
+.paper-brief .one {margin:.55rem 0;font-size:.95rem}
+.paper-brief .one .pvenue {display:inline;margin-left:.4rem}
+.paper-brief .lev {color:var(--muted);font-family:var(--sans);font-size:.85rem;margin:.15rem 0 0 1.1rem}
+.paper-brief .foot {margin-top:3rem;font-family:var(--sans);font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:.8rem}
+</style>
+
+<div class="paper-brief">
+<div class="wrap">
+<div class="kicker">Weekly Paper Brief</div>
+<h1>TWAS 방향성 경고와 100만 게놈 기준선</h1>
+<div class="meta">2026.10.26 (월) · 수집 창 2026-10-19 ~ 2026-10-26 · 후보 50편 (원천 633편)</div>
+
+<h2>이번 주 흐름</h2><p class="flow">이번 주에는 '이미 쓰고 있는 방법을 다시 검증하자'는 흐름이 두드러졌다. Nat Genet은 TWAS의 효과 방향이 23~33% 틀린다고 보고했고, 유전체 파운데이션 모델 주석도 common variant 발견에서는 기존 baselineLD를 넘지 못한다는 결과가 나왔다. 반대편에서는 인간 하플로타입으로 학습한 hEVO처럼 더 정교한 파운데이션 모델이 계속 등장해, AI 유전체 모델을 두고 기대와 검증이 동시에 진행되는 국면이다. 바이오뱅크 축에서는 100만 명 WGS로 세운 '평균 게놈' 기준선, fastGxE·SUMMIT 같은 대규모·다중 조상용 통계 방법, 희귀 변이 burden이나 칩 친화 S4-Oligo로 PRS를 실용화하려는 연구가 함께 나왔다. 간 지방 PRS와 Proteomic Sex Index처럼 혈장 단백체를 유전 위험의 하위 판독값으로 쓰는 설계도 표준으로 자리 잡는 중이며, 변이 주석·육종 분석에 LLM 에이전트를 붙이되 재현성을 어떻게 검증할지가 새로운 쟁점으로 떠올랐다.</p>
+
+
+<h2>📌 필독 3편</h2>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag M">도구</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42918898/">High false sign rates in transcriptome-wide association studies.</a></div>
+  <div class="pvenue">Nat Genet</div>
+  <ol><li>TWAS가 추정하는 '유전자 발현 → 형질' 효과 방향이 상당 부분 틀린다는 것을 정량화했다 — 혈장 단백질에서 false sign rate 23%, 복합 형질에서 33%.</li><li>'발현이 늘면 해당 단백질도 늘어야 한다'는 기대(혈장 단백질)와 기능상실(LoF) burden test가 주는 효과 방향(복합 형질)을 정답지로 삼아 TWAS 결과의 부호 일치도를 검증했다.</li><li>형질과 무관한 조직의 eQTL이 서로 다른 조절 변이로 강하게 연결된 GWAS 하플로타입을 태깅하면서 '유전자는 맞지만 방향은 틀린' 연관이 생긴다고 제안해, TWAS 기반 방향성 해석과 신약 타깃 추론 전반에 경고를 던진다.</li></ol>
+  <div class="rel">🔗 GWAS 후속 해석에서 TWAS로 '이 유전자를 올리면 위험이 증가'식 결론을 내리고 있다면 재검토가 필요하다. 혈장 단백질을 검증 축으로 쓴 설계라, SomaScan pQTL을 방향성 교차검증 데이터로 활용하는 아이디어로 바로 이어진다.</div>
+</div>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42907903/">The average individual genome: a survey of nearly 1 million whole-genome sequences.</a></div>
+  <div class="pvenue">Genome Med</div>
+  <ol><li>UK Biobank 490,541명과 All of Us 414,830명, 약 100만 명의 WGS로 '평균적인 한 사람의 게놈'에 변이가 얼마나 있는지 기준값을 제시했다 — 1인당 약 430만~530만 개 변이, 그중 약 1.5%가 희귀 변이.</li><li>6개 유전 조상 집단별로 SNV/indel, 10kb 이상 결실·중복(1인당 약 67개), 1Mb 이상 희귀 CNV(약 41명 중 1명, 2.5%), ROH, de novo 변이(약 63개), ClinVar 병원성 변이(1~3개), 28개 질환 PGS 분포를 집계했다.</li><li>임상·공중보건에서 WGS 결과를 해석할 때 필요한 '정상 범위' 기준선을 제공한다 — 평균적인 사람도 약 3개 질환에서 PGS 상위 10%이고, 5명 중 1명은 최소 1개 PGS에서 상위 1%라는 점은 유전체 스크리닝 정책에 직접적인 함의를 갖는다.</li></ol>
+  <div class="rel">🔗 '1Mb 이상 희귀 CNV는 약 2.5%의 사람에게 있다'는 수치는 어레이 CNV 콜링 결과의 이상치 판정·QC 기대치를 정하는 기준으로 바로 쓸 수 있다. PGS 상위 백분위 분포는 PRS 결과를 보고할 때 맥락을 잡아준다.</div>
+</div>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42907524/">Genome-wide analyses identify 60 loci associated with liver triglyceride content.</a></div>
+  <div class="pvenue">Nat Genet</div>
+  <ol><li>MRI로 측정한 간 지방(triglyceride) 함량 GWAS에서 60개 독립 유전자좌(신규 31개)를 찾았고, SNP 유전율을 25%로 추정했다.</li><li>UK Biobank 유럽계 71,488명(기존 대비 표본 약 2배)으로 메타분석한 뒤 fine-mapping·유전자 우선순위화로 48개 유전자좌의 후보 유전자를 지목했고, 신규 변이 14개는 임상 MASLD(환자 42,163명 / 대조군 1,646,254명)에서 검증했다.</li><li>PRS 최상위 10%는 최하위 10%보다 간경변 위험이 2.71배, 간세포암 위험이 7.47배 높았다. PRS와 연관된 혈장 단백질은 대사 리모델링·염증 경로에 몰려 있어, 영상 표현형 → 유전 위험 → 혈장 단백체로 이어지는 통합 분석의 모범 사례가 된다.</li></ol>
+  <div class="rel">🔗 GWAS → PRS → 혈장 단백체 연관이라는 흐름이 독자의 분석 축 세 개를 그대로 관통한다. 단백체 쪽 핵심은 'PRS가 높을수록 간에서 많이 나오는 단백질 신호는 늘고 내장지방 신호는 준다'는 조직 출처 해석이다. SomaScan 데이터로 PRS를 단백질과 연관 분석할 때 단백질을 출처 조직별로 묶어 보는 방법의 참고가 된다.</div>
+</div>
+
+
+
+
+<h2>👀 주목</h2>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42907526/" style="color:inherit">Genome-wide detection of genotype-environment interactions at biobank scale with fastGxE.</a><span class="pvenue">Nat Genet</span><br>바이오뱅크 규모의 전장 유전체 GxE 탐색법 fastGxE(Nat Genet) — 다유전자 효과와 noise 이질성을 통제하면서 기존 대비 33~126배 빠르고, UKB 혈액 바이오마커에서 신규 GxE 유전자좌 12개를 찾음.</div>
+
+<div class="one"><span class="tag A">업무</span><a href="https://doi.org/10.64898/2026.10.19.26365875" style="color:inherit">Sex-related signatures in the plasma proteome not attributable to XX and XY chromosomes and their impact on health and disease</a><span class="pvenue">medrxiv (genetic and genomic medicine)</span><br>혈장 단백체로 '염색체 성별에 얼마나 전형적인가'를 연속값으로 재는 Proteomic Sex Index(51,310명) — Klinefelter(XXY)에서 크게 높았고(OR=13.7), GWAS에서 성별 편향 cis-pQTL을 찾음.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.10.17.26365799" style="color:inherit">Rare variant burden complements polygenic risk in breast cancer and is associated with earlier diagnosis</a><span class="pvenue">medrxiv (genetic and genomic medicine)</span><br>All of Us WGS로 본 유방암 — 유전자 효과로 가중한 희귀 변이 burden이 PRS에 정보를 더해 AUC가 0.745에서 0.782로 오르고, burden 1 SD당 진단 연령이 1.82년 빨라짐(PRS는 0.43년).</div>
+
+<div class="one"><span class="tag A">업무</span><a href="https://doi.org/10.64898/2026.10.16.26365773" style="color:inherit">S4-Oligo: optimizing polygenic score methods for clinical deployment</a><span class="pvenue">medrxiv (genetic and genomic medicine)</span><br>임상 배포용 PGS 방법 S4-Oligo — 유전형 칩에서 잘 잡히는 SNP로만 1,000개 이하 모델을 만들어도 원래 S4 성능의 88~99%를 유지해, 칩 기반 PRS 실용화 쪽으로 무게가 실림.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><span class="tag C">기회레이더</span><a href="https://doi.org/10.64898/2026.10.13.758880" style="color:inherit">Genomic foundation models do not yet boost common variant discovery beyond standard functional annotations</a><span class="pvenue">biorxiv (genomics)</span><br>AlphaGenome·Borzoi·GPN-Star 같은 유전체 파운데이션 모델 주석을 써도 UKB 27개 형질의 GWAS 유전자좌 발견은 기존 baselineLD 주석을 넘지 못함 — 'AI 주석 만능론'에 대한 냉정한 반론.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><span class="tag C">기회레이더</span><a href="https://doi.org/10.64898/2026.10.19.760276" style="color:inherit">A genomic foundation model for interpreting human genetic diversity</a><span class="pvenue">biorxiv (genomics)</span><br>WGS 63,809명에서 재구성한 하플로타입 47.8억 개로 학습한 인간 특화 유전체 파운데이션 모델 hEVO — Evo 2·NT·GPN 등과의 주요 비교 19건 중 18건에서 1위, 파라미터는 더 적음.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.10.20.760508" style="color:inherit">Genome-wide LD scores enable robust heritability and genetic correlation estimation from summary statistics across genetic ancestries</a><span class="pvenue">biorxiv (genomics)</span><br>장거리 LD를 반영하는 전장 LD score로 다중 조상·혼합 집단의 유전율과 유전 상관을 추정하는 SUMMIT — 비유럽 집단에서 cov-LDSC보다 유의한 유전 상관을 더 많이 찾음.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42897663/" style="color:inherit">Exome-wide association study reveals common and rare coding variants shaping chronic pain in 327,642 UK biobank participants.</a><span class="pvenue">Genome Med</span><br>UKB 엑솜 327,642명으로 만성 통증 10개 표현형을 분석한 exome-wide 연관 연구 — 희귀 기능 변이가 주도하는 유전자 10개(ADAMTSL5, HCK 등) 확인.</div>
+
+
+
+
+<h2>🔧 분석 도구·방법론</h2>
+
+<div class="one"><span class="tag M">도구</span><a href="https://pubmed.ncbi.nlm.nih.gov/42894387/" style="color:inherit">Systematic benchmarking of multi-ancestry fine-mapping under variant heterogeneity and LD mismatch.</a><span class="pvenue">Brief Bioinform</span><br>다중 조상 fine-mapping 방법 9개 벤치마크 — 여러 집단이 공유하는 인과 변이는 joint 모델이 검정력과 해상도에서 앞서고, 일부 집단에만 있는 변이는 집단별 결과를 사후 통합하는 방식이 더 견고함. GWAS 요약통계와 외부 LD 참조 패널이 어긋나면 모든 방법의 검정력이 떨어짐.
+<div class="lev">⚙️ 다중 조상 GWAS fine-mapping 시 방법을 미리 하나로 고르지 말고, 유전자좌별로 조상 특이 변이 유무를 보고 방법을 고르는 decision strategy를 적용할 수 있다. 외부 LD 패널을 쓴다면 요약통계와의 LD mismatch부터 점검해야 한다는 근거가 된다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.10.18.753004" style="color:inherit">Streamline CNV - A Handy Nextflow Pipeline for Chromosomal Copy Number Variation Analysis</a><span class="pvenue">biorxiv (bioinformatics)</span><br>저심도 WGS(LP-WGS) CNV 분석을 명령 한 줄로 돌리는 Nextflow+Docker 파이프라인 — QC, CNV 콜링, segmentation, 유전자 주석, 이배수(euploid)가 아닌 영역 비율 계산, CNV 패턴 클러스터링과 시각화까지 포함.
+<div class="lev">⚙️ 어레이 CNV 결과를 LP-WGS로 교차검증하거나 시퀀싱 기반 CNV로 확장할 때 빠르게 붙일 수 있는 기성 파이프라인이다. Slurm·클라우드 실행을 지원하고, 단일세포와 bulk 데이터를 모두 처리한다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://pubmed.ncbi.nlm.nih.gov/42907153/" style="color:inherit">Refining indel- and structural variant-trait associations with LAVrefiner.</a><span class="pvenue">Genome Res</span><br>서로 겹치는 SV·indel을 겹치지 않는 서열 구성요소로 분해해 SNP용 표준 분석 도구가 바로 받는 유전형 행렬로 만드는 LAVrefiner — STR/VNTR 영역에서는 기존 SV 표현 방식과 TR copy number 도구보다 유전율 추정과 예측 정확도가 높음.
+<div class="lev">⚙️ 장기적으로 WGS 기반 SV를 GWAS나 eQTL 모델에 넣을 때 전처리 단계로 쓸 수 있다. 반복 서열 영역의 copy number를 변이로 다룬다는 점에서 CNV 연관 분석과 개념이 맞닿아 있다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.01.07.698308" style="color:inherit">msmu: a computational framework for provenance-aware mass spectrometry-based proteomics analysis</a><span class="pvenue">biorxiv (bioinformatics)</span><br>질량분석 단백체의 검색(search) 이후 처리를 MuData 객체 하나에 담고, 수행한 연산·파라미터·소프트웨어 버전을 기록해 해시 검증으로 똑같이 재실행(replay)할 수 있게 한 Python 패키지 msmu — macOS와 Debian 사이에서 결과가 기계 정밀도 수준으로 일치함.
+<div class="lev">⚙️ SomaScan은 질량분석이 아닌 aptamer 플랫폼이라 직접 쓸 수는 없지만, '분석 객체 안에 QC·정규화 이력을 함께 저장한다'는 설계는 단백체 QC 파이프라인의 재현성 관리에 그대로 빌려 쓸 만하다.</div></div>
+
+
+
+
+<h2>🛰 기회 레이더</h2>
+
+<div class="one"><span class="tag C">기회</span><a href="https://doi.org/10.64898/2026.10.19.760196" style="color:inherit">hvantk: an agentic multi-omics framework for variant annotation and analysis</a><span class="pvenue">biorxiv (bioinformatics)</span><br>Hail MatrixTable·AnnData를 확장한 변이 주석 프레임워크 hvantk — 공개 데이터 21종을 플러그인으로 붙이고 에이전트 스킬로 워크플로를 구동하며, burden test 결과를 재순위화하자 CHD에서 상위 10% 유전자의 질환 유전자 회수율이 26%에서 49%로 오름.
+<div class="lev">💡 분석 도구를 'AI 에이전트가 직접 플러그인을 작성하고 실행하는 구조'로 설계하는 흐름이 생겼다는 뜻이다. 앞으로는 파이프라인을 직접 돌리는 능력보다 에이전트가 쓸 수 있는 스킬과 데이터 모델을 설계하는 능력이 차별점이 된다.</div></div>
+
+<div class="one"><span class="tag C">기회</span><a href="https://doi.org/10.64898/2026.10.18.759908" style="color:inherit">PigGPA: A Domain-Constrained Agent for Porcine Genomic Breeding with Verifiable Tool Execution</a><span class="pvenue">biorxiv (bioinformatics)</span><br>돼지 유전체 육종 에이전트 PigGPA — 범용 LLM 에이전트는 같은 작업을 반복해도 분석 결정이 57~59%만 일치했고, 실행 전 파라미터를 SHA-256 해시로 선언한 뒤 실제 실행과 대조하는 '실행 계약'으로 선언과 실행의 완전 일치를 달성함.
+<div class="lev">💡 유전체 분석에 LLM 에이전트를 도입할 때 핵심 쟁점이 '결과를 검증할 수 있는가'로 옮겨가고 있어, 통계유전학 도메인 지식과 재현성 검증 설계를 함께 갖춘 인력의 가치가 커진다.</div></div>
+
+<div class="one"><span class="tag C">기회</span><a href="https://pubmed.ncbi.nlm.nih.gov/42918851/" style="color:inherit">OpenDVP: an experimental and computational framework for community-empowered deep visual proteomics.</a><span class="pvenue">Nat Methods</span><br>이미지 분석과 공간 단백체를 잇는 deep visual proteomics(DVP)의 오픈소스 end-to-end 프레임워크 openDVP(Nat Methods) — scverse 포맷(AnnData·SpatialData)으로 다중오믹스를 통합하고, 이미지 분석 전문성이 없어도 쓰는 fast-track 경로를 제공함.
+<div class="lev">💡 공간 단백체가 소수 연구실의 기술에서 커뮤니티 표준 포맷 위의 생태계로 넘어가는 신호다. 혈장 단백체를 넘어 조직 단위 단백체 분석까지 다룰 수 있는 인력 수요가 생길 수 있다.</div></div>
+
+
+
+<div class="foot">bioRxiv · medRxiv · PubMed 최근 7일 — 키워드 3트랙 자동 수집 후 Claude 선별 · PaperBrief</div>
+</div>
+</div>
