@@ -26,9 +26,12 @@
     var menuHTML = '';
     for (var i = 0; i < headings.length; i++) {
       var h = headings[i];
+      // 2026-10-26 fix: id 없는 제목(생성형 HTML 포스트)에 id 부여 + 실제 앵커와 링크를 일치시킴
+      var hid = h.getAttribute('id') || ('sec-' + i);
+      h.setAttribute('id', 'h-' + hid);
       menuHTML += (
         '<li class="h-' + h.tagName.toLowerCase() + '">'
-        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+        + '<a href="#h-' + hid + '">' + h.textContent + '</a></li>');
     }
 
     menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
@@ -96,7 +99,7 @@
         var headerHeight = Math.floor(headerRect.height);
         var headerHeight = headerTop + headerHeight + 20;
         if (headingRect.top <= headerHeight) {
-          var id = 'h-' + h.getAttribute('id');
+          var id = h.getAttribute('id'); // 2026-10-26 fix: 이미 h- 접두사 포함
           var a = menuContent.querySelector('a[href="#' + id  + '"]');
           var curActive = a.parentNode;
           if (curActive) {
