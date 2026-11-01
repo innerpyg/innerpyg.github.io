@@ -1,0 +1,132 @@
+---
+title: Weekly Paper Brief
+author: "Written by Claude"
+date: "2026-11-02"
+layout: post
+categories: Research
+tags: [Papers, Weekly]
+series: paper
+---
+
+<style>
+.paper-brief {--bg:#faf9f6;--fg:#1a1a1a;--muted:#6b6b6b;--line:#e3e0d8;--accent:#1f6f54;--card:#ffffff;
+      --a:#1f6f54;--b:#8a6d1f;--c:#6d4fa3;--m:#2c6e9e;--sans:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;--serif:Georgia,"Noto Serif KR",serif}
+
+@media (prefers-color-scheme:dark){.paper-brief{--bg:#161614;--fg:#eceae4;--muted:#9a9890;--line:#33322d;--accent:#5fb893;--card:#1f1f1c;--a:#5fb893;--b:#d4b356;--c:#a98fd6;--m:#6aa9d8}
+.paper-brief {margin:0;background:var(--bg);color:var(--fg);font-family:var(--serif);line-height:1.65}
+.paper-brief .wrap {max-width:760px;margin:0 auto;padding:2rem 16px 4rem}
+.paper-brief .kicker {font-family:var(--sans);font-size:.8rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
+.paper-brief h1 {font-size:1.7rem;line-height:1.3;margin:.3rem 0 .2rem}
+.paper-brief .meta {font-family:var(--sans);color:var(--muted);font-size:.85rem;margin-bottom:1.6rem}
+.paper-brief h2 {font-family:var(--sans);font-size:1.05rem;margin:2.2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+.paper-brief .flow {font-size:1.02rem}
+.paper-brief .paper {background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:.9rem 0}
+.paper-brief .ptitle {font-family:var(--sans);font-weight:700;line-height:1.45}
+.paper-brief .ptitle a {color:var(--fg);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.paper-brief .pvenue {font-family:var(--sans);font-size:.78rem;color:var(--muted);margin:.15rem 0 .6rem}
+.paper-brief .tag {display:inline-block;font-family:var(--sans);font-size:.68rem;padding:.1rem .45rem;border-radius:99px;color:#fff;margin-right:.3rem;vertical-align:1px}
+.paper-brief .tag.A {background:var(--a)}
+.paper-brief .tag.B {background:var(--b)}
+.paper-brief .tag.C {background:var(--c)}
+.paper-brief .tag.M {background:var(--m)}
+.paper-brief .paper ol {margin:.2rem 0 .6rem 1.2rem;padding:0;font-size:.95rem}
+.paper-brief .paper ol li {margin:.25rem 0}
+.paper-brief .rel {font-family:var(--sans);font-size:.88rem;background:color-mix(in srgb,var(--accent) 9%,transparent);border-left:3px solid var(--accent);padding:.5rem .7rem;border-radius:0 6px 6px 0}
+.paper-brief .one {margin:.55rem 0;font-size:.95rem}
+.paper-brief .one .pvenue {display:inline;margin-left:.4rem}
+.paper-brief .lev {color:var(--muted);font-family:var(--sans);font-size:.85rem;margin:.15rem 0 0 1.1rem}
+.paper-brief .foot {margin-top:3rem;font-family:var(--sans);font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:.8rem}
+</style>
+
+<div class="paper-brief">
+<div class="wrap">
+<div class="kicker">Weekly Paper Brief</div>
+<h1>단일세포 QTL 대형화, UKB 참조 패널 등장</h1>
+<div class="meta">2026.11.02 (월) · 수집 창 2026-10-26 ~ 2026-11-02 · 후보 50편 (원천 628편)</div>
+
+<h2>이번 주 흐름</h2><p class="flow">이번 주 가장 두드러진 흐름은 GWAS 해석의 해상도를 단일세포 수준으로 끌어올리는 작업이다. Nature에 실린 PBMC scATAC caQTL(1,042명)과 TenK10K(1,925명), Nat Genet의 골격근 snATAC/snRNA가 한 주에 함께 나왔고, 세 연구 모두 'GWAS 신호는 bulk eQTL보다 세포유형별 염색질 접근성 QTL과 더 잘 겹친다'는 결론으로 수렴한다. 인프라 쪽에서는 UKB 49만 명 WGS 기반 imputation 패널이 TOPMed를 넘어섰고(동아시아 개선폭 최대), PRS·SV inversion·xQTL 예측 모델 벤치마크가 잇달아 나와 도구 선택 기준이 정리되는 중이다. 한편 eQTL 정량 방법에 따른 재현성 문제, 조상별로 엇갈리는 pQTL-질환 연결(RGMB) 같은 경고성 결과와 함께, 유전형 foundation model(SNPBERT)·에이전트 기반 분석(DeepMAST)도 꾸준히 이어지고 있다.</p>
+
+
+<h2>📌 필독 3편</h2>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42963394/">A haplotype reference panel constructed from 490,319 UK Biobank genomes improves genotype imputation for global populations.</a></div>
+  <div class="pvenue">Nat Genet</div>
+  <ol><li>UK Biobank 490,319명의 전장유전체(WGS)로 imputation 참조 패널을 구축하고, EagleImp2(독립 실행)와 EagleImp-RAP(UKB 클라우드)로 phasing·imputation을 지원했다.</li><li>TOPMed r3(133,597명)와 비교해 AMR을 제외한 모든 superpopulation과 26개 중 25개 1000G 하위집단에서 phasing switch error가 낮았고, MAF 0.01%까지 imputation 정확도(MAE)가 5개 중 4개 superpopulation에서 개선됐다.</li><li>추정 r²는 5개 superpopulation 전체에서 향상됐고 동아시아·남아시아에서 개선폭이 가장 컸으며, 유럽 COVID-19 GWAS 재-imputation 결과 common variant imputation도 아직 포화되지 않아 신규 유의 locus 발견과 fine-mapping 해상도 향상으로 이어졌다.</li></ol>
+  <div class="rel">🔗 어레이 데이터를 imputation하는 독자에게 TOPMed를 대체할 참조 패널 후보가 생긴 셈이다. 특히 동아시아 r² 개선이 가장 컸다는 점은 한국인 코호트에 직접 의미가 있으므로, 기존 GWAS 데이터를 재-imputation해 신규 locus나 fine-mapping 개선이 나오는지 시험해볼 만하다.</div>
+</div>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42951970/">Genetic variants shape single-cell chromatin accessibility and disease risk.</a></div>
+  <div class="pvenue">Nature</div>
+  <ol><li>WGS가 매칭된 1,042명 공여자의 말초혈액단핵세포(PBMC) 350만 개로 scATAC-seq을 수행해, 28개 면역세포 유형에서 243,225개 chromatin accessibility QTL(caQTL)을 찾았고 이 중 60%가 세포유형 특이적이었다.</li><li>540만 세포 scRNA-seq eQTL과 colocalization해 후보 cis-조절요소 28,834개를 정의했고, 질병 16종·혈액형질 44종 GWAS에서 caQTL이 eQTL 단독보다 4.5~22.6% 더 많은 신호를 colocalize했다.</li><li>세포유형·조직 맥락, 원거리 효과, 다중 원인변이 모델을 반영하자 GWAS-eQTL 일치율이 약 16%에서 약 65%로 올라갔다. 'GWAS 신호 대부분은 eQTL로 설명되지 않는다'는 missing regulation 문제에 단일세포 염색질 데이터가 답이 될 수 있음을 보여준다.</li></ol>
+  <div class="rel">🔗 GWAS hit의 기능 해석을 bulk eQTL colocalization에만 의존해왔다면, 면역 관련 형질에서는 이 세포유형별 caQTL 자원을 추가 근거층으로 쓸 수 있다. 같은 주에 나온 TenK10K(Nature)·골격근 snATAC(Nat Genet)와 함께 보면 '인구집단 규모 단일세포 QTL'이 이제 표준 해석 인프라로 자리잡는 흐름이다.</div>
+</div>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42951966/">Perinatal elimination of genetically aberrant human cortical neurons.</a></div>
+  <div class="pvenue">Nature</div>
+  <ol><li>태아기부터 출생 후까지 사후 뇌의 단일 뉴런 2,357개를 시퀀싱한 결과, 출생 전 피질 뉴런의 평균 25.9%(12.7~46%)가 여러 염색체에 걸친 광범위한 CNV를 가진 고도 이상 유전체였다.</li><li>Tn5 기반 증폭(1,526개)과 primary template amplification(831개) 두 가지 단일세포 WGS로 교차검증했으며, 이 비율은 출생 후 약 4.5배 감소했다(Fisher 메타분석 P = 3.5 × 10⁻⁶).</li><li>광범위 CNV 뉴런은 주로 출생 전후, 프로그램된 세포사멸 시기와 비슷하게 제거됐고, 살아남은 뉴런의 CNV는 dosage-sensitive 유전자와 신경발달장애 유전자가 결핍돼 있어 선택적 제거를 시사한다. 체세포 모자이시즘이 정상 발달의 일부라는 관점을 강화한다.</li></ol>
+  <div class="rel">🔗 직접 연관은 없으나(생식세포 CNV가 아니라 체세포 단일세포 CNV), dosage-sensitive 유전자에 걸린 CNV가 선택적으로 제거된다는 결과는 어레이 CNV 분석에서 유전자 dosage 민감도(예: haploinsufficiency 점수)로 병원성을 해석하는 논리를 단일세포 수준에서 뒷받침한다.</div>
+</div>
+
+
+
+
+<h2>👀 주목</h2>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42951973/" style="color:inherit">Rare and common genetic variants shape single-cell immune gene expression.</a><span class="pvenue">Nature</span><br>TenK10K 1기: 1,925명 WGS와 28개 면역세포 유형 500만+ 세포 scRNA-seq을 결합해, 검정한 유전자 21,404개 중 83%에서 common 조절변이를, 47%에서 누적 rare variant 신호를 찾았다. 효과의 약 절반은 한두 개 세포유형에서만 관찰됐다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42951906/" style="color:inherit">Population-scale single-nucleus multi-omic profiling of skeletal muscle reveals extensive context-specific genetic regulation.</a><span class="pvenue">Nat Genet</span><br>골격근 생검 287건의 snATAC·snRNA로 eQTL 7,000여 개와 caQTL 10만여 개를 찾았다. 약 3,500개 GWAS 신호가 colocalize됐는데 대부분 eQTL이 아니라 caQTL과 겹쳐, 인구집단 규모 염색질 프로파일링이 필요하다는 근거를 더했다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42934278/" style="color:inherit">Quantification method affects replicability of eQTL analysis, colocalization and TWAS.</a><span class="pvenue">Nat Genet</span><br>GTEx 48개 조직 분석 결과, RNA-seq 전사체 annotation과 정량 방법 선택만 바꿔도 eQTL 검출·발현 예측이 크게 달라지고 colocalization·TWAS 결과까지 영향을 받는다. 지난주 TWAS false sign rate 논문에 이어 재현성 경고가 한 번 더 나왔다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42958586/" style="color:inherit">The impact of structural variation on Alzheimer's disease in the Alzheimer's disease sequencing project.</a><span class="pvenue">Genome Biol</span><br>ADSP WGS 16,841명에서 그래프 기반 BioGraph로 고품질 SV 456,644개(65%가 신규)를 콜링했다. EUR에서 CCDC12·CCDC88B 인트론의 저빈도 deletion 2개가 AD와 유의하게 연관됐고, LAT에서는 PSEN1, AFR에서는 ABCA7에서 희귀 병원성 SV가 나왔다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><span class="tag C">기회레이더</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42953967/" style="color:inherit">Biobank-scale self-supervised genotype pretraining yields transferable representations for human genetics.</a><span class="pvenue">Nucleic Acids Res</span><br>SNPBERT: UKB 485,923명 유전형을 masked rsID 예측으로 사전학습한 transformer다. 임베딩은 집단 구조 파악에서 PCA와 비슷했고, 질환 리스크 점수는 기존 PRS 대비 Nagelkerke R²를 상대적으로 0.7~3.3% 더 올렸다. 개인 수준 유전형 foundation model의 초기 단계다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42928239/" style="color:inherit">Systematic comparison of phenome-wide admixture mapping and genome-wide association at biobank-scale.</a><span class="pvenue">Nat Commun</span><br>BioMe 바이오뱅크의 히스패닉/라티노(14,876명)와 아프리카계 미국인(8,819명)에서 800여 개 표현형을 대상으로 admixture mapping과 GWAS를 비교했다. AM이 찾은 신호 77개 중 48개는 GWAS로는 검출되지 않았다.</div>
+
+<div class="one"><span class="tag A">업무</span><a href="https://doi.org/10.64898/2026.10.26.26366459" style="color:inherit">Plasma Proteogenomics Identifies RGMB as a Candidate for Primary Open-Angle Glaucoma Detected Only in East Asians</a><span class="pvenue">medrxiv (genetic and genomic medicine)</span><br>BioBank Japan 녹내장(POAG) GWAS를 일본인 SomaScan v4 pQTL(Nagahama)과 SMR·colocalization으로 통합해 RGMB를 후보로 제시했다(Bonferroni 보정은 통과하지 못함). 같은 플랫폼의 유럽 데이터에서는 신호가 없어, 단백질-질환 연결이 조상에 따라 다를 수 있음을 보여준다.</div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.10.22.26366029" style="color:inherit">Proteogenomics captures a midlife biological state of Alzheimer's disease susceptibility</a><span class="pvenue">medrxiv (neurology)</span><br>UK Biobank 다중모드 뇌영상과 혈장 단백체로 뇌 구조를 반영하는 순환 단백질 시그니처('neurostructural proteome')를 정의했다. 이 시그니처는 중년기에 측정해도 이후 인지 저하·치매 발생·AD 병리를 예측했고, APOE 영역 밖의 AD 유전 구조와도 수렴했다.</div>
+
+
+
+
+<h2>🔧 분석 도구·방법론</h2>
+
+<div class="one"><span class="tag M">도구</span><a href="https://pubmed.ncbi.nlm.nih.gov/42960992/" style="color:inherit">A literature-derived benchmarking database for single-ancestry polygenic risk score construction methods with spectral ranking inferences.</a><span class="pvenue">Brief Bioinform</span><br>2009~2025년에 발표된 PRS 벤치마크 결과를 모아 summary statistics 기반 단일 조상 PRS 방법 14종을 spectral ranking으로 순위화했다. 개발 연구와 응용 연구 양쪽 데이터에서 LDpred2·AnnoPred가 일관되게 최상위, C+T가 최하위였고 중간 순위는 변동이 컸다.
+<div class="lev">⚙️ PRS 파이프라인에서 방법을 고를 때 LDpred2를 기본값으로 둘 근거가 된다. 표현형별 순위도 제공하므로 대상 형질에 맞춰 대안(예: AnnoPred)을 병행할지 판단하는 데 쓸 수 있다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.10.22.26366229" style="color:inherit">A family-aware All of Us benchmark for polygenic prediction and genomic machine learning</a><span class="pvenue">medrxiv (genetic and genomic medicine)</span><br>All of Us v9를 기반으로, 가족 단위 전체를 discovery/calibration/test 분할에 고정 배정해 친척 간 데이터 누출을 막은 PRS·ML 벤치마크다. 14개 이진 질환에서 최고 점수는 liability-scale 분산의 5.7~24.9%를 설명했고, 대부분 형질에서 기존 상업·학술 점수와 같거나 더 높았다.
+<div class="lev">⚙️ GWAS/PRS나 ML 모델을 평가할 때 친척을 분할 사이에 섞지 않는 family-aware split 설계는 그대로 가져다 쓸 만하다. 형제 내 효과(within-family) 추정을 함께 보고하는 방식도 PRS 검증 표준으로 참고할 수 있다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://pubmed.ncbi.nlm.nih.gov/42958560/" style="color:inherit">Multi-genome benchmark for simple and complex genome inversion detection.</a><span class="pvenue">Genome Biol</span><br>Strand-seq과 phased long-read assembly로 5개 참조 샘플에서 단순·복합 inversion 벤치마크를 만들었다. 단순 inversion은 충분한 커버리지에서 잘 검출됐지만 복합·이형접합 inversion은 여전히 어려웠고, 복합 inversion recall은 Sniffles2와 Severus가 가장 높았다(대신 false positive 증가).
+<div class="lev">⚙️ 어레이 CNV 콜링으로는 copy-neutral인 inversion이 보이지 않으므로, long-read로 SV 분석을 확장할 계획이라면 이 벤치마크로 caller(Sniffles2/Severus)와 aligner(Minimap2 vs VACmap) 조합을 검증할 수 있다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://pubmed.ncbi.nlm.nih.gov/42960994/" style="color:inherit">Cross-task benchmarking reveals variable transferability of deep learning models across molecular quantitative trait loci.</a><span class="pvenue">Brief Bioinform</span><br>사전학습된 조절 특성 모델 6종을 9개 분자 QTL(xQTL) 클래스에서 교차 평가했다. 모든 모델이 eQTL 예측은 잘했지만 다른 xQTL에서는 성능 편차가 컸고, AlphaGenome과 Borzoi가 일관되게 최고 성능을 냈다. 트리 기반 앙상블을 얹으면 성능이 더 올랐다.
+<div class="lev">⚙️ GWAS locus의 비암호화 변이 우선순위를 정할 때 AlphaGenome·Borzoi 예측을 특성으로 쓰고 트리 앙상블로 결합하는 방식을 바로 적용해볼 수 있다. 단, chromatin looping·miRNA QTL처럼 예측이 약한 영역은 결과를 걸러서 해석해야 한다.</div></div>
+
+
+
+
+<h2>🛰 기회 레이더</h2>
+
+<div class="one"><span class="tag C">기회</span><a href="https://doi.org/10.64898/2026.10.22.760550" style="color:inherit">An evidence-governed agent harness for spatial transcriptomics prioritizes ICAM-1 as a target in lung fibrosis</a><span class="pvenue">biorxiv (bioinformatics)</span><br>DeepMAST: 로컬 LLM 위에 MCP 기반 공간전사체 분석 도구와 도메인 Skills, RAG, 환각 억제 가드레일을 붙인 다중 에이전트 시스템이다. IPF 데이터에서 ICAM1을 표적 후보로 제시했고, 인체 조직 면역염색과 전임상 모델의 ICAM-1 차단 실험으로 뒷받침됐다.
+<div class="lev">💡 분석 실행부터 근거 기반 해석까지 에이전트가 맡는 'agent harness' 설계가 실제 표적 발굴 성과로 이어지기 시작했다. 앞으로 생물정보 인력에게는 파이프라인을 직접 짜는 능력보다 도구를 MCP/Skill로 묶고 근거 검증 체계를 설계하는 능력이 더 큰 차별점이 될 것이다.</div></div>
+
+<div class="one"><span class="tag C">기회</span><a href="https://doi.org/10.64898/2026.10.27.762236" style="color:inherit">MutQA: A Cross-Validated Q&A Dataset for Genetic Mutations</a><span class="pvenue">biorxiv (genomics)</span><br>MutQA: 독립된 LLM 3개(생성·응답·판정)로 교차검증하는 CrossValQA를 이용해, PMC 논문 27,442편에 근거를 둔 변이-기능 QA 330,387쌍을 만들었다. 이 데이터로 MutaPLM을 fine-tuning하자 LLM-judge 점수가 1.45에서 2.82로 거의 두 배가 됐다.
+<div class="lev">💡 변이 해석 분야에서도 LLM 학습·평가용 근거 기반 데이터셋 구축이 하나의 연구 주제가 되고 있다. 도메인 지식으로 데이터 품질을 감사(audit)할 수 있는 생물정보 인력의 수요가 커질 신호다.</div></div>
+
+<div class="one"><span class="tag C">기회</span><a href="https://pubmed.ncbi.nlm.nih.gov/42928829/" style="color:inherit">Bridge2AI recommendations for AI-ready genomic data.</a><span class="pvenue">Bioinform Adv</span><br>NIH Bridge2AI 컨소시엄의 Genomic Information Standards Team이 유전체 데이터를 'AI-ready'로 만들기 위한 수집·저장·식별·활용 권고안을 정리했다.
+<div class="lev">💡 AI-ready 데이터 표준이 NIH 차원에서 정리되고 있어, 메타데이터·데이터 표준화 역량이 앞으로 연구비와 채용 요건에서 독립된 전문성으로 평가받을 가능성이 크다.</div></div>
+
+
+
+<div class="foot">bioRxiv · medRxiv · PubMed 최근 7일 — 키워드 3트랙 자동 수집 후 Claude 선별 · PaperBrief</div>
+</div>
+</div>
