@@ -1,0 +1,293 @@
+---
+title: Morning Market Brief
+author: "Written by Claude"
+date: "2026-11-02"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily]
+series: stock
+---
+
+<style>
+.morning-brief {
+    --bg: #fffdf9;
+    --fg: #1a1a1a;
+    --muted: #6b6055;
+    --border: #e8e0d4;
+    --card: #fff9f0;
+    --accent: #c4482c;
+    --up: #1a7f5a;
+    --down: #c4482c;
+    --serif: 'Noto Serif KR', 'Source Serif Pro', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Pretendard', sans-serif;
+    --mono: ui-monospace, 'JetBrains Mono', Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .morning-brief {
+      --bg: #12110f;
+      --fg: #ede8df;
+      --muted: #a99f92;
+      --border: #2a2722;
+      --card: #1a1815;
+      --accent: #ff7a5c;
+      --up: #4ade80;
+      --down: #ff7a5c;
+    }
+.morning-brief .mb-report { background: var(--bg); color: var(--fg); font-family: var(--serif); max-width: 860px; margin-inline: auto; padding: 2.5rem 1.5rem 2rem; line-height: 1.7; font-feature-settings: "tnum"; }
+.morning-brief .mb-report header { border-bottom: 2px solid var(--fg); padding-bottom: 1.5rem; margin-bottom: 2.5rem; }
+.morning-brief .mb-report .kicker { font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report h1 { font-family: var(--serif); font-size: 2.4rem; line-height: 1.15; margin: 0.75rem 0 0.5rem; font-weight: 700; letter-spacing: -0.01em; }
+.morning-brief .mb-report .dek { font-family: var(--sans); color: var(--muted); font-size: 1.05rem; line-height: 1.5; }
+.morning-brief .mb-report .meta { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin-top: 1rem; }
+.morning-brief .mb-report h2 { font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-weight: 700; border-top: 1px solid var(--border); padding-top: 1.5rem; margin: 2.5rem 0 1rem; }
+.morning-brief .mb-report p.lede { font-size: 1.1rem; line-height: 1.7; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 3.2rem; float: left; font-weight: 700; line-height: 0.9; margin: 0.15rem 0.6rem 0 0; color: var(--accent); font-family: var(--serif); }
+.morning-brief .mb-report .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report .stat { padding: 1rem 1.25rem; border-right: 1px solid var(--border); font-family: var(--sans); }
+.morning-brief .mb-report .stat:last-child { border-right: none; }
+.morning-brief .mb-report .stat .lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report .stat .val { font-family: var(--mono); font-size: 1.4rem; font-weight: 600; margin-top: 0.25rem; letter-spacing: -0.01em; }
+.morning-brief .mb-report .stat .chg { font-family: var(--mono); font-size: 0.8rem; margin-top: 0.1rem; }
+.morning-brief .mb-report .up { color: var(--up); }
+.morning-brief .mb-report .down { color: var(--down); }
+.morning-brief .mb-report ol.analysis { padding-left: 1.25rem; font-family: var(--sans); font-size: 0.975rem; line-height: 1.65; }
+.morning-brief .mb-report ol.analysis li { margin-bottom: 0.75rem; padding-left: 0.5rem; }
+.morning-brief .mb-report ol.analysis li::marker { color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.925rem; margin-top: 0.5rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.7rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report td.num { font-family: var(--mono); text-align: right; }
+.morning-brief .mb-report blockquote.takeaway { border-left: 3px solid var(--accent); padding: 0.25rem 0 0.25rem 1.25rem; margin: 1rem 0; font-family: var(--sans); font-style: italic; font-size: 1.02rem; line-height: 1.6; }
+.morning-brief .mb-report footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
+.morning-brief .mb-report .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.morning-brief .mb-report .lesson-card { background: var(--card, #f5f2ec); border-left: 3px solid var(--accent); padding: 1.1rem 1.25rem; border-radius: 0 4px 4px 0; margin: 0.75rem 0 1rem; font-family: var(--sans); }
+.morning-brief .mb-report .lesson-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report .lesson-body { font-size: 0.95rem; line-height: 1.7; color: var(--fg); white-space: pre-line; }
+.morning-brief .mb-report details.glossary { margin-top: 2.5rem; font-family: var(--sans); border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 1rem; }
+.morning-brief .mb-report details.glossary summary { cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--muted); padding: 0.3rem 0; }
+.morning-brief .mb-report details.glossary[open] summary { margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report details.glossary dl { margin: 0; padding: 0; font-size: 0.85rem; line-height: 1.6; }
+.morning-brief .mb-report details.glossary dt { font-weight: 700; margin-top: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report details.glossary dd { margin: 0.15rem 0 0 0; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .mb-report { padding: 1.5rem 1rem 1.5rem; }
+.morning-brief .mb-report h1 { font-size: 1.75rem; }
+.morning-brief .mb-report .dek { font-size: 0.95rem; }
+.morning-brief .mb-report p.lede { font-size: 1rem; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 2.6rem; margin: 0.1rem 0.4rem 0 0; }
+.morning-brief .mb-report .stat { padding: 0.75rem 1rem; }
+.morning-brief .mb-report .stat .val { font-size: 1.2rem; }
+.morning-brief .mb-report table { font-size: 0.82rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.55rem 0.5rem; }
+.morning-brief .mb-report blockquote.takeaway { font-size: 0.95rem; padding-left: 1rem; }
+</style>
+
+<div class="morning-brief">
+<article class="mb-report">
+
+<header>
+  <div class="kicker">Morning Market Brief</div>
+  <h1>인텔 쇼크에 나스닥 급락, AI 시험대</h1>
+<div class="dek">인텔의 실적 전망 실망과 빅테크의 AI 지출 부담이 겹치며 30일 뉴욕 기술주가 급락했다. 코스피는 2일 약세로 출발했지만 기관 매수로 장중 상승 전환했고, 이번 주 미 중간선거와 고용, AMD 실적이 다음 시험대다.</div>  <div class="meta">2026.11.02 (월) · 09:56 KST · yfinance + Naver Finance</div>
+</header>
+
+<p class="lede">30일 뉴욕은 S&P 500 7,580.07(−1.82%), 나스닥 25,437.00(−2.86%), 다우 51,770.31(−1.09%)로 마감했고 VIX는 19.42(+12.91%)로 뛰었다. 나스닥은 6월 5일 이후 가장 큰 하루 낙폭을 기록했다(Reuters). 코스피는 2일 09시 50분 기준 5,761.19(+0.53%), 코스닥은 725.75(+0.19%)로 장 초반 낙폭을 되돌리는 중이다.</p>
+
+<h2>💼 내 계좌 오늘</h2>
+<div class="stats">
+  <div class="stat"><div class="lbl">KR 모의계좌</div><div class="val">₩46,272,090</div><div class="chg">6종 보유</div></div>
+  <div class="stat"><div class="lbl">US 모의계좌</div><div class="val">$96,511.78</div><div class="chg">10종 보유</div></div>
+</div>
+<div class="table-wrap" style="margin-top: 1rem;">
+<table>
+  <thead><tr><th>시장</th><th>매매</th><th>종목</th><th>근거</th></tr></thead>
+  <tbody>
+    <tr><td>KR</td><td class="down">SELL</td><td>이수페타시스</td><td>재앙 하한 −12% 도달, 전량 매도</td></tr>
+    <tr><td>KR</td><td class="down">SELL</td><td>SK하이닉스</td><td>트레일링 −5% 이탈, 전량 매도</td></tr>
+    <tr><td>KR</td><td class="down">SELL</td><td>삼성전자</td><td>트레일링 이탈, 수익 구간 정리</td></tr>
+    <tr><td>KR</td><td class="up">BUY</td><td>신한지주</td><td>급락일 상대강도, 88,700원 돌파</td></tr>
+  </tbody>
+</table>
+</div>
+<ol class="analysis" style="margin-top: 1rem;">
+<li>KR은 오늘 아침 매도 6건·매수 2건을 접수했고 체결가는 미확정이다. 09:08 state에 에스피지 5주가 남아 있고 신한지주는 미반영이라 체결 확인이 먼저다. 삼성물산 308,000원과 미래에셋증권 24,750원은 트레일링 기준가 308,275원·25,128원 아래이므로 종가를 본다</li><li>US 현금은 $20,170.57로 비중 약 20.9%다. NVDA −6.92%, AVGO −4.83%로 AI 반도체에서 손실이 커져 이번 주 AMD 실적에 민감하다</li></ol>
+
+<h2>🔄 어제와 달라진 점</h2>
+<ol class="analysis">
+<li>지난 리포트(10월 29일) 대비 VIX가 안정 구간에서 경계선으로 올라왔다: 16.91(−3.48%)에서 19.42(+12.91%)로 뛰어 20에 근접했다.</li><li>미 10년물 금리가 5% 아래로 돌아왔다: 5.045%에서 4.929%로 내렸고, 10년−13주 금리차도 1.05%p에서 0.956%p로 좁혀졌다. 지난 리포트의 금리 상승 부담이 주식 급락 속 채권 매수로 바뀐 모습이다.</li><li>코스피 6,000선을 내줬다: 6,012.44에서 30일 5,730.74로 밀렸고 2일 장중 5,761.19다. 삼성전자·SK하이닉스가 끌어올린 지수를 같은 종목들이 끌어내렸다.</li><li>주도권이 반도체에서 이동했다: 30일 국내에서는 제약·2차전지, 미국에서는 에너지가 강했다. 금값은 4,071.70달러에서 3,903.80달러로 내려 4,000달러를 밑돌았다.</li></ol>
+
+<h2>🇺🇸 US Market Recap</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">S&P 500</div>
+    <div class="val">7,580.07</div>
+    <div class="chg down">
+-1.82%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">NASDAQ</div>
+    <div class="val">25,437.00</div>
+    <div class="chg down">
+-2.86%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">DOW</div>
+    <div class="val">51,770.31</div>
+    <div class="chg down">
+-1.09%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">VIX</div>
+    <div class="val">19.42</div>
+    <div class="chg up">
++12.91%
+    </div>
+  </div>
+</div>
+
+<h2>Key Drivers</h2>
+<ol class="analysis">
+<li>인텔이 하루 28.58% 폭락했다. 이익은 예상을 넘었지만 4분기 매출 전망 150억~160억달러가 시장 예상 171억달러에 크게 못 미쳤고, PC 수요 부진과 높은 메모리 가격을 부담으로 꼽았다(Reuters·스트레이트뉴스).</li><li>AI 지출의 회수 시점에 대한 의심이 시장 전체로 번졌다. 아마존 실적 실망(Reuters)과 알파벳의 잉여현금흐름 마이너스 전환(코리아리포트)이 함께 거론됐고, 반도체지수는 7.2%, AMD는 10.9% 급락했다(Reuters). 'AI 주식 5조달러 증발'이라는 보도도 나왔다(Yahoo Finance).</li><li>한국도 충격을 먼저 받았다. 30일 코스피는 5,730.74로 3.48% 급락했고 외국인이 약 1조6천억원을 순매도했으며 매도 사이드카도 발동됐다(코리아리포트). 다만 연기금 중심의 기관과 개인이 받아냈다.</li><li>2일 코스피는 5,637.77(−1.62%)로 출발했지만 기관이 순매수에 나서며 낙폭을 줄였다(스트레이트뉴스). 삼성전자·SK하이닉스는 프리마켓에서 3%대 급락했으나(Chosunbiz·뉴스핌) 09시 50분 기준 각각 −1.78%, +0.21%까지 회복했다.</li></ol>
+
+<h2>🌍 Global Macro</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Indicator</th><th class="num">Value</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr><td>10Y Treasury</td><td class="num">4.929%</td><td>−0.060%p</td></tr>
+    <tr><td>5Y Treasury</td><td class="num">4.721%</td><td>−0.080%p</td></tr>
+    <tr><td>30Y Treasury</td><td class="num">5.309%</td><td>−0.020%p</td></tr>
+    <tr><td>13W Treasury</td><td class="num">3.973%</td><td>−0.025%p</td></tr>
+    <tr><td>USD/KRW</td><td class="num">1,339.68</td><td>+0.13%</td></tr>
+    <tr><td>WTI Oil</td><td class="num">$102.45</td><td>−1.6%</td></tr>
+    <tr><td>Gold</td><td class="num">$3,903.80</td><td>+0.13%</td></tr>
+  </tbody>
+</table>
+</div>
+<ol class="analysis" style="margin-top: 1rem;">
+<li>미 10년물 금리는 4.929%(−0.060%p)로 내렸다. 주식이 급락한 날 채권으로 자금이 옮겨간 모습이며, 10년물−13주물 금리차는 0.956%p다.</li><li>연준 내부의 금리 인상론은 더 뚜렷해졌다. 로건 댈러스 연은 총재는 최소 두 차례 추가 인상이 필요하다고 말했고(Reuters), 12월 인상 확률 추정치는 집계에 따라 69~76% 수준으로 엇갈린다(RateWatch·24/7 Wall St.).</li><li>WTI는 102.45달러(−1.6%)로 내렸지만 100달러 위를 유지했다. 엑손모빌과 셰브론은 예상을 웃돈 실적에 각각 2.2%, 2.8% 올라 기술주 급락일의 피난처가 됐다(Reuters).</li><li>금은 3,903.80달러(+0.13%)로 소폭 올랐고, 원/달러 환율은 1,339.68원(+0.13%)으로 큰 변동이 없었다.</li></ol>
+
+<h2>🇰🇷 Korean Market Outlook</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">KOSPI</div>
+    <div class="val">5,761.19</div>
+    <div class="chg up">
++0.53%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">KOSDAQ</div>
+    <div class="val">725.75</div>
+    <div class="chg up">
++0.19%
+    </div>
+  </div>
+</div>
+<p style="font-family: var(--sans); margin-top: 1rem;"><strong>주목 섹터:</strong> 2일 09시 50분 기준 장중 수치다. 반도체는 삼성전자 221,000원(−1.78%), SK하이닉스 1,421,000원(+0.21%)으로 낙폭을 줄이는 중이다. 30일에는 전기·전자(−4.7%), 건설(−6.2%)이 크게 밀린 반면 제약(+4.9%)이 강했고 LG에너지솔루션·삼성SDI도 올라 자금이 AI 밖으로 이동했다(코리아리포트). 이번 주 LG에너지솔루션·LG화학·카카오 실적이 이어진다(뉴스핌).</p><p style="font-family: var(--sans);"><strong>수급 동향:</strong> 30일 유가증권시장에서 외국인은 약 1조6천억원을 순매도했고 SK하이닉스 4,290억원, 삼성전자 2,134억원에 매도가 몰렸다. 기관은 7,432억원, 개인은 6,198억원을 순매수했으며 연기금이 8,929억원으로 버팀목이 됐다(코리아리포트). 2일 개장 초에도 외국인은 965억원 순매도, 기관은 약 2천억원 순매수였다(스트레이트뉴스). 장중 반등이 이어지려면 외국인 매도가 잦아드는지 확인이 필요하다.</p>
+<h2>🗓 이번 주 일정</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>요일</th><th>이벤트</th><th>참고</th></tr></thead>
+  <tbody>
+    <tr><td>화</td><td>애플·팔란티어 실적</td><td>미국 2일 장 마감 후, 한국시간 3일 오전(TradingKey). ISM 제조업 예상 54.7(뉴스핌)</td></tr>
+    <tr><td>화</td><td>한국 10월 소비자물가</td><td>예상 전년 대비 2.8%, 전월 2.9%(뉴스핌). LG에너지솔루션 실적 동시 발표</td></tr>
+    <tr><td>화</td><td>미국 중간선거</td><td>개표 윤곽은 한국시간 4일 오전 이후. 민주당 하원 탈환 가능성이 거론됨</td></tr>
+    <tr><td>수</td><td>AMD 실적</td><td>미국 3일 장 마감 후, 한국시간 4일 오전(TradingKey)</td></tr>
+    <tr><td>목</td><td>미 ISM 서비스업지수·퀄컴 실적</td><td>ISM 예상 54.8. 퀄컴은 미국 4일 장 마감 후, LG화학·카카오 실적도 이날(뉴스핌)</td></tr>
+    <tr><td>금</td><td>미 10월 고용보고서</td><td>한국시간 6일 22:30. 신규고용 예상 5.5만~6.5만명, 실업률 4.2%</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>🔍 Watchlist</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Ticker</th><th>Name</th><th class="num">Close</th><th class="num">Change</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>TSLA</td>
+      <td>Tesla</td>
+      <td class="num">$399.81</td>
+      <td class="num down">
+-0.87%      </td>
+      <td>나스닥 −2.86%보다 낙폭이 작았다. 사이버캡 확대가 투자 논리를 바꿀 수 있다는 분석이 나왔다(Yahoo Finance)</td>
+    </tr>
+    <tr>
+      <td>NVDA</td>
+      <td>NVIDIA</td>
+      <td class="num">$204.64</td>
+      <td class="num down">
+-4.22%      </td>
+      <td>인텔 쇼크에 반도체주와 동반 급락. 이번 주 AMD 실적이 AI 칩 수요의 다음 확인 지점</td>
+    </tr>
+    <tr>
+      <td>005930</td>
+      <td>삼성전자</td>
+      <td class="num">₩221,000</td>
+      <td class="num down">
+-1.78%      </td>
+      <td>2일 09시 50분 장중가. 프리마켓 3%대 급락(Chosunbiz) 뒤 낙폭 축소. 30일 외국인 2,134억원 순매도</td>
+    </tr>
+    <tr>
+      <td>000660</td>
+      <td>SK하이닉스</td>
+      <td class="num">₩1,421,000</td>
+      <td class="num up">
++0.21%      </td>
+      <td>2일 09시 50분 장중가. 30일 −7.08% 급락 뒤 강보합 회복. 2029년까지 메모리 예약이 사실상 찼다는 보도(PRESS9)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>⚡ Today's Takeaways</h2>
+<blockquote class="takeaway">이번 급락의 쟁점은 AI 수요 자체보다 '쓴 돈이 언제 돌아오는가'다. S&P 500 보고 기업의 82%가 예상을 웃돌았는데도(Reuters) 기대에 못 미친 기업은 크게 맞았으므로, 이번 주 애플·팔란티어·AMD 실적이 분위기를 가른다.</blockquote>
+<blockquote class="takeaway">코스피의 장중 +0.53%는 아직 잠정치다. 30일 약 1조6천억원을 판 외국인이 돌아오지 않으면 기관 매수에 기댄 반등에 그칠 수 있어 마감까지 수급을 봐야 한다.</blockquote>
+<blockquote class="takeaway">VIX 19.42는 긴장 구간의 경계인 20에 바짝 붙었다. 3일 미 중간선거, 6일 고용보고서, 연준의 12월 인상 가능성이 한 주에 겹쳐 변동성이 이어질 수 있다.</blockquote>
+
+<h2>📚 오늘의 공부</h2>
+<div class="lesson-card">
+  <div class="lesson-title">동반 하락 — 인텔이 넘어졌는데 왜 삼성전자가 아플까?</div>
+  <div class="lesson-body">한 회사의 나쁜 소식에 같은 업종 주식이 함께 떨어지는 일을 '동반 하락'이라고 해요. 30일 미국에서 인텔이 28.58% 폭락한 날 엔비디아도 4.22% 내렸어요. 시차 때문에 먼저 열린 한국에서는 같은 날 SK하이닉스가 7.08% 빠졌고요.
+
+이유는 크게 두 가지예요. 첫째, 투자자는 '저 회사가 어렵다면 우리 회사도?' 하고 걱정해요. 둘째, 업종을 통째로 담는 펀드(ETF)에서 돈이 빠지면 안에 든 종목이 함께 팔려요.
+
+그런데 인텔이 꼽은 부담 중 하나는 높은 메모리 가격이었어요. 메모리를 파는 삼성전자와 SK하이닉스에는 오히려 비싸게 판다는 뜻일 수 있어요. 같은 악재도 회사마다 의미가 다른 거죠. 오늘 장 초반에는 삼성전자 −1.78%, SK하이닉스 +0.21%로 움직임이 갈렸어요.
+
+이게 왜 중요할까요? 주가가 빠질 때 '이 악재가 정말 이 회사의 문제인가, 분위기에 휩쓸린 것인가'를 나눠 보면, 뉴스에 덜 흔들리고 시장을 차분하게 읽을 수 있어요.</div>
+</div>
+
+<details class="glossary">
+<summary>📖 용어 빠르게 찾기 (초보자용 치트시트)</summary>
+<dl>
+  <dt>VIX (공포지수)</dt><dd>S&P 500의 향후 30일 변동성 예측. 20↓ 안정, 20~25 보통, 25↑ 긴장, 35↑ 위기.</dd>
+  <dt>10Y Treasury</dt><dd>미국 10년물 국채 수익률. 장기 금리 + 인플레 기대의 기준점. 오르면 기술주 부담, 은행주 수혜.</dd>
+  <dt>USD/KRW</dt><dd>원/달러 환율. 올라가면 원화 약세 = 수출주(삼전, 현대차) 유리 / 수입품/여행 부담.</dd>
+  <dt>S&P 500</dt><dd>미국 대형주 500개 평균. 미 증시 '대표선수' 지수.</dd>
+  <dt>NASDAQ</dt><dd>기술주 중심 미국 지수. AI·빅테크 비중 큼.</dd>
+  <dt>KOSPI / KOSDAQ</dt><dd>KOSPI = 한국 대형주, KOSDAQ = 한국 중소형/기술주.</dd>
+  <dt>bp (basis point)</dt><dd>0.01%. 금리 이야기할 때 쓰는 단위 (예: +3bp = +0.03%).</dd>
+  <dt>RISK ON / OFF</dt><dd>시장 심리. RISK ON = 위험자산(주식) 선호, RISK OFF = 안전자산(금·국채) 회피 이동.</dd>
+  <dt>외국인·기관 수급</dt><dd>누가 사고 누가 파는지. 외국인 순매수 = 한국 주식 긍정적 신호.</dd>
+  <dt>HBM</dt><dd>고대역폭 메모리. AI 칩에 들어가는 고급 메모리 — SK하이닉스·삼성전자 주력 상품.</dd>
+</dl>
+</details>
+
+<footer>⏰ Generated at 09:56 KST · Source: yfinance + Naver Finance · 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.</footer>
+
+</article>
+</div>
