@@ -1,0 +1,279 @@
+---
+title: Morning Market Brief
+author: "Written by Claude"
+date: "2026-11-05"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily]
+series: stock
+---
+
+<style>
+.morning-brief {
+    --bg: #fffdf9;
+    --fg: #1a1a1a;
+    --muted: #6b6055;
+    --border: #e8e0d4;
+    --card: #fff9f0;
+    --accent: #c4482c;
+    --up: #1a7f5a;
+    --down: #c4482c;
+    --serif: 'Noto Serif KR', 'Source Serif Pro', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Pretendard', sans-serif;
+    --mono: ui-monospace, 'JetBrains Mono', Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .morning-brief {
+      --bg: #12110f;
+      --fg: #ede8df;
+      --muted: #a99f92;
+      --border: #2a2722;
+      --card: #1a1815;
+      --accent: #ff7a5c;
+      --up: #4ade80;
+      --down: #ff7a5c;
+    }
+.morning-brief .mb-report { background: var(--bg); color: var(--fg); font-family: var(--serif); max-width: 860px; margin-inline: auto; padding: 2.5rem 1.5rem 2rem; line-height: 1.7; font-feature-settings: "tnum"; }
+.morning-brief .mb-report header { border-bottom: 2px solid var(--fg); padding-bottom: 1.5rem; margin-bottom: 2.5rem; }
+.morning-brief .mb-report .kicker { font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report h1 { font-family: var(--serif); font-size: 2.4rem; line-height: 1.15; margin: 0.75rem 0 0.5rem; font-weight: 700; letter-spacing: -0.01em; }
+.morning-brief .mb-report .dek { font-family: var(--sans); color: var(--muted); font-size: 1.05rem; line-height: 1.5; }
+.morning-brief .mb-report .meta { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin-top: 1rem; }
+.morning-brief .mb-report h2 { font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-weight: 700; border-top: 1px solid var(--border); padding-top: 1.5rem; margin: 2.5rem 0 1rem; }
+.morning-brief .mb-report p.lede { font-size: 1.1rem; line-height: 1.7; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 3.2rem; float: left; font-weight: 700; line-height: 0.9; margin: 0.15rem 0.6rem 0 0; color: var(--accent); font-family: var(--serif); }
+.morning-brief .mb-report .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report .stat { padding: 1rem 1.25rem; border-right: 1px solid var(--border); font-family: var(--sans); }
+.morning-brief .mb-report .stat:last-child { border-right: none; }
+.morning-brief .mb-report .stat .lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report .stat .val { font-family: var(--mono); font-size: 1.4rem; font-weight: 600; margin-top: 0.25rem; letter-spacing: -0.01em; }
+.morning-brief .mb-report .stat .chg { font-family: var(--mono); font-size: 0.8rem; margin-top: 0.1rem; }
+.morning-brief .mb-report .up { color: var(--up); }
+.morning-brief .mb-report .down { color: var(--down); }
+.morning-brief .mb-report ol.analysis { padding-left: 1.25rem; font-family: var(--sans); font-size: 0.975rem; line-height: 1.65; }
+.morning-brief .mb-report ol.analysis li { margin-bottom: 0.75rem; padding-left: 0.5rem; }
+.morning-brief .mb-report ol.analysis li::marker { color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.925rem; margin-top: 0.5rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.7rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report td.num { font-family: var(--mono); text-align: right; }
+.morning-brief .mb-report blockquote.takeaway { border-left: 3px solid var(--accent); padding: 0.25rem 0 0.25rem 1.25rem; margin: 1rem 0; font-family: var(--sans); font-style: italic; font-size: 1.02rem; line-height: 1.6; }
+.morning-brief .mb-report footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
+.morning-brief .mb-report .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.morning-brief .mb-report .lesson-card { background: var(--card, #f5f2ec); border-left: 3px solid var(--accent); padding: 1.1rem 1.25rem; border-radius: 0 4px 4px 0; margin: 0.75rem 0 1rem; font-family: var(--sans); }
+.morning-brief .mb-report .lesson-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report .lesson-body { font-size: 0.95rem; line-height: 1.7; color: var(--fg); white-space: pre-line; }
+.morning-brief .mb-report details.glossary { margin-top: 2.5rem; font-family: var(--sans); border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 1rem; }
+.morning-brief .mb-report details.glossary summary { cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--muted); padding: 0.3rem 0; }
+.morning-brief .mb-report details.glossary[open] summary { margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report details.glossary dl { margin: 0; padding: 0; font-size: 0.85rem; line-height: 1.6; }
+.morning-brief .mb-report details.glossary dt { font-weight: 700; margin-top: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report details.glossary dd { margin: 0.15rem 0 0 0; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .mb-report { padding: 1.5rem 1rem 1.5rem; }
+.morning-brief .mb-report h1 { font-size: 1.75rem; }
+.morning-brief .mb-report .dek { font-size: 0.95rem; }
+.morning-brief .mb-report p.lede { font-size: 1rem; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 2.6rem; margin: 0.1rem 0.4rem 0 0; }
+.morning-brief .mb-report .stat { padding: 0.75rem 1rem; }
+.morning-brief .mb-report .stat .val { font-size: 1.2rem; }
+.morning-brief .mb-report table { font-size: 0.82rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.55rem 0.5rem; }
+.morning-brief .mb-report blockquote.takeaway { font-size: 0.95rem; padding-left: 1rem; }
+</style>
+
+<div class="morning-brief">
+<article class="mb-report">
+
+<header>
+  <div class="kicker">Morning Market Brief</div>
+  <h1>선거 불확실성 해소, 다우 3% 급등·반도체는 소외</h1>
+<div class="dek">4일 뉴욕은 민주당 의회 장악 확정에 다우가 3.03% 뛰고 VIX가 16.61로 내려앉았다. 다만 유가 8% 급락 속에 데이터센터·반도체주는 규제 우려로 밀려, 오늘 한국 반도체 대형주에는 엇갈린 신호다.</div>  <div class="meta">2026.11.05 (목) · 07:08 KST · yfinance + Naver Finance</div>
+</header>
+
+<p class="lede">4일 뉴욕은 S&P 500 7,688.62(+1.58%), 나스닥 25,736.51(+1.44%), 다우 53,356.12(+3.03%)로 동반 급등했다. VIX는 16.61(−20.26%)로 하루 만에 20 아래로 내려왔다. 같은 날 코스피는 외국인 2조5천억원대 매도에도 5,683.80(+0.62%)으로 버텼지만, 간밤 엔비디아 −3.17%가 오늘 반도체 대형주에 부담이다.</p>
+
+<h2>💼 내 계좌 오늘</h2>
+<div class="stats">
+  <div class="stat"><div class="lbl">KR 모의계좌</div><div class="val">₩46,303,183</div><div class="chg">4종 보유</div></div>
+  <div class="stat"><div class="lbl">US 모의계좌</div><div class="val">$96,855.94</div><div class="chg">8종 보유</div></div>
+</div>
+<div class="table-wrap" style="margin-top: 1rem;">
+<table>
+  <thead><tr><th>시장</th><th>매매</th><th>종목</th><th>근거</th></tr></thead>
+  <tbody>
+    <tr><td>US</td><td class="up">BUY</td><td>Alphabet</td><td>5일 박스 상단 돌파, 위험선호 복귀</td></tr>
+    <tr><td>US</td><td class="up">BUY</td><td>SPDR Gold Shares</td><td>금 강세 돌파, 주식 위험 분산용</td></tr>
+    <tr><td>US</td><td class="down">SELL</td><td>Tesla</td><td>최고 종가 대비 −6.93%, 트레일링 이탈</td></tr>
+    <tr><td>KR</td><td class="up">BUY</td><td>LG화학</td><td>5일 종가 고점 돌파, 2차전지 강세</td></tr>
+  </tbody>
+</table>
+</div>
+<ol class="analysis" style="margin-top: 1rem;">
+<li>US는 빅테크가 투자금의 약 47.6%로 50% 기준에 다가섰다. 하루 만의 VIX 급락·다우 +3%는 되돌림 가능성이 있고, 반도체 소외는 AI 테마 약화 신호로 주시한다</li><li>KR은 현금 약 73.7%로 방어적이다. 셀트리온이 투자금의 약 46%로 가장 크고, 삼성물산은 트레일링 이탈로 4일 전량 매도했다(체결가는 로그 미기록)</li></ol>
+
+<h2>🔄 어제와 달라진 점</h2>
+<ol class="analysis">
+<li>VIX가 긴장 구간에서 안정 구간으로 돌아왔다: 3일 20.83에서 4일 16.61(−20.26%)로 내려와 20 선 아래로 들어섰다.</li><li>미 금리 방향이 다시 아래로 꺾였다: 10년물이 3일 4.952%(+0.058%p)에서 4일 4.894%(−0.058%p)로 내려 5% 접근이 멈췄고, 30년물도 5.282%로 하락 전환했다.</li><li>유가와 금이 반대로 크게 움직였다: WTI는 96달러대에서 88.12달러(−8.29%)로 급락했고, 금은 3,939.30달러에서 4,068.80달러(+3.26%)로 4,000달러를 되찾았다.</li><li>미 지수 주도권이 다시 다우로 넘어갔다: 3일엔 나스닥 +0.83%·다우 −0.38%였지만 4일엔 다우 +3.03%가 앞섰고, 엔비디아는 +2.29%에서 −3.17%로 돌아섰다.</li></ol>
+
+<h2>🇺🇸 US Market Recap</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">S&P 500</div>
+    <div class="val">7,688.62</div>
+    <div class="chg up">
++1.58%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">NASDAQ</div>
+    <div class="val">25,736.51</div>
+    <div class="chg up">
++1.44%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">DOW</div>
+    <div class="val">53,356.12</div>
+    <div class="chg up">
++3.03%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">VIX</div>
+    <div class="val">16.61</div>
+    <div class="chg down">
+-20.26%
+    </div>
+  </div>
+</div>
+
+<h2>Key Drivers</h2>
+<ol class="analysis">
+<li>민주당이 의회를 장악하면서 선거 불확실성이 사라졌다. 다우는 1,569포인트 올라 2025년 4월 이후 최고의 하루를 보냈고, CFRA 집계로는 1982년 이후 가장 큰 중간선거 직후 상승이다(CNBC·CNN).</li><li>데이터센터주는 반대로 무너졌다. 데이터센터가 몰린 텍사스·조지아에서 민주당이 이기자 AI 규제 우려가 커졌고, Hut 8 −23%, IREN −11%, Core Scientific −10% 등이 급락했다(Reuters·Yahoo Finance). 엔비디아(−3.17%)도 랠리에서 빠졌다.</li><li>유가가 폭락했다. WTI는 88.12달러(−8.29%)로, 공화당 패배로 이란 전쟁이 단기간에 다시 격화될 가능성이 줄었다는 베팅이 배경이다(Benzinga). 국채 금리도 내려 주식 랠리를 거들었다(Bloomberg).</li><li>코스피는 장중 롤러코스터 끝에 올랐다. 4일 장 초반 5,800선을 넘었다가 5,421.72(−4.02%)까지 밀린 뒤 5,683.80(+0.62%)으로 마감했다. 외국인이 2조5천억원대를 팔았지만 기관 1조136억원, 개인 1조1,441억원 순매수가 받아냈다(뉴스1·아주경제).</li></ol>
+
+<h2>🌍 Global Macro</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Indicator</th><th class="num">Value</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr><td>10Y Treasury</td><td class="num">4.894%</td><td>−0.058%p</td></tr>
+    <tr><td>5Y Treasury</td><td class="num">4.689%</td><td>−0.054%p</td></tr>
+    <tr><td>30Y Treasury</td><td class="num">5.282%</td><td>−0.042%p</td></tr>
+    <tr><td>13W Treasury</td><td class="num">4.025%</td><td>0.000%p</td></tr>
+    <tr><td>USD/KRW</td><td class="num">1,340.63</td><td>−0.31%</td></tr>
+    <tr><td>WTI Oil</td><td class="num">$88.12</td><td>−8.29%</td></tr>
+    <tr><td>Gold</td><td class="num">$4,068.80</td><td>+3.26%</td></tr>
+  </tbody>
+</table>
+</div>
+<ol class="analysis" style="margin-top: 1rem;">
+<li>미 국채 금리가 만기 전 구간에서 내렸다. 10년물 4.894%(−0.058%p), 30년물 5.282%(−0.042%p)이고 10년물과 13주물 차이는 0.869%p다. 선거 결과와 재정 조달 계획을 지켜보던 국채가 강세를 보였다(Bloomberg).</li><li>연준은 12월 인상 여부를 저울질하고 있다. 금요일(6일) 고용보고서가 다음 확인 지점이며(Scotsman Guide), 10월 로이터 설문에선 대부분의 이코노미스트가 12월 인상을 예상했다. 연준이 앞으로 금리 결정 회의를 덜 자주 연다는 소식도 나왔다(CNBC).</li><li>금은 4,068.80달러(+3.26%)로 다시 4,000달러 위로 올라섰다. 미국 투표 이후 달러 약세가 배경으로 꼽혔다(Bloomberg). 원/달러는 1,340.63원(−0.31%)으로 원화가 소폭 강해졌다.</li><li>WTI 88.12달러(−8.29%)는 3일 96달러대에서 하루 만에 8달러 가까이 내린 수준이다. 유가 하락은 물가 부담을 덜어주지만, 에너지주에는 악재다.</li></ol>
+
+<h2>🇰🇷 Korean Market Outlook</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">KOSPI</div>
+    <div class="val">5,683.80</div>
+    <div class="chg up">
++0.62%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">KOSDAQ</div>
+    <div class="val">714.95</div>
+    <div class="chg up">
++1.50%
+    </div>
+  </div>
+</div>
+<p style="font-family: var(--sans); margin-top: 1rem;"><strong>주목 섹터:</strong> 4일 마감 기준이며 오늘 장은 아직 반영되지 않았다. 4일에는 미 선거 개표에 따른 AI 투자 둔화·규제 우려로 반도체가 약했고(삼성전자 −0.68%, SK하이닉스 −0.14%, 둘 다 장중 상승분 반납), 2차전지·태양광이 강했다. 제약도 0.58% 올랐다(메디코파마). 오늘은 간밤 데이터센터주 급락과 엔비디아 −3.17%가 반도체 대형주에 부담이고, 유가 급락은 정유·에너지주에 악재다.</p><p style="font-family: var(--sans);"><strong>수급 동향:</strong> 4일 유가증권시장에서 외국인은 2조5천억원대(아주경제 2조5,020억원, 뉴스1 2조5,095억원 등 집계별 차이)를 순매도했다. 기관은 1조136억원(금융투자 5,718억원), 개인은 1조1,441억원을 순매수해 물량을 받아냈다. 외국인 매도는 3일 1조5천억원대에서 더 커졌다.</p>
+
+<h2>🔍 Watchlist</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Ticker</th><th>Name</th><th class="num">Close</th><th class="num">Change</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>TSLA</td>
+      <td>Tesla</td>
+      <td class="num">$385.19</td>
+      <td class="num down">
+-3.34%      </td>
+      <td>머스크가 지원한 텍사스 후보들이 낙선하면서 스페이스X와 함께 밀렸다(NYT·Bloomberg)</td>
+    </tr>
+    <tr>
+      <td>NVDA</td>
+      <td>NVIDIA</td>
+      <td class="num">$200.13</td>
+      <td class="num down">
+-3.17%      </td>
+      <td>데이터센터 규제 우려에 200달러 선까지 밀렸다. 반론도 있다(Barron's '데이터센터 단속을 견딜 수 있다')</td>
+    </tr>
+    <tr>
+      <td>005930</td>
+      <td>삼성전자</td>
+      <td class="num">₩218,000</td>
+      <td class="num down">
+-0.68%      </td>
+      <td>장중 228,000원까지 오른 뒤 208,000원까지 밀리며 상승분을 반납했다. AMD의 HBM 가격 분담 발언은 메모리 협상력 신호(비즈니스포스트)</td>
+    </tr>
+    <tr>
+      <td>000660</td>
+      <td>SK하이닉스</td>
+      <td class="num">₩1,396,000</td>
+      <td class="num down">
+-0.14%      </td>
+      <td>장중 1,476,000원~1,303,000원을 오가며 크게 흔들렸다. 간밤 데이터센터주 급락이 부담</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>⚡ Today's Takeaways</h2>
+<blockquote class="takeaway">선거 불확실성이 걷히면서 VIX가 16.61로 20 아래에 다시 들어왔다. 다만 하루 만의 −20.26%는 이벤트성 급변이라, 금요일 고용보고서와 12월 FOMC 앞에서 다시 출렁일 수 있다.</blockquote>
+<blockquote class="takeaway">같은 랠리 안에서도 업종이 갈렸다. 다우·빅테크는 뛰었지만 데이터센터·반도체는 규제 우려로 밀렸다. 오늘 한국 반도체 대형주는 미국의 이 '소외'를 따라갈지가 관건이다.</blockquote>
+<blockquote class="takeaway">코스피는 4일 외국인 2조5천억원대 매도를 기관·개인이 받아내며 버텼다. 외국인 매도 규모가 줄어드는지, 유가 급락이 업종별로 어떻게 반영되는지 함께 봐야 한다.</blockquote>
+
+<h2>📚 오늘의 공부</h2>
+<div class="lesson-card">
+  <div class="lesson-title">불확실성 해소 랠리 — 결과가 나오면 왜 주가가 뛸까?</div>
+  <div class="lesson-body">주식시장은 '나쁜 소식'보다 '모르는 상태'를 더 싫어해요. 결과를 모르면 투자자들은 최악에 대비해 주식을 줄이고 현금을 들고 기다려요. 이런 상태를 '불확실성'이라고 불러요.
+
+어제 미국 중간선거(대통령 임기 중간에 치르는 국회의원 선거) 결과가 확정되자 다우는 하루에 3.03% 올랐어요. 공포지수 VIX도 20.83에서 16.61로 떨어졌어요. 기다리던 돈이 한꺼번에 돌아오면서 생긴 '불확실성 해소 랠리(안도 랠리)'예요.
+
+그런데 같은 날 엔비디아는 3.17%, 테슬라는 3.34% 내렸어요. 결과가 정해지면 시장 전체의 걱정은 줄지만, 새 환경에서 불리해 보이는 업종은 따로 가격이 다시 매겨져요. 그래서 지수는 올라도 종목마다 성적이 갈려요.
+
+이게 왜 내게 중요할까요? 큰 이벤트를 앞두고는 '결과가 좋을까 나쁠까'만큼 '결과가 나오는 순간' 자체가 시장을 움직여요. 지수가 뛰는 날에도 내 종목이 어떤 영향을 받는지 따로 확인하는 습관을 들여 보세요.</div>
+</div>
+
+<details class="glossary">
+<summary>📖 용어 빠르게 찾기 (초보자용 치트시트)</summary>
+<dl>
+  <dt>VIX (공포지수)</dt><dd>S&P 500의 향후 30일 변동성 예측. 20↓ 안정, 20~25 보통, 25↑ 긴장, 35↑ 위기.</dd>
+  <dt>10Y Treasury</dt><dd>미국 10년물 국채 수익률. 장기 금리 + 인플레 기대의 기준점. 오르면 기술주 부담, 은행주 수혜.</dd>
+  <dt>USD/KRW</dt><dd>원/달러 환율. 올라가면 원화 약세 = 수출주(삼전, 현대차) 유리 / 수입품/여행 부담.</dd>
+  <dt>S&P 500</dt><dd>미국 대형주 500개 평균. 미 증시 '대표선수' 지수.</dd>
+  <dt>NASDAQ</dt><dd>기술주 중심 미국 지수. AI·빅테크 비중 큼.</dd>
+  <dt>KOSPI / KOSDAQ</dt><dd>KOSPI = 한국 대형주, KOSDAQ = 한국 중소형/기술주.</dd>
+  <dt>bp (basis point)</dt><dd>0.01%. 금리 이야기할 때 쓰는 단위 (예: +3bp = +0.03%).</dd>
+  <dt>RISK ON / OFF</dt><dd>시장 심리. RISK ON = 위험자산(주식) 선호, RISK OFF = 안전자산(금·국채) 회피 이동.</dd>
+  <dt>외국인·기관 수급</dt><dd>누가 사고 누가 파는지. 외국인 순매수 = 한국 주식 긍정적 신호.</dd>
+  <dt>HBM</dt><dd>고대역폭 메모리. AI 칩에 들어가는 고급 메모리 — SK하이닉스·삼성전자 주력 상품.</dd>
+</dl>
+</details>
+
+<footer>⏰ Generated at 07:08 KST · Source: yfinance + Naver Finance · 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.</footer>
+
+</article>
+</div>
