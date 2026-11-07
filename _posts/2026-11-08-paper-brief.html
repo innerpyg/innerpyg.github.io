@@ -1,0 +1,132 @@
+---
+title: Weekly Paper Brief
+author: "Written by Claude"
+date: "2026-11-08"
+layout: post
+categories: Research
+tags: [Papers, Weekly]
+series: paper
+---
+
+<style>
+.paper-brief {--bg:#faf9f6;--fg:#1a1a1a;--muted:#6b6b6b;--line:#e3e0d8;--accent:#1f6f54;--card:#ffffff;
+      --a:#1f6f54;--b:#8a6d1f;--c:#6d4fa3;--m:#2c6e9e;--sans:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;--serif:Georgia,"Noto Serif KR",serif}
+
+@media (prefers-color-scheme:dark){.paper-brief{--bg:#161614;--fg:#eceae4;--muted:#9a9890;--line:#33322d;--accent:#5fb893;--card:#1f1f1c;--a:#5fb893;--b:#d4b356;--c:#a98fd6;--m:#6aa9d8}
+.paper-brief {margin:0;background:var(--bg);color:var(--fg);font-family:var(--serif);line-height:1.65}
+.paper-brief .wrap {max-width:760px;margin:0 auto;padding:2rem 16px 4rem}
+.paper-brief .kicker {font-family:var(--sans);font-size:.8rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
+.paper-brief h1 {font-size:1.7rem;line-height:1.3;margin:.3rem 0 .2rem}
+.paper-brief .meta {font-family:var(--sans);color:var(--muted);font-size:.85rem;margin-bottom:1.6rem}
+.paper-brief h2 {font-family:var(--sans);font-size:1.05rem;margin:2.2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+.paper-brief .flow {font-size:1.02rem}
+.paper-brief .paper {background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:.9rem 0}
+.paper-brief .ptitle {font-family:var(--sans);font-weight:700;line-height:1.45}
+.paper-brief .ptitle a {color:var(--fg);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.paper-brief .pvenue {font-family:var(--sans);font-size:.78rem;color:var(--muted);margin:.15rem 0 .6rem}
+.paper-brief .tag {display:inline-block;font-family:var(--sans);font-size:.68rem;padding:.1rem .45rem;border-radius:99px;color:#fff;margin-right:.3rem;vertical-align:1px}
+.paper-brief .tag.A {background:var(--a)}
+.paper-brief .tag.B {background:var(--b)}
+.paper-brief .tag.C {background:var(--c)}
+.paper-brief .tag.M {background:var(--m)}
+.paper-brief .paper ol {margin:.2rem 0 .6rem 1.2rem;padding:0;font-size:.95rem}
+.paper-brief .paper ol li {margin:.25rem 0}
+.paper-brief .rel {font-family:var(--sans);font-size:.88rem;background:color-mix(in srgb,var(--accent) 9%,transparent);border-left:3px solid var(--accent);padding:.5rem .7rem;border-radius:0 6px 6px 0}
+.paper-brief .one {margin:.55rem 0;font-size:.95rem}
+.paper-brief .one .pvenue {display:inline;margin-left:.4rem}
+.paper-brief .lev {color:var(--muted);font-family:var(--sans);font-size:.85rem;margin:.15rem 0 0 1.1rem}
+.paper-brief .foot {margin-top:3rem;font-family:var(--sans);font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:.8rem}
+</style>
+
+<div class="paper-brief">
+<div class="wrap">
+<div class="kicker">Weekly Paper Brief</div>
+<h1>조상 다양성과 다층 조절, 변이 해석을 다시 쓰다</h1>
+<div class="meta">2026.11.08 (일) · 수집 창 2026-11-01 ~ 2026-11-08 · 후보 50편 (원천 719편)</div>
+
+<h2>이번 주 흐름</h2><p class="flow">이번 주에는 GWAS 신호를 '어느 유전자가 어떤 조직에서 어떤 분자 층을 바꾸나'로 번역하려는 연구가 많았다. 카타르 근친혼 바이오뱅크의 QTL 카탈로그, 아프리카계 롱리드 코호트, HPRC 판게놈 기반 mQTL처럼 비유럽 집단과 구조변이를 기본으로 포함하는 자원이 나란히 나왔고, Wreath(메틸화)·Perturbscape(섭동 프로그램)·mV2G(조직 특이 V2G)처럼 발현을 넘어 메틸화·섭동 반응까지 변이 해석 층을 넓히는 흐름이 뚜렷했다. UKB+All of Us로 COL4A3/COL4A4의 병원성 가정을 직접 뒤집은 연구는 바이오뱅크가 임상 변이 해석 기준까지 바꾸고 있음을 보여준다. 도구 쪽에서는 SV 콜러 벤치마크, LD 보정·다형질 유전율 농축 같은 요약통계 기반 방법이 이어졌고, Claude Code 플러그인을 포함한 LLM 에이전트 분석 프레임워크가 '검증과 재현성'을 핵심 화두로 내세우기 시작했다.</p>
+
+
+<h2>📌 필독 3편</h2>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42972099/">A catalog of transcriptome genetic regulation in a consanguineous Middle Eastern biobank.</a></div>
+  <div class="pvenue">Nat Genet</div>
+  <ol><li>카타르 바이오뱅크 1,882명의 혈액 RNA-seq과 WGS를 통합해 발현·아이소폼·스플라이싱·대립유전자 특이 발현에 걸친 약 700만 개 QTL(단일염기·구조변이 포함)을 카탈로그화하고 1,379개의 새로운 eGene을 찾았다.</li><li>파인매핑으로 29,953개 고신뢰 독립 인과 좌위를 확정했는데 24%는 미보고, 1,371개는 공공 DB에 아예 없었고, 높은 근친도(autozygosity)를 이용해 인과 변이가 ROH에서 고갈되어 있음(정화 선택)과 동형접합 QTL이 66개 유전자에서 극단적 발현 이상을 일으킴을 보였다.</li><li>유럽계 중심 eQTL 자원이 놓친 집단 특이 조절 변이와 열성 효과를 근친혼 집단의 자연 실험으로 포착했다는 점에서, '다양한 조상 + 구조변이까지 포함한 QTL'로 가는 흐름의 대표 사례다.</li></ol>
+  <div class="rel">🔗 GWAS 후속 colocalization에서 비유럽 집단을 다룰 때 참조 QTL 자원 선택이 결과를 바꿀 수 있음을 보여준다. 구조변이 QTL을 포함하므로 CNV 연관 신호를 발현과 연결할 때도 참고 자원이 된다.</div>
+</div>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42971206/">Population-scale genomics reveals divergent pathogenicity of variant classes across paralogous collagen IV genes.</a></div>
+  <div class="pvenue">Am J Hum Genet</div>
+  <ol><li>UK Biobank WGS(약 50만 명)와 All of Us(약 41.4만 명) 복제로, 파라로그 유전자 COL4A3와 COL4A4의 같은 변이 유형이 서로 다른 병원성을 가진다는 것을 보였다(혈뇨/단백뇨 관련 희귀변이 각각 64개, 92개).</li><li>변이 단위 연관검정, 유전자 기반 collapsing 분석, PheWAS를 결합했고, 글리신 치환은 두 유전자에서 비슷한 위험을 보였지만 절단(truncating) 변이와 NC1 도메인 미스센스는 COL4A4에서만 강하게 연관되고 COL4A3에서는 약하거나 없었다.</li><li>예측 병원성 점수와 빈도가 비슷해도 '어느 유전자인가'가 위험을 좌우한다는 결과로, 바이오뱅크 규모 데이터가 변이 해석 가이드라인의 가정을 직접 검증·수정하는 단계에 들어섰음을 보여준다.</li></ol>
+  <div class="rel">🔗 GWAS에서 혈뇨 신호가 공통변이가 아닌 희귀 코딩 변이의 누적 효과로 설명된다는 점은, 공통변이 GWAS와 희귀변이 burden 분석을 함께 돌려야 하는 이유를 보여준다. 다만 CNV나 단백체와의 직접 연결은 없다.</div>
+</div>
+
+<div class="paper">
+  <div><span class="tag M">도구</span><span class="tag C">기회레이더</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/42977821/">A framework for genome-wide characterization of DNA methylation and variant effect prediction.</a></div>
+  <div class="pvenue">Nat Genet</div>
+  <ol><li>90개 이상 조직·세포 유형의 메틸화 프로파일을 하나로 정리한 컴펜디움에서 데이터 기반 메틸화 클래스를 정의하고, 임의의 유전 변이가 맥락별 메틸화에 미치는 영향을 예측하는 딥러닝 서열 모델 Wreath를 개발했다.</li><li>흩어져 있던 여러 연구의 메틸화 데이터를 통합해 학습했고, Wreath로 비코딩 병원성 변이가 조직 특이 메틸화에 미치는 영향을 체계적으로 분석해 개별 조절 변이의 기전 가설을 만들었다.</li><li>변이 효과 예측이 발현·크로마틴을 넘어 메틸화 층으로 확장되고 있으며, 컴펜디움·클래스·모델을 모두 공개해 커뮤니티 자원으로 내놓았다는 점에서 '서열→다층 분자 표현형' 예측 모델 경쟁의 한 축이다.</li></ol>
+  <div class="rel">🔗 직접 연관은 없으나, GWAS 비코딩 신호를 해석할 때 eQTL 외에 메틸화 효과 예측을 추가 주석 층으로 쓸 수 있다는 점에서 post-GWAS 변이 우선순위화에 참고할 만하다.</div>
+</div>
+
+
+
+
+<h2>👀 주목</h2>
+
+<div class="one"><span class="tag M">도구</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42983086/" style="color:inherit">A spatiotemporal cancer cell trajectory underlies glioblastoma heterogeneity.</a><span class="pvenue">Nature</span><br>교모세포종 12개 종양의 여러 부위를 단일세포·공간 멀티오믹스로 프로파일링해, 암세포가 발생 유사 상태에서 신경교 손상 반응·저산소 상태로 공간적으로 패턴화된 전이 궤적을 따른다는 것을 밝혔다(Nature).</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.11.01.763325" style="color:inherit">The genetic architecture of human DNA methylome variation</a><span class="pvenue">biorxiv (genetics)</span><br>HPRC Release 2의 460개 하플로타입으로 판게놈 기반 메틸화 비교 프레임워크를 만들어 CHM13에 없는 8,040개를 포함한 47,039개 CpG island 대립유전자를 정의했고(62%가 구조변이 기인), 대립유전자 인식 mQTL이 GWAS 좌위의 절반 이상과 colocalize함을 보였다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.11.03.762080" style="color:inherit">Perturbation-induced gene programs map the hidden regulatory architecture of complex diseases</a><span class="pvenue">biorxiv (genetics)</span><br>Perturb-seq 7개 시스템, 15,859개 섭동×맥락 프로파일에서 섭동 유도 유전자 프로그램을 학습하는 Perturbscape로, 53개 형질에서 정상상태 다조직 유전자 우선순위화보다 최대 4.3배 높은 유전율 정보성을 보였고 혈장 단백체로도 일부 결과를 뒷받침했다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.11.03.26367195" style="color:inherit">Evolution-guided association mapping using long-read genomes from a self-identified Black or African American cohort in All of Us</a><span class="pvenue">medrxiv (genetic and genomic medicine)</span><br>All of Us 흑인·아프리카계 1,027명의 롱리드 유전체와 38,552명 숏리드 유전체로 진화(선택·국소 조상) 신호 기반 연관 매핑을 수행해 1,616개 후보 좌위와 15개 구조변이를 찾고, 17개 연관을 복제·메타분석에서 유지했다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42979568/" style="color:inherit">Refining the genetic architecture of myocardial infarction through integrative post-genome-wide association study functional genomics analysis.</a><span class="pvenue">Bioinform Adv</span><br>MVP와 UK Biobank 메타분석(사례 62,129명)으로 심근경색 위험 좌위 135개를 찾고 유전자 기반 분석·파인매핑·colocalization을 결합해 PHACTR1, SLC22A3 등 10개 고신뢰 후보 유전자를 정리한 post-GWAS 통합 분석이다.</div>
+
+<div class="one"><span class="tag A">업무</span><a href="https://doi.org/10.64898/2026.10.31.26366908" style="color:inherit">Alzheimers disease and psychiatric polygenic risk are disease-specific and independent of plasma biomarkers in a real-world young-onset dementia cohort.</a><span class="pvenue">medrxiv (neurology)</span><br>조발성 치매 코호트 687명에서 APOE를 제외한 PRS-CS 기반 AD PRS와 정신질환 PRS가 각각 질환 특이적으로 작동하며, 혈장 NfL·GFAP·p-tau217과는 독립적이라는 것을 보였다(감별에는 NfL이 가장 강력).</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42963336/" style="color:inherit">Polygenic risk scores for LATE-neuropathologic change: Implications for clinical utility.</a><span class="pvenue">Alzheimers Dement</span><br>ADNI 참가자에서 TDP-43 병리(LATE-NC)에 대한 PRS가 AD 병리와 독립적으로 병리 확진 LATE와 연관(OR 2.29)되고, 아밀로이드 PET 상태별로 인지 저하 속도와도 연관됨을 보였다.</div>
+
+<div class="one"><span class="tag M">도구</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/42988812/" style="color:inherit">High-throughput spatial proteomics from cellular to subcellular scales via a hanging droplet workflow.</a><span class="pvenue">Nat Commun</span><br>FFPE 조직을 레이저 미세절제한 뒤 'hanging droplet' 방식으로 96웰에서 2시간 만에 질량분석용 펩타이드를 준비하는 공간 단백체 프로토콜로, 약 250개 세포 영역에서 5,500개 이상, 단일 핵 영역에서도 약 1,800개 단백질 그룹을 정량했다 — SomaScan 같은 친화도 기반 혈장 측정과 달리 조직 내 위치별로 단백질을 직접 측정하는 질량분석 계열이다.</div>
+
+
+
+
+<h2>🔧 분석 도구·방법론</h2>
+
+<div class="one"><span class="tag M">도구</span><a href="https://pubmed.ncbi.nlm.nih.gov/42983866/" style="color:inherit">Benchmarking short-read germline structural variant calling highlights advantages of using ensembles of tools and small impact of graph genome alignment.</a><span class="pvenue">Genome Biol</span><br>새로 공개된 가계 기반 고신뢰 truth set으로 숏리드 germline SV 콜러 14종을 벤치마크한 결과 DRAGEN이 최고(평균 recall 0.36, F1 0.51), 오픈소스 중에서는 Manta가 F1 0.41로 최고였고 Manta·Dysgu가 recall 0.26로 공동 1위였으며, 앙상블은 일부 설정에서 단일 도구를 넘었고 그래프 게놈 정렬의 효과는 작았다.
+<div class="lev">⚙️ WGS 기반으로 CNV/SV 콜링을 확장하거나 어레이 CNV 콜을 검증할 때 콜러 조합(Manta·Dysgu·Octopus·Tardis)과 빈도 필터링(해석 부담 약 절반 감소)을 설계하는 근거로 쓸 수 있다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.11.02.763731" style="color:inherit">LRCQ: phenome-wide heritability enrichment of genomic loci from GWAS summary statistics</a><span class="pvenue">biorxiv (genetics)</span><br>여러 GWAS의 제곱 Z-score를 LD에 대해 한꺼번에 회귀해 좌위별 '표현형 전반 유전율 농축'을 구하는 LRCQ로, 표본 중복이 있을 때 정규 근사 p값이 최대 10배 반보수적임을 보이고 왜도 보정으로 이를 바로잡았으며, 16개 시나리오 중 13개에서 기존 다형질 지표보다 농축 좌위 순위를 더 잘 매겼다.
+<div class="lev">⚙️ UK Biobank 요약통계 여러 개를 다루는 GWAS/PRS 작업에서, 유의 연관 개수 대신 다형질 pleiotropy 핫스팟을 정량화하는 데 쓸 수 있다. 혈장 단백질 pQTL 요약통계 다수에 적용하면 '여러 단백질에 걸친 trans 핫스팟' 탐색에도 응용 가능하다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.10.28.762641" style="color:inherit">CNVision: a computational framework for functional interpretation of intragenic copy number variants</a><span class="pvenue">biorxiv (bioinformatics)</span><br>엑손 단위·좌표·HGVS 입력을 받아 유전자 내부(intragenic) CNV의 CDS 영향 길이와 읽기틀(reading frame) 영향을 bp 해상도로 분류하는 컨테이너형 도구로, 큐레이션된 200개 CNV에서 수작업 분석과 일치했고 기존 보고된 131개 중 15개의 해석 오류를 찾아냈다.
+<div class="lev">⚙️ 어레이 CNV 콜 중 유전자 내부에 걸친 소규모 결실·중복의 기능적 영향(in-frame vs frameshift)을 자동 주석하는 후처리 단계로 붙일 수 있다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.04.10.26350574" style="color:inherit">Deriving LD-adjusted GWAS summary statistics through linkage disequilibrium deconvolution</a><span class="pvenue">medrxiv (genetic and genomic medicine)</span><br>truncated SVD로 LD 구조를 풀어 개인 유전형 없이 요약통계만으로 LD 보정 GWAS 효과크기를 추정하는 LDeconv로, 시뮬레이션과 UK Biobank 실데이터에서 진짜 연관은 유지하면서 거짓 발견을 줄였다.
+<div class="lev">⚙️ 고LD 구간에서 인과 신호를 분리하려는 GWAS 후속 단계, 특히 Mendelian randomization 도구변수 선택 전처리에 시험해볼 만하다.</div></div>
+
+
+
+
+<h2>🛰 기회 레이더</h2>
+
+<div class="one"><span class="tag C">기회</span><a href="https://doi.org/10.64898/2026.10.28.762630" style="color:inherit">The Findings Workflow: An agentic, collaborative, provenance-tracked framework for scientific data analysis with Claude Code</a><span class="pvenue">biorxiv (bioinformatics)</span><br>Claude Code 플러그인 형태로 단계별 검증 게이트, 전문 서브에이전트(통계·코딩·시각화·검증), 출처 자동 기록을 갖춘 LLM 기반 데이터 분석 워크플로를 공개했고, 혈장 세포외소포 단백체(AD) 논문의 핵심 결과 재현을 예시로 보였다.
+<div class="lev">💡 에이전트가 분석을 '대신 하는' 시대에 생물정보 인력의 가치는 검증 기준 설계와 재현성 관리로 옮겨가고 있다는 신호다.</div></div>
+
+<div class="one"><span class="tag C">기회</span><a href="https://pubmed.ncbi.nlm.nih.gov/42979577/" style="color:inherit">Bridging large language model-based agents and workflow languages for automated multi-perspective analysis of single-cell RNA sequencing data.</a><span class="pvenue">Bioinform Adv</span><br>LLM 에이전트가 scRNA-seq 분석 전략을 여러 개 만들고 워크플로 언어로 바꿔 병렬 실행하는 프레임워크로, 계획 검증 단계를 넣자 실행 가능한 분석 의도 충족률이 0.061에서 0.378로 올랐고 실행 속도는 최대 29.9배 빨라졌다.
+<div class="lev">💡 에이전트 출력의 낮은 기본 성공률(검증 후에도 약 38%)은 파이프라인 설계·검증을 할 수 있는 사람의 역할이 당분간 핵심으로 남는다는 뜻이다.</div></div>
+
+<div class="one"><span class="tag C">기회</span><a href="https://pubmed.ncbi.nlm.nih.gov/42988898/" style="color:inherit">Multiscale multimodal integration of spatial omics through a deep generative model with CORAL.</a><span class="pvenue">Nat Genet</span><br>그래프 어텐션 기반 확률적 딥 생성모델 CORAL로 공간 전사체·단백체·대사체·후성체 데이터를 서로 다른 해상도에서 통합해, 간세포암 면역치료 전후 데이터에서 치료 저항 관련 면역세포 하위군과 신호 경로를 찾았다(Nat Genet).
+<div class="lev">💡 공간 멀티오믹스 통합이 Nat Genet급 주제로 올라오면서, 단백체를 포함한 다중 모달 통합 역량이 생물정보 채용 시장의 차별화 포인트가 되고 있다.</div></div>
+
+
+
+<div class="foot">bioRxiv · medRxiv · PubMed 최근 7일 — 키워드 3트랙 자동 수집 후 Claude 선별 · PaperBrief</div>
+</div>
+</div>
