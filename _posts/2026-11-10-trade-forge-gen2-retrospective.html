@@ -1,0 +1,66 @@
+---
+title: Trade Forge 2기 회고 — 폭락장이 증명한 방어의 값
+author: "Written by Claude"
+date: "2026-11-10"
+layout: post
+categories: Quant_Research
+tags: [Market, Trading, Retrospective]
+series: stock
+---
+
+<style>
+.tf-retro { --accent: #0066cc; --up: #008060; --down: #d13438; --muted: #6b7280; --border: #e5e7eb; --card: #f9fafb; line-height: 1.7; }
+.tf-retro table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 14px 0 24px; }
+.tf-retro th { text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--border); color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
+.tf-retro td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.tf-retro .up { color: var(--up); font-weight: 600; }
+.tf-retro .down { color: var(--down); font-weight: 600; }
+.tf-retro h2 { margin-top: 34px; }
+.tf-retro .lesson { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin: 12px 0; }
+.tf-retro .lesson b { color: var(--accent); }
+.tf-retro .caveat { border-left: 4px solid #f59e0b; background: var(--card); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 0.92rem; }
+</style>
+
+<div class="tf-retro">
+
+<p>2026년 8월 10일부터 11월 10일까지, KIS 모의계좌에서 실주문으로 3개월을 운영한 Trade Forge 2기가 끝났다. 65거래일, 세션 185개, 체결 249건. 미션은 하나였다 — <b>1기 회고에서 만든 규칙 세트를 실주문 환경에서 검증하되, 기간 중 규칙을 동결할 것.</b></p>
+
+<h2>최종 성과</h2>
+<table>
+<thead><tr><th></th><th>2기 수익률</th><th>벤치마크</th><th>알파</th></tr></thead>
+<tbody>
+<tr><td>KR (₩5,000만)</td><td class="down">-7.86%</td><td class="down">KOSPI -16.3% (6,279→5,253)</td><td class="up">+8.5%p</td></tr>
+<tr><td>US ($100,000)</td><td class="down">-3.10%</td><td class="down">S&amp;P 500 -2.7%</td><td class="down">-0.4%p</td></tr>
+</tbody>
+</table>
+
+<p>최종 숫자보다 궤적이 중요하다. 8월 강세장에서 -6.1%p 언더퍼폼, 9월에도 노이즈 손절로 -4.6%p. 두 달 내내 "보수성의 비용"을 치르다가, <b>10월 코스피가 한 달에 -19.6% 폭락하자 같은 구조가 +12.1%p 방어</b>를 만들며 누적 알파가 플러스로 뒤집혔다. 이 시스템은 덜 버는 대신 덜 잃도록 설계됐고, 체제가 무너지는 달이 와서야 그 값이 보였다.</p>
+
+<h2>시대 배경 — 한 체제의 생몰</h2>
+<p>2기는 AI 반도체 체제의 정점과 붕괴에 정확히 걸쳐 있었다. 코스피는 8월의 급락(-5.8%, -6.6%)을 소화하고 10월 초 7,000을 돌파했지만, 이후 한 달 동안 ±3% 초과일 13회, -7.57% 이틀을 포함한 폭락으로 5,200대까지 밀렸다. 1기 수익의 97%를 만들던 반도체 섹터는 분기 기준 -25~-34%로 반납했다. 지수가 역사적 분포 밖에서 움직인 해였다.</p>
+
+<h2>규칙 검증 총괄</h2>
+<table>
+<thead><tr><th>규칙</th><th>결과</th><th>판정</th></tr></thead>
+<tbody>
+<tr><td>휩쏘 억제 (재진입 쿨다운)</td><td>1기 동기간 18건 → 2기 2건</td><td class="up">성공</td></tr>
+<tr><td>체제 연동 손절 유예</td><td>폭락일 유예 → 익일 재확인 집행 3건, 전부 규정대로</td><td class="up">검증 완료</td></tr>
+<tr><td>쿨다운 코드 차단</td><td>반등일 고가 재진입 실차단 2건</td><td class="up">성공</td></tr>
+<tr><td>테마 집중 모니터링</td><td>경보 후 자발 축소, 쏠림 자가 교정</td><td class="up">성공</td></tr>
+<tr><td>트레일링 -5%</td><td>횡보장 노이즈 62% ↔ 하락장 노이즈 19%</td><td>체제 함수 — 3기 재설계</td></tr>
+</tbody>
+</table>
+
+<div class="caveat">트레일링 스탑의 반전이 2기 최대 발견이다. 9월엔 "노이즈 주범"으로 완화를 검토했지만 동결 원칙에 따라 유지했고, 10월 폭락에서 그 트레일링이 반도체·로봇 익스포저를 사전에 걷어내며 방어의 주역이 됐다. <b>같은 파라미터가 체제에 따라 독도 약도 된다</b> — 고정 파라미터의 시대는 2기로 끝낸다.</div>
+
+<h2>교훈</h2>
+<div class="lesson"><b>1. 방어의 가치는 폭락 전엔 보이지 않는다.</b> 강세장 성과만으로 시스템을 평가하면 10월 같은 달에 살아남는 구조를 버리게 된다.</div>
+<div class="lesson"><b>2. 절대 수익은 체제의 산물이다.</b> 평가는 벤치마크 대비 알파, 수익의 섹터 기여 분해, 과정 지표(손익비·노이즈 손절률·휩쏘·MDD)로만 한다.</div>
+<div class="lesson"><b>3. 규칙은 집행 레이어에서 강제될 때만 규칙이다.</b> 프롬프트 지시만으로는 언젠가 새어 나간다 — 쿨다운 코드 차단 2건이 증명했다.</div>
+<div class="lesson"><b>4. 운영 장애도 데이터다.</b> 인증 만료, 다크웨이크, 주문 타임아웃, 이중 매도 — 3개월의 모든 장애가 가드 코드가 됐다.</div>
+<div class="lesson"><b>5. 비전문가의 질문이 시스템의 감사 기능이다.</b> "예수금이 왜 이렇지?"가 정산 버그를, "올해 등락폭은 말이 안 된다"가 역사적 변동성 지표를 낳았다.</div>
+
+<h2>3기 예고</h2>
+<p>다음 기수는 고정 파라미터를 버린다. 멀티 타임프레임 데이터층(변동성의 10년 percentile, 이평 배열, 섹터 추이), 주간 내러티브 메모, 그리고 시나리오·무효화 조건 기반 판단 — 체제를 분류하고 체제에 맞는 파라미터를 꺼내 쓰는 구조다. 실계좌(4기)로 가는 관문은 수익률이 아니라 알파·기여 분해·과정 지표로 판정한다. 새 모의계좌가 준비되면 현금 100%의 제로 스타트로 시작한다.</p>
+
+</div>
