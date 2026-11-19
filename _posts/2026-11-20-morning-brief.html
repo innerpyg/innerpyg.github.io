@@ -1,0 +1,269 @@
+---
+title: Morning Market Brief
+author: "Written by Claude"
+date: "2026-11-20"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily]
+series: stock
+---
+
+<style>
+.morning-brief {
+    --bg: #fffdf9;
+    --fg: #1a1a1a;
+    --muted: #6b6055;
+    --border: #e8e0d4;
+    --card: #fff9f0;
+    --accent: #c4482c;
+    --up: #1a7f5a;
+    --down: #c4482c;
+    --serif: 'Noto Serif KR', 'Source Serif Pro', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Pretendard', sans-serif;
+    --mono: ui-monospace, 'JetBrains Mono', Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .morning-brief {
+      --bg: #12110f;
+      --fg: #ede8df;
+      --muted: #a99f92;
+      --border: #2a2722;
+      --card: #1a1815;
+      --accent: #ff7a5c;
+      --up: #4ade80;
+      --down: #ff7a5c;
+    }
+.morning-brief .mb-report { background: var(--bg); color: var(--fg); font-family: var(--serif); max-width: 860px; margin-inline: auto; padding: 2.5rem 1.5rem 2rem; line-height: 1.7; font-feature-settings: "tnum"; }
+.morning-brief .mb-report header { border-bottom: 2px solid var(--fg); padding-bottom: 1.5rem; margin-bottom: 2.5rem; }
+.morning-brief .mb-report .kicker { font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report h1 { font-family: var(--serif); font-size: 2.4rem; line-height: 1.15; margin: 0.75rem 0 0.5rem; font-weight: 700; letter-spacing: -0.01em; }
+.morning-brief .mb-report .dek { font-family: var(--sans); color: var(--muted); font-size: 1.05rem; line-height: 1.5; }
+.morning-brief .mb-report .meta { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin-top: 1rem; }
+.morning-brief .mb-report h2 { font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-weight: 700; border-top: 1px solid var(--border); padding-top: 1.5rem; margin: 2.5rem 0 1rem; }
+.morning-brief .mb-report p.lede { font-size: 1.1rem; line-height: 1.7; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 3.2rem; float: left; font-weight: 700; line-height: 0.9; margin: 0.15rem 0.6rem 0 0; color: var(--accent); font-family: var(--serif); }
+.morning-brief .mb-report .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report .stat { padding: 1rem 1.25rem; border-right: 1px solid var(--border); font-family: var(--sans); }
+.morning-brief .mb-report .stat:last-child { border-right: none; }
+.morning-brief .mb-report .stat .lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report .stat .val { font-family: var(--mono); font-size: 1.4rem; font-weight: 600; margin-top: 0.25rem; letter-spacing: -0.01em; }
+.morning-brief .mb-report .stat .chg { font-family: var(--mono); font-size: 0.8rem; margin-top: 0.1rem; }
+.morning-brief .mb-report .up { color: var(--up); }
+.morning-brief .mb-report .down { color: var(--down); }
+.morning-brief .mb-report ol.analysis { padding-left: 1.25rem; font-family: var(--sans); font-size: 0.975rem; line-height: 1.65; }
+.morning-brief .mb-report ol.analysis li { margin-bottom: 0.75rem; padding-left: 0.5rem; }
+.morning-brief .mb-report ol.analysis li::marker { color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.925rem; margin-top: 0.5rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.7rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report td.num { font-family: var(--mono); text-align: right; }
+.morning-brief .mb-report blockquote.takeaway { border-left: 3px solid var(--accent); padding: 0.25rem 0 0.25rem 1.25rem; margin: 1rem 0; font-family: var(--sans); font-style: italic; font-size: 1.02rem; line-height: 1.6; }
+.morning-brief .mb-report footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
+.morning-brief .mb-report .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.morning-brief .mb-report .lesson-card { background: var(--card, #f5f2ec); border-left: 3px solid var(--accent); padding: 1.1rem 1.25rem; border-radius: 0 4px 4px 0; margin: 0.75rem 0 1rem; font-family: var(--sans); }
+.morning-brief .mb-report .lesson-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report .lesson-body { font-size: 0.95rem; line-height: 1.7; color: var(--fg); white-space: pre-line; }
+.morning-brief .mb-report details.glossary { margin-top: 2.5rem; font-family: var(--sans); border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 1rem; }
+.morning-brief .mb-report details.glossary summary { cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--muted); padding: 0.3rem 0; }
+.morning-brief .mb-report details.glossary[open] summary { margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report details.glossary dl { margin: 0; padding: 0; font-size: 0.85rem; line-height: 1.6; }
+.morning-brief .mb-report details.glossary dt { font-weight: 700; margin-top: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report details.glossary dd { margin: 0.15rem 0 0 0; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .mb-report { padding: 1.5rem 1rem 1.5rem; }
+.morning-brief .mb-report h1 { font-size: 1.75rem; }
+.morning-brief .mb-report .dek { font-size: 0.95rem; }
+.morning-brief .mb-report p.lede { font-size: 1rem; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 2.6rem; margin: 0.1rem 0.4rem 0 0; }
+.morning-brief .mb-report .stat { padding: 0.75rem 1rem; }
+.morning-brief .mb-report .stat .val { font-size: 1.2rem; }
+.morning-brief .mb-report table { font-size: 0.82rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.55rem 0.5rem; }
+.morning-brief .mb-report blockquote.takeaway { font-size: 0.95rem; padding-left: 1rem; }
+</style>
+
+<div class="morning-brief">
+<article class="mb-report">
+
+<header>
+  <div class="kicker">Morning Market Brief</div>
+  <h1>뉴욕 3대 지수 2%대 급락, VIX 28 공포 재점화</h1>
+<div class="dek">Anthropic이 상장 첫날 공모가 대비 17% 오른 97.17달러로 마감했지만 AI 트레이드를 되살리지 못했다. 다우는 5만선을 내줬고 S&P 500은 6거래일 연속 하락, 11개 섹터 전부가 밀리며 VIX는 28.44로 3월 이후 최고로 뛰었다. 코스피는 19일 콘텐츠·여행주와 반도체 반등으로 5,137.89(+1.39%)에 마감했으나 오늘은 미국 급락의 시험대에 선다.</div>  <div class="meta">2026.11.20 (금) · 08:29 KST · yfinance + Naver Finance</div>
+</header>
+
+<p class="lede">19일 뉴욕 증시는 다우 49,097.06(−2.19%), S&P 500 7,175.83(−2.02%), 나스닥 23,879.20(−2.25%)로 전면 급락했다. 역대 최대 IPO인 Anthropic이 공모가 83달러에서 111.50달러로 출발해 97.17달러(+17%)에 마감했지만, 월러 연준 이사의 12월 인상(50bp 가능성 포함) 재확인과 AI 트레이드 되돌림이 겹쳐 엔비디아는 145.98달러(−3.30%)로 52주 신저가, AMD는 공매도 리포트에 7%대 급락했다. VIX는 28.44(+15.8%)로 25선을 재돌파했고 금은 3,627.90달러(−3.05%)로 이틀 연속 3%대 하락했다. 코스피는 19일 5,137.89(+1.39%)로 이틀 연속 올랐고 코스닥은 684.81(+3.32%)로 급등했다.</p>
+
+<h2>💼 내 계좌 오늘</h2>
+<div class="stats">
+  <div class="stat"><div class="lbl">KR 모의계좌</div><div class="val">₩50,000,000</div><div class="chg">0종 보유</div></div>
+  <div class="stat"><div class="lbl">US 모의계좌</div><div class="val">$100,000</div><div class="chg">0종 보유</div></div>
+</div>
+<ol class="analysis" style="margin-top: 1rem;">
+<li>KR 체제 '추세붕괴'(KOSPI 20일 변동성 percentile 94.1, 24종 중 20종 역배열) — 신규 매수 금지. 오늘 금요일 풀 세션에서 재판정하며, 완화돼도 최대 노출 40% 내 정배열 종목(셀트리온 단독) 1~2종 소규모만 검토. 코스피 5,000선 종가 유지가 재판정 핵심</li><li>US 체제 '고변동조정'으로 하향(VIX 25 재돌파, 최대 노출 40%). 오늘 세션 매매 없음 확정 — 전일 세운 금요일 트리거(AVGO 352달러 유지·V 반등·MSFT 20일선·AAPL 방어) 네 개 모두 시세로 실패. 월요일(23일) 1순위 AAPL은 '20일 종가 352.45달러 이상 AND VIX 25 미만' 충족 시 7.5%만 1차 진입</li><li>양 시장 현금 100%, 계좌 개설(17일) 후 4세션 연속 무매매. 미보유가 SPY −4.4%·QQQ −4.2%·UNH −18.1% 손실 회피로 작동. VIX 30 돌파 시 월요일도 현금 유지 원칙</li></ol>
+
+<h2>🔄 어제와 달라진 점</h2>
+<ol class="analysis">
+<li>VIX가 24.56(−3.53%)에서 28.44(+15.8%)로 급등해 하루 만에 '긴장(20~25)' 구간에서 '고변동(25 이상)' 구간으로 되돌아갔고 3월 이후 최고다. 모의계좌 미국 체제도 예고대로 '횡보(최대 노출 60%)'에서 '고변동조정(최대 노출 40%)'으로 하향됐다.</li><li>미국 증시가 '혼조'에서 '전면 급락'으로 바뀌었다. 전날은 나스닥 +0.42%·브로드컴 +2.93% 등 비엔비디아 반도체가 버텼지만, 19일은 3대 지수 −2%대, 11개 섹터 전부 하락, 다우 5만선 붕괴, S&P 500 6일 연속 하락이다. 반도체 내부의 갈림도 사라져 AMD −7.72%·엔비디아 52주 신저가로 전부 밀렸다.</li><li>금과 유가가 갈라졌다. 전날 동반 급락(금 −3.57%·WTI −4.71%)이었지만 19일은 금 3,627.90달러(−3.05%) 이틀 연속 3%대 하락 vs WTI 83.16달러(−0.12%) 보합이다. 유가는 안정됐지만 금은 달러 강세·인상 기대에 안전자산 기능을 계속 잃고 있다.</li><li>한국 수급 주체가 바뀌었다. 18일은 기관 5,118억원 순매수가 5,000선 회복을 이끌었지만 19일은 기관 194억원·외국인 −4,036억원(전날 약 −3,338억원에서 확대, 5일 연속)으로 기관 매수가 사라졌는데도 코스피는 5,137.89(+1.39%)로 올랐다. 주도 섹터도 반도체·로봇에서 한중 FTA발 콘텐츠·여행(오락·문화 +9.39%)으로 넓어졌고 코스닥은 +1.96%→+3.32%로 가속했다.</li></ol>
+
+<h2>🇺🇸 US Market Recap</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">S&P 500</div>
+    <div class="val">7,175.83</div>
+    <div class="chg down">
+-2.02%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">NASDAQ</div>
+    <div class="val">23,879.20</div>
+    <div class="chg down">
+-2.25%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">DOW</div>
+    <div class="val">49,097.06</div>
+    <div class="chg down">
+-2.19%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">VIX</div>
+    <div class="val">28.44</div>
+    <div class="chg up">
++15.80%
+    </div>
+  </div>
+</div>
+
+<h2>Key Drivers</h2>
+<ol class="analysis">
+<li>3대 지수가 모두 2% 넘게 빠지며 전면 매도장이 됐다. 다우는 49,097.06(−1,101.11p, −2.19%)로 5만선을 내줬고 S&P 500은 7,175.83(−2.02%)로 6거래일 연속 하락해 6월 이후 최장 연속 하락을 더 늘렸으며 나스닥은 23,879.20(−2.25%)이었다. 장 초반 기술주가 버텼지만 마감 무렵 11개 섹터 전부가 하락했고, 나스닥 하락 종목 2,578개 대 상승 674개로 쏠림이 극심했다(CNBC·Investrade). VIX는 28.44(+15.8%)로 3월 이후 최고, CNN 공포·탐욕 지수는 24 '극단적 공포'다.</li><li>Anthropic 상장은 성공했지만 시장을 구하지 못했다. 공모가 83달러(희망밴드 70~78달러 상회)로 813억 달러를 조달해 역대 최대 IPO 기록을 세웠고, 111.50달러에 첫 거래 후 장중 92.72달러까지 밀렸다가 97.17달러(공모가 대비 +17%, 시총 약 1.27조 달러)로 마감했다(Yahoo Finance·CNN·Fast Company). 그러나 CNBC는 상장 당일 차익실현이 다우 급락을 키웠다고 전했고, UBS는 AI 트레이드 되돌림·중간선거·CPI가 연준 재가격을 불렀다고 분석했다. Anthropic 대리주로 거론된 아마존(−3.87%)·알파벳(−3.46%)·브로드컴이 매도에 노출됐다(Investrade).</li><li>반도체가 다시 진앙지였다. 엔비디아는 145.98달러(−3.30%, 장중 저가 145.71달러)로 6거래일 연속 하락하며 52주 신저가를 썼다. 미 하원 위원회는 상무부가 최근 6개월간 약 90만 개의 AI 칩 대중국 판매를 승인했다고 밝혀 수출통제 논쟁을 재점화했다(Reuters). AMD는 헌터브룩의 공매도 리포트에 7.72% 급락했고 코어위브(−6.10%)·네비우스(−9.39%) 등 AI 인프라주가 동반 급락했다. 마이크로소프트는 −1.97%였다(Investrade·Yahoo Finance).</li><li>연준은 긴축, 지표는 둔화라는 가장 어려운 조합이 확인됐다. 월러 이사는 10월 물가가 둔화해도 12월 8~9일 회의에서 인상해야 하며 근원 물가가 뜨거우면 0.5%p도 열어둔다고 밝혔고(Reuters), 전날 의사록은 거의 전원이 인상을 예상했다. 반면 신규 실업수당 청구는 20만 3천 건으로 컨센서스 19만 7천 건을 넘었고 연속 청구는 176만 3천 건(컨센서스 171만 건), 필라델피아 연은 제조업지수는 6.3으로 전월 20.9에서 급락(컨센서스 20.0)했다. 그럼에도 10년물은 5.052%(−0.014%p)로 나흘 연속 소폭 내려 주식 자금의 채권 피난이 이어졌다.</li><li>원자재와 가상자산까지 피난처가 사라졌다. 금은 3,627.90달러(−114.00달러, −3.05%)로 이틀 연속 3%대 급락했고 WTI는 83.16달러(−0.12%)로 보합, 비트코인은 약 6만 1,880달러로 4개월 최저였다(Investrade). 실적에서는 윌리엄스소노마 −15.05%, 넷이즈 −11.39%, 월마트는 가이던스 상향에도 −1.04%였고 팰로앨토네트웍스만 +6.44%로 돋보였다. 원/달러는 1,334.21원(+0.09%)으로 보합권이다.</li><li>한국은 19일 수능일 10시 개장에도 코스피 5,137.89(+70.45p, +1.39%)로 이틀 연속 상승했고, 장중 4,960선까지 밀렸다가 되돌린 롤러코스터였다. 코스닥은 684.81(+22.00p, +3.32%)로 급등했다. 한중 FTA 서비스·투자 후속협상 실질 타결(기술이전 강요 금지 명문화)과 올해 수출 1조 달러 돌파 소식에 오락·문화 업종이 +9.39% 뛰었고(스튜디오드래곤 상한가, 하이브 +13.7%, 하나투어 +16.8%), 전기전자도 +2.16%였다. 삼성전자 196,900원(+1.13%), SK하이닉스 1,183,000원(+3.41%)로 투톱이 사흘 연속 반등했다. 외국인은 코스피에서 4,036억원을 팔아 5거래일 연속 순매도했고 기관은 194억원 순매수, 개인은 654억원 순매도였다(아시아경제·코리아리포트).</li></ol>
+
+<h2>🌍 Global Macro</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Indicator</th><th class="num">Value</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr><td>10Y Treasury</td><td class="num">5.052%</td><td>−0.014%p</td></tr>
+    <tr><td>5Y Treasury</td><td class="num">4.866%</td><td>−0.018%p</td></tr>
+    <tr><td>30Y Treasury</td><td class="num">5.401%</td><td>−0.011%p</td></tr>
+    <tr><td>13W Treasury</td><td class="num">4.147%</td><td>+0.002%p</td></tr>
+    <tr><td>USD/KRW</td><td class="num">1,334.21</td><td>+0.09%</td></tr>
+    <tr><td>WTI Oil</td><td class="num">$83.16</td><td>−0.12%</td></tr>
+    <tr><td>Gold</td><td class="num">$3,627.90</td><td>−3.05%</td></tr>
+  </tbody>
+</table>
+</div>
+<ol class="analysis" style="margin-top: 1rem;">
+<li>월러 연준 이사가 '10월 물가가 식어도 12월 인상, 근원 물가가 뜨거우면 0.5%p'를 공언했다(Reuters). 전날 의사록의 '거의 전원 인상 예상'과 결합해 12월 8~9일 FOMC 인상은 기정사실이 됐고, 시장은 11월 10일 CPI 서프라이즈 이후의 긴축 재가격을 아직 소화 중이다(UBS).</li><li>매파 신호에도 장기 금리는 나흘 연속 내렸다. 10년물 5.052%(−0.014%p), 30년물 5.401%(−0.011%p), 5년물 4.866%(−0.018%p)가 하락한 반면 13주물은 4.147%(+0.002%p)로 올라 10년물−13주물 금리차는 0.921%p→0.905%p로 더 좁아졌다. 주식에서 빠진 자금의 채권 피난과 경기 둔화 베팅이 인상 기대를 눌렀다.</li><li>고용·제조 지표가 동시에 식었다. 신규 실업수당 청구 20만 3천 건(컨센서스 19만 7천 건), 연속 청구 176만 3천 건(컨센서스 171만 건), 필라델피아 연은 제조업지수 6.3(전월 20.9, 컨센서스 20.0)이다. 연준이 올리는데 경기가 식는 조합은 성장주와 경기민감주를 함께 때린다(Investrade).</li><li>금이 3,627.90달러(−3.05%)로 이틀 연속 3%대 급락하며 안전자산 역할을 잃었다. 달러 강세(유로/달러 1.0978, 달러/엔 159.70)와 인상 기대가 무이자 자산 금의 매력을 깎았다. WTI는 83.16달러(−0.12%)로 전날 −4.71% 급락 뒤 숨을 고르고, 비트코인은 약 6만 1,880달러로 4개월 최저다. 원/달러 1,334.21원(+0.09%)은 보합권이며 국내 마감가는 1,330원(−3원, 4일 연속 하락)이었다(아시아경제).</li><li>국내 지표로는 10월 생산자물가가 전월 대비 0.1% 하락했다(사과 −29.2%, 돼지고기 −12.8%). 외국인은 10월 국내 주식 26조원을 순매도해 2개월 연속 순매도였고, 10월 이후 외국인 순매도 약 31조원 중 반도체가 약 24조원이라는 집계가 오늘 반도체 수급 부담으로 거론된다(연합뉴스·EBN).</li></ol>
+
+<h2>🇰🇷 Korean Market Outlook</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">KOSPI</div>
+    <div class="val">5,137.89</div>
+    <div class="chg up">
++1.39%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">KOSDAQ</div>
+    <div class="val">684.81</div>
+    <div class="chg up">
++3.32%
+    </div>
+  </div>
+</div>
+<p style="font-family: var(--sans); margin-top: 1rem;"><strong>주목 섹터:</strong> 19일 종가 기준이다. 상승 주도권이 반도체에서 비(非)반도체로 넓어졌다. 한중 FTA 서비스·투자 후속협상 실질 타결에 오락·문화 업종이 +9.39%(스튜디오드래곤 상한가, 하이브 +13.7%, 하나투어 +16.8%)로 폭등했고 의료정밀 +4.6%, 부동산 +2.31%, 전기전자 +2.16%가 뒤따랐다. 반도체 투톱은 삼성전자 196,900원(+1.13%, 장중 저가 189,800원→종가가 고가), SK하이닉스 1,183,000원(+3.41%, 장중 1,115,000~1,186,000원)으로 사흘 연속 반등했고 셀트리온 +3.61%, 현대차 +0.19%였다. 반면 통신 −3.14%, IT서비스·보험·증권과 LG에너지솔루션(−1.0%) 등 2차전지는 약세였다(아시아경제·코리아리포트). 오늘은 미국 3대 지수 −2%대, 엔비디아 52주 신저가(−3.30%), AMD −7.72%가 그대로 전해져 코스피 2% 내외 하락 출발 전망이 나오며(주달), 삼성전자 19만원·SK하이닉스 110만원 지지와 5,000선 재시험이 관전 포인트다. 반도체 전문가들은 '반등했지만 진짜 폭락은 아직'이라고 경고하고(데일리25), 삼성전자·SK하이닉스가 3개월 새 51조원을 더 쌓아 329조원 현금을 쥔 점은 중장기 투자 여력으로 거론된다(비즈워치).</p><p style="font-family: var(--sans);"><strong>수급 동향:</strong> 19일 외국인은 코스피에서 4,036억원을 순매도해 5거래일 연속 매도였고, 전날 약 3,338억원에서 매도 규모가 다시 커졌다. 기관은 194억원 순매수(코스피200 선물은 2,330억원 매수)로 전날 5,118억원에서 급감했고 개인은 654억원 순매도였다. 코스닥은 기관 2,140억원 순매수·외국인 2,127억원 순매도로 기관이 +3.32% 급등을 이끌었다(아시아경제·코리아리포트). 외국인은 10월 한 달 26조원을 팔아 2개월 연속 순매도이며(연합뉴스), 10월 이후 순매도의 대부분이 반도체에 집중됐다는 집계가 있어 오늘 미국 반도체 급락이 외국인 반도체 매도를 다시 키울 가능성이 크다. 원/달러 1,334.21원(+0.09%)은 보합이지만 VIX 28.44·CNN 공포지수 24 '극단적 공포'의 글로벌 위험회피가 신흥국 자금 이탈 압력으로 작동한다. 기관 순매수가 194억원으로 쪼그라든 상태라 외국인 매도를 받아줄 주체가 약해진 점이 5,000선 방어의 약점이다.</p>
+
+<h2>🔍 Watchlist</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Ticker</th><th>Name</th><th class="num">Close</th><th class="num">Change</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>TSLA</td>
+      <td>Tesla</td>
+      <td class="num">$374.41</td>
+      <td class="num down">
+-2.43%      </td>
+      <td>이틀 연속 상승 뒤 반락. 시가 389.90달러·고가 393.60달러에서 저가 370.81달러까지 밀린 하락 반전 봉으로 지수 급락에 동반. 트럼프 대통령 재산공개에 9월 테슬라·스페이스X 매수 기록(CNBC·Motley Fool), 머스크의 중국 사업 강화 발언(TradingView)이 뉴스였지만 주가를 받치지 못했다</td>
+    </tr>
+    <tr>
+      <td>NVDA</td>
+      <td>NVIDIA</td>
+      <td class="num">$145.98</td>
+      <td class="num down">
+-3.30%      </td>
+      <td>6거래일 연속 하락, 장중 저가 145.71달러로 52주 신저가. 시가 152.92달러·고가 158.13달러에서 밀린 하락 반전 봉. 미 하원 위원회 '6개월간 AI 칩 약 90만 개 대중 판매 승인' 공개(Reuters)로 수출통제 논쟁 재점화, AMD −7.72%(공매도 리포트)·코어위브 −6.10% 등 AI 인프라 동반 급락. 모의계좌는 20일선 −19%로 진입 제외 유지</td>
+    </tr>
+    <tr>
+      <td>005930</td>
+      <td>삼성전자</td>
+      <td class="num">₩196,900</td>
+      <td class="num up">
++1.13%      </td>
+      <td>이틀 연속 상승, 장중 저가 189,800원까지 밀렸다가 종가가 고가(196,900원)인 강한 마감. 외국인 코스피 4,036억원 순매도 지속. 삼성전자·SK하이닉스 현금 329조원(3개월 새 51조원 증가, 비즈워치), 한중 FTA에 기술이전 강요 금지 명문화로 중국 공장 보호 강화(뉴스핌). 오늘 19만원 지지가 관전 포인트</td>
+    </tr>
+    <tr>
+      <td>000660</td>
+      <td>SK하이닉스</td>
+      <td class="num">₩1,183,000</td>
+      <td class="num up">
++3.41%      </td>
+      <td>사흘 연속 반등, 장중 1,115,000~1,186,000원. 17일 저점 1,098,000원 이후 되돌림이 이어졌다. 미국 엔비디아 52주 신저가·AMD −7.72%가 오늘 부담이며 110만원 지지 여부가 관건. 반도체 전문가 '진짜 폭락은 아직' 경고(데일리25) vs 329조원 현금 여력(비즈워치)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>⚡ Today's Takeaways</h2>
+<blockquote class="takeaway">피난처가 없는 날이었다. 11개 섹터 전부 하락, 금 −3.05%, 비트코인 4개월 최저, 다우 5만선 붕괴와 VIX 28.44. 이런 전면 디레버리징 국면에서는 '무엇을 살까'보다 '현금 비중을 지키는가'가 성과를 결정한다. 모의계좌가 양 시장 현금 100%로 SPY −4.4%·QQQ −4.2%(17일 이후)를 피한 것이 그 예다.</blockquote>
+<blockquote class="takeaway">역대 최대 IPO가 성공해도 AI 트레이드는 돌아오지 않았다. Anthropic +17%의 반대편에서 아마존·알파벳·브로드컴 같은 대리주와 엔비디아(52주 신저가)·AMD(공매도 리포트 −7.72%)가 팔렸다. 대형 IPO는 시장 유동성을 흡수하는 쪽으로도 작동한다. 국내 반도체 투톱의 사흘 연속 반등은 미국 반도체와 디커플링된 상태라 오늘 외국인 매도가 그 지속성을 시험한다.</blockquote>
+<blockquote class="takeaway">연준은 올리고 경기는 식는다. 월러의 '12월 인상, 50bp도 가능'과 실업수당 청구 20만 3천 건·필라델피아 연은 6.3의 둔화가 같은 날 나왔다. 10년물 5.052%의 나흘 연속 하락은 안도가 아니라 둔화 베팅으로 읽는 게 안전하다. 12월 8~9일 FOMC 전까지 물가·고용 지표가 폭을 가른다.</blockquote>
+<blockquote class="takeaway">오늘 코스피는 2% 내외 하락 출발 전망과 5,000선 재시험이 기본 시나리오다. 19일 상승은 한중 FTA발 콘텐츠·여행주가 이끌어 외국인 5일 연속 매도에도 버텼지만, 기관 순매수가 194억원으로 쪼그라든 상태에서 미국 반도체 급락이 외국인 반도체 매도를 키우면 받아줄 주체가 약하다. 삼성전자 19만원·SK하이닉스 110만원 지지, 반도체 외 업종(콘텐츠·여행·바이오)의 상대강도 유지 여부가 체크 포인트다.</blockquote>
+
+<h2>📚 오늘의 공부</h2>
+<div class="lesson-card">
+  <div class="lesson-title">공매도(쇼트) — 주가가 떨어져야 돈을 버는 투자, AMD가 하루 7.7% 빠진 이유</div>
+  <div class="lesson-body">어젯밤 미국 반도체 회사 AMD 주가가 하루에 7.72% 떨어졌어요. 실적 발표도 없었는데, '헌터브룩'이라는 투자회사가 AMD를 비판하는 보고서를 내며 공매도 포지션을 잡았다고 밝힌 것이 계기였어요.
+
+공매도(영어로 쇼트)는 '없는 주식을 먼저 파는 것'이에요. 주식을 빌려서 지금 가격에 팔고, 나중에 더 싸게 사서 돌려주면 그 차이가 이익이 돼요. 보통 투자는 주가가 올라야 돈을 벌지만, 공매도는 반대로 떨어져야 벌어요.
+
+그래서 공매도 투자자는 '이 회사엔 문제가 있다'는 보고서, 즉 '숏 리포트'를 직접 내기도 해요. 내용이 맞으면 주가가 내려 이익을 보고, 틀리면 손해를 봐요. 어제처럼 시장 전체가 겁에 질린 날(VIX 28.44)에는 작은 의심에도 주가가 크게 흔들려요.
+
+왜 내게 중요할까요? 종목이 뉴스도 없이 급락하면 숏 리포트가 나왔는지 확인해 보세요. 그리고 숏 리포트는 돈이 걸린 한쪽 의견이니, 회사의 반박까지 함께 읽고 스스로 판단하는 습관이 필요해요.</div>
+</div>
+
+<details class="glossary">
+<summary>📖 용어 빠르게 찾기 (초보자용 치트시트)</summary>
+<dl>
+  <dt>VIX (공포지수)</dt><dd>S&P 500의 향후 30일 변동성 예측. 20↓ 안정, 20~25 보통, 25↑ 긴장, 35↑ 위기.</dd>
+  <dt>10Y Treasury</dt><dd>미국 10년물 국채 수익률. 장기 금리 + 인플레 기대의 기준점. 오르면 기술주 부담, 은행주 수혜.</dd>
+  <dt>USD/KRW</dt><dd>원/달러 환율. 올라가면 원화 약세 = 수출주(삼전, 현대차) 유리 / 수입품/여행 부담.</dd>
+  <dt>S&P 500</dt><dd>미국 대형주 500개 평균. 미 증시 '대표선수' 지수.</dd>
+  <dt>NASDAQ</dt><dd>기술주 중심 미국 지수. AI·빅테크 비중 큼.</dd>
+  <dt>KOSPI / KOSDAQ</dt><dd>KOSPI = 한국 대형주, KOSDAQ = 한국 중소형/기술주.</dd>
+  <dt>bp (basis point)</dt><dd>0.01%. 금리 이야기할 때 쓰는 단위 (예: +3bp = +0.03%).</dd>
+  <dt>RISK ON / OFF</dt><dd>시장 심리. RISK ON = 위험자산(주식) 선호, RISK OFF = 안전자산(금·국채) 회피 이동.</dd>
+  <dt>외국인·기관 수급</dt><dd>누가 사고 누가 파는지. 외국인 순매수 = 한국 주식 긍정적 신호.</dd>
+  <dt>HBM</dt><dd>고대역폭 메모리. AI 칩에 들어가는 고급 메모리 — SK하이닉스·삼성전자 주력 상품.</dd>
+</dl>
+</details>
+
+<footer>⏰ Generated at 08:29 KST · Source: yfinance + Naver Finance · 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.</footer>
+
+</article>
+</div>
