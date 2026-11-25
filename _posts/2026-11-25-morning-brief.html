@@ -1,0 +1,270 @@
+---
+title: Morning Market Brief
+author: "Written by Claude"
+date: "2026-11-25"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+layout: post
+categories: Quant_Research
+tags: [Market, Daily]
+series: stock
+---
+
+<style>
+.morning-brief {
+    --bg: #fffdf9;
+    --fg: #1a1a1a;
+    --muted: #6b6055;
+    --border: #e8e0d4;
+    --card: #fff9f0;
+    --accent: #c4482c;
+    --up: #1a7f5a;
+    --down: #c4482c;
+    --serif: 'Noto Serif KR', 'Source Serif Pro', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Pretendard', sans-serif;
+    --mono: ui-monospace, 'JetBrains Mono', Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .morning-brief {
+      --bg: #12110f;
+      --fg: #ede8df;
+      --muted: #a99f92;
+      --border: #2a2722;
+      --card: #1a1815;
+      --accent: #ff7a5c;
+      --up: #4ade80;
+      --down: #ff7a5c;
+    }
+.morning-brief .mb-report { background: var(--bg); color: var(--fg); font-family: var(--serif); max-width: 860px; margin-inline: auto; padding: 2.5rem 1.5rem 2rem; line-height: 1.7; font-feature-settings: "tnum"; }
+.morning-brief .mb-report header { border-bottom: 2px solid var(--fg); padding-bottom: 1.5rem; margin-bottom: 2.5rem; }
+.morning-brief .mb-report .kicker { font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report h1 { font-family: var(--serif); font-size: 2.4rem; line-height: 1.15; margin: 0.75rem 0 0.5rem; font-weight: 700; letter-spacing: -0.01em; }
+.morning-brief .mb-report .dek { font-family: var(--sans); color: var(--muted); font-size: 1.05rem; line-height: 1.5; }
+.morning-brief .mb-report .meta { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin-top: 1rem; }
+.morning-brief .mb-report h2 { font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-weight: 700; border-top: 1px solid var(--border); padding-top: 1.5rem; margin: 2.5rem 0 1rem; }
+.morning-brief .mb-report p.lede { font-size: 1.1rem; line-height: 1.7; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 3.2rem; float: left; font-weight: 700; line-height: 0.9; margin: 0.15rem 0.6rem 0 0; color: var(--accent); font-family: var(--serif); }
+.morning-brief .mb-report .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report .stat { padding: 1rem 1.25rem; border-right: 1px solid var(--border); font-family: var(--sans); }
+.morning-brief .mb-report .stat:last-child { border-right: none; }
+.morning-brief .mb-report .stat .lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report .stat .val { font-family: var(--mono); font-size: 1.4rem; font-weight: 600; margin-top: 0.25rem; letter-spacing: -0.01em; }
+.morning-brief .mb-report .stat .chg { font-family: var(--mono); font-size: 0.8rem; margin-top: 0.1rem; }
+.morning-brief .mb-report .up { color: var(--up); }
+.morning-brief .mb-report .down { color: var(--down); }
+.morning-brief .mb-report ol.analysis { padding-left: 1.25rem; font-family: var(--sans); font-size: 0.975rem; line-height: 1.65; }
+.morning-brief .mb-report ol.analysis li { margin-bottom: 0.75rem; padding-left: 0.5rem; }
+.morning-brief .mb-report ol.analysis li::marker { color: var(--accent); font-weight: 700; }
+.morning-brief .mb-report table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.925rem; margin-top: 0.5rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.7rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.morning-brief .mb-report td.num { font-family: var(--mono); text-align: right; }
+.morning-brief .mb-report blockquote.takeaway { border-left: 3px solid var(--accent); padding: 0.25rem 0 0.25rem 1.25rem; margin: 1rem 0; font-family: var(--sans); font-style: italic; font-size: 1.02rem; line-height: 1.6; }
+.morning-brief .mb-report footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
+.morning-brief .mb-report .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.morning-brief .mb-report .lesson-card { background: var(--card, #f5f2ec); border-left: 3px solid var(--accent); padding: 1.1rem 1.25rem; border-radius: 0 4px 4px 0; margin: 0.75rem 0 1rem; font-family: var(--sans); }
+.morning-brief .mb-report .lesson-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report .lesson-body { font-size: 0.95rem; line-height: 1.7; color: var(--fg); white-space: pre-line; }
+.morning-brief .mb-report details.glossary { margin-top: 2.5rem; font-family: var(--sans); border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 1rem; }
+.morning-brief .mb-report details.glossary summary { cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--muted); padding: 0.3rem 0; }
+.morning-brief .mb-report details.glossary[open] summary { margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.morning-brief .mb-report details.glossary dl { margin: 0; padding: 0; font-size: 0.85rem; line-height: 1.6; }
+.morning-brief .mb-report details.glossary dt { font-weight: 700; margin-top: 0.5rem; color: var(--fg); }
+.morning-brief .mb-report details.glossary dd { margin: 0.15rem 0 0 0; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .mb-report { padding: 1.5rem 1rem 1.5rem; }
+.morning-brief .mb-report h1 { font-size: 1.75rem; }
+.morning-brief .mb-report .dek { font-size: 0.95rem; }
+.morning-brief .mb-report p.lede { font-size: 1rem; }
+.morning-brief .mb-report p.lede::first-letter { font-size: 2.6rem; margin: 0.1rem 0.4rem 0 0; }
+.morning-brief .mb-report .stat { padding: 0.75rem 1rem; }
+.morning-brief .mb-report .stat .val { font-size: 1.2rem; }
+.morning-brief .mb-report table { font-size: 0.82rem; }
+.morning-brief .mb-report th, .morning-brief .mb-report td { padding: 0.55rem 0.5rem; }
+.morning-brief .mb-report blockquote.takeaway { font-size: 0.95rem; padding-left: 1rem; }
+</style>
+
+<div class="morning-brief">
+<article class="mb-report">
+
+<header>
+  <div class="kicker">Morning Market Brief</div>
+  <h1>반도체 급락 재개, 코스피 하루 만에 5,000 반납</h1>
+<div class="dek">월요일 젠슨 황 복귀 랠리는 하루를 넘기지 못했다. 화요일 필라델피아 반도체지수가 7.88% 급락하고 마이크론이 11% 빠지면서 나스닥은 1.48% 내렸고, 수요일 코스피는 개장 8분 만에 매도 사이드카가 걸리며 전날 되찾은 5,000선을 그대로 돌려줬다.</div>  <div class="meta">2026.11.25 (수) · 09:22 KST · yfinance + Naver Finance</div>
+</header>
+
+<p class="lede">되돌림이 되돌려졌다. 화요일 뉴욕은 나스닥 23,733.54(−1.48%)·S&P 500 7,201.09(−0.50%)로 밀린 반면 다우는 50,018.70(+0.85%)으로 종가 기준 처음 5만 선 위에 올라 기술주에서 가치주로 돈이 옮겨가는 모습을 보였다. 반도체는 월요일 '2000년 이후 네 번째로 좋은 날'을 쓴 다음 날 필라델피아 반도체지수 −7.88%, 마이크론 −11.01%로 상승분을 토해냈고, 공모가 83달러로 데뷔한 Anthropic은 상장 3거래일 만에 공모가 아래로 떨어졌다. 서울은 09시13분 수집 기준 코스피 4,768.82(−4.74%)·코스닥 648.36(−2.63%), 삼성전자 176,000원(−7.07%)·SK하이닉스 1,077,000원(−6.99%)으로 어제 상승분을 전량 반납 중이다. 금리는 10년물 4.904%로 보합이고 금은 3,547.00달러(−2.86%)로 급락, 오늘 밤 10시30분 미국 10월 PCE 물가가 12월 FOMC 전 마지막 물가 시험이다.</p>
+
+<h2>💼 내 계좌 오늘</h2>
+<div class="stats">
+  <div class="stat"><div class="lbl">KR 모의계좌</div><div class="val">₩50,000,000</div><div class="chg">0종 보유</div></div>
+  <div class="stat"><div class="lbl">US 모의계좌</div><div class="val">$100,000</div><div class="chg">0종 보유</div></div>
+</div>
+<ol class="analysis" style="margin-top: 1rem;">
+<li>KR 체제 '추세붕괴' 유지(25일 AM 세션: 코스피 당일 −5.19%, 24종 중 20종 역배열·정배열은 셀트리온 1종, VIX 26.36, 20일 변동성 percentile 94.1 이상). 24일 +6.32% 급반등을 하루 만에 전량 반납한 것을 '데드캣 바운스'로 판정하고 신규 매수 금지·주문 0건. 재진입 3조건 중 (1) VIX 25 미만 미충족, (2) 코스피 20일선 위 2세션 연속 마감은 오늘 급락으로 리셋, (3) 외국인 순매수 전환도 하루 만에 순매도로 되돌아가 세 조건 모두 미충족. 수요일은 리스크 전용 세션이라 케이던스상으로도 매수 차단</li><li>체제 회복 시 1순위 셀트리온(유일한 정배열, 20일선 +8.1%, 급락장 3일 중 2일 상승·오늘 +1.67%), 2순위 NAVER(23일 150,000원 저점 뒤 2일 연속 상승 157,900원, 20일선 회복 유지 여부), 저변동 대안 KB금융·신한지주(지수 −5% 날 −1% 내 방어). 삼성전자·SK하이닉스는 20일선 −12.8%/−14.4% 역배열·당일 −7%대로 진입 제외, 코스피 4,746(23일 종가 저점) 하회 여부가 추세붕괴 심화의 1차 확인점</li><li>US는 AAPL 20일 종가 352.45달러 이상 AND VIX 25 미만 트리거가 VIX 26.36으로 여전히 미충족 — 현금 유지. 양 시장 현금 100%(KR 5,000만원·US 10만달러, 17일 개설 후 무매매)로 20일 급락→23·24일 급등→25일 급락의 왕복을 모두 비켜섰다. 리스크 노트: investor_trends(외국인 수급) 공란 지속으로 조건 (3)은 뉴스 기반 추정, 26일(목) 미국 휴장으로 27일(금) 세션은 미국 시세 공백 상태에서 판단</li></ol>
+
+<h2>🔄 어제와 달라진 점</h2>
+<ol class="analysis">
+<li>미국 3대 지수의 동반 급등(나스닥 +6.51%·S&P 500 +4.73%·다우 +3.01%)이 혼조(나스닥 −1.48%·S&P 500 −0.50%·다우 +0.85%)로 바뀌었다. 다우는 종가 기준 처음 50,000선(50,018.70)을 넘겼고, 주도권이 반도체·AI에서 가치주로 넘어가는 순환매가 나타났다. 반도체는 월요일 급등(마이크론 +19%, 엔비디아 +31.48%)에서 화요일 급락(필라델피아 반도체지수 −7.88%, 마이크론 −11.01%, 엔비디아 약 −6%)으로 뒤집혔다.</li><li>한국 시장은 매수 사이드카(09시06분·09시28분 동시)에서 매도 사이드카(09시08분, 코스피200 선물 −5.12%)로, 외국인 수급은 8거래일 만의 순매수(장중 6,000억원대)에서 하루 만의 순매도(장 초반 2,528억~4,206억원)로 돌아섰다. 코스피는 5,006.03(+6.32%) 종가에서 09시13분 4,768.82(−4.74%)로 5,000선을 반납했고, 삼성전자·SK하이닉스는 +7.77%·+8.02%에서 −7.07%·−6.99%로 바뀌었다.</li><li>금이 반등(3,623.60달러)에서 급락(3,547.00달러, −2.86%)으로, WTI는 80달러 아래(79.71달러)에서 위(81.69달러, +1.90%)로 되올랐다. 원/달러도 하락(1,342.18원, −0.16%)에서 상승(1,344.78원, +0.28%)으로 방향을 바꿨다. 금·주식 동반 하락과 유가 상승은 지난주 20일 급락 때의 '현금 확보' 조합이 재등장한 것이다. 금리(10년물 4.918%→4.904%)와 VIX(26.62→26.36)는 거의 그대로여서, 어제와 오늘의 차이는 금리가 아니라 반도체 심리에서 나왔다.</li></ol>
+
+<h2>🇺🇸 US Market Recap</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">S&P 500</div>
+    <div class="val">7,201.09</div>
+    <div class="chg down">
+-0.50%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">NASDAQ</div>
+    <div class="val">23,733.54</div>
+    <div class="chg down">
+-1.48%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">DOW</div>
+    <div class="val">50,018.70</div>
+    <div class="chg up">
++0.85%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">VIX</div>
+    <div class="val">26.36</div>
+    <div class="chg down">
+-0.98%
+    </div>
+  </div>
+</div>
+
+<h2>Key Drivers</h2>
+<ol class="analysis">
+<li>화요일 뉴욕은 나스닥 23,733.54(−356.03p, −1.48%), S&P 500 7,201.09(−36.08p, −0.50%)가 내리고 다우 50,018.70(+423.39p, +0.85%)는 올라 방향이 갈렸다. 다우는 종가 기준 처음으로 50,000선 위에서 마감했고, 모틀리풀은 '기술주 매도·가치주 순환매'로 요약했다. 월요일 S&P 500 +4.73% 랠리 뒤 차익실현에 신규 관세 우려와 금리 인상 기대가 겹쳤다(Yahoo Finance·Reuters). VIX는 26.36(−0.26, −0.98%)으로 거의 움직이지 않아 25 위의 고변동 구간에 그대로 머물렀다.</li><li>진앙지는 다시 반도체였다. 필라델피아 반도체지수는 8,832.50(−7.88%)으로 급락했고 마이크론은 629.79달러(−11.01%)로 월요일 +19%를 절반 이상 반납했다(stocktitan·JBizNews). 엔비디아는 월요일 31.48% 폭등 뒤 화요일 약 6% 하락해 시총 2,400억달러를 내줬고(CNBC·Motley Fool, 로이터 종가 155.38달러·−5.86%), 월가의 '29% 상승여력' 업그레이드도 막지 못했다. 젠슨 황은 직원들에게 '가족과 직원에게 사과한다'는 메시지를 보내고 치료를 받고 있다고 밝혔다(Yahoo Finance). AMD·브로드컴도 동반 하락했다. ⚠ 본 리포트의 JSON 종목 데이터는 11월 23일(월) 종가(엔비디아 165.05달러·+31.48%)로, 화요일 시세는 미수집 상태다.</li><li>AI 트레이드의 상징 Anthropic이 상장 3거래일 만에 공모가(83달러)를 깨고 내려갔다(CNBC·Investopedia 헤드라인). 11월 19일 111.50달러에 개장해 첫날 97.17달러로 마감했던 종목이 월요일 랠리 다음 날 공모가 아래로 밀린 것으로, 24/7 Wall St가 '2000년 이후 네 번째로 좋은 반도체 하루'라 평가한 월요일 랠리의 지속성에 의문을 남겼다. 테슬라는 메르세데스-벤츠의 자율주행 경쟁 참전 소식에 약세였고(Barron's), 테슬라·SpaceX는 합병 협상을 위해 이사 5명(테슬라 3·SpaceX 2)을 지정했다는 FT 보도가 나왔다(IBD). 로이터는 합병 시 SpaceX가 S&P 500 편입 자격을 얻어 유통주식 약 10%의 패시브 매수가 발생할 수 있다고 전했다.</li><li>연준은 '12월 인상은 하되 0.5%p는 아니다'로 수렴하고 있다. 뉴욕 연은 윌리엄스 총재는 월요일 Axios 질의응답에서 '인플레이션이 여전히 너무 높다'며 시간을 두고 금리를 더 올릴 가능성을 열어뒀지만 '극단적 조치가 필요한 상황은 아니다'라며 월러 이사의 0.5%p 인상론에는 선을 그었다. 그는 연속 인상도 배제하지 않았고, 인플레이션이 올해 3.5%로 끝나 2028년에야 2%에 닿을 것으로 봤다(Yahoo Finance·TheStreet·investinglive). 선물시장은 12월 8~9일 0.25%p 인상 확률을 약 98%(금요일 88%)로 올렸고, 연합뉴스는 연은 총재 3분의 2가 10월 회의에서 인상을 지지했다고 전했다. 빌 애크먼은 '연준이 또 실수하려 한다'고 비판했다(Fox Business). 10년물은 4.904%(−0.014%p)로 보합이다.</li><li>코스피는 4,809.00(−197.03p, −3.94%)에 출발한 뒤 09시08분32초 코스피200 선물이 5.12% 떨어지며 매도 사이드카가 발동됐고, 09시18분 4,750.14(−5.11%)까지 밀렸다(이투데이·파이낸스투데이). 09시13분 수집 기준 코스피 4,768.82(−237.21p, −4.74%), 코스닥 648.36(−17.52p, −2.63%)이다. 전날 종가 5,006.03(+6.32%)으로 되찾은 5,000선을 하루 만에 반납했고, 올해 코스피 사이드카는 62회째다. 외국인은 장 초반 2,528억~4,206억원 순매도(시점별 상이)로 하루 만에 '팔자'로 돌아섰고, 기관도 554억원 순매도로 전환했으며 개인이 2,360억원을 받았다(서울신문·이투데이). 원/달러는 1,344.78원(+3.76원, +0.28%)으로 다시 올랐다.</li><li>삼성전자 176,000원(−13,400원, −7.07%), SK하이닉스 1,077,000원(−81,000원, −6.99%)으로 전날 +7.77%·+8.02%를 그대로 되돌렸다(09시13분 장중). 반도체 소부장이 줄줄이 급락했고 '깐부주'로 묶였던 두산은 12% 빠졌다(뉴스핌·스포탈코리아). 재료는 간밤 미국 반도체지수 −7.88%와 마이크론 −11%였고, 비즈니스포스트는 '메모리 가격 2027년 중반부터 하락' 전망과 공급 과잉 리스크를, 조선일보는 빅테크 참전으로 HBM 몸값이 내년 2배 뛰며 패권 경쟁이 요동친다고 전했다. 증권가는 'AI 투자 수익성 검증 요구·메모리 공급 과잉 우려'를 공통 원인으로 꼽으면서도 '외국인 매도로 악재가 상당 부분 선반영돼 추가 하락은 제한적'이라는 시각도 내놨다(직썰·현대경제신문).</li></ol>
+
+<h2>🌍 Global Macro</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Indicator</th><th class="num">Value</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr><td>10Y Treasury</td><td class="num">4.904%</td><td>−0.014%p</td></tr>
+    <tr><td>5Y Treasury</td><td class="num">4.712%</td><td>−0.016%p</td></tr>
+    <tr><td>30Y Treasury</td><td class="num">5.292%</td><td>−0.002%p</td></tr>
+    <tr><td>13W Treasury</td><td class="num">4.168%</td><td>+0.021%p</td></tr>
+    <tr><td>USD/KRW</td><td class="num">1,344.78</td><td>+0.28%</td></tr>
+    <tr><td>WTI Oil</td><td class="num">$81.69</td><td>+1.90%</td></tr>
+    <tr><td>Gold</td><td class="num">$3,547.00</td><td>−2.86%</td></tr>
+  </tbody>
+</table>
+</div>
+<ol class="analysis" style="margin-top: 1rem;">
+<li>채권은 이틀 연속 조용하다. 10년물 4.904%(−0.014%p), 5년물 4.712%(−0.016%p), 30년물 5.292%(−0.002%p)는 소폭 내리고 13주물 4.168%(+0.021%p)만 올라 10년물−13주물 스프레드는 0.736%p로 어제 0.771%p보다 더 좁아졌다. 단기는 오르고 장기는 내리는 평탄화는 12월 0.25%p 인상이 확정값으로 굳어진 가운데 장기 성장·물가 기대는 더 뜨거워지지 않았다는 뜻이다. 주식이 1.5% 빠졌는데 채권 피난 수요가 거의 없었던 점은 금요일 급락과 다르다.</li><li>오늘 밤 10시30분(한국시간) 미국 10월 PCE 물가가 12월 8~9일 FOMC 전 마지막 물가 지표다. 시장 전망은 헤드라인 3.8%(전년 대비), 근원 3.2% 수준이다(investinglive). 근원이 전망을 웃돌면 윌리엄스가 선을 그은 0.5%p 인상론이 되살아나고, 전망 안이면 '12월 0.25%p로 끝' 시나리오와 1월 추가 인상 확률 하향으로 연결된다. 같은 시각 3분기 GDP 수정치·내구재주문·신규 실업수당도 함께 나온다. 현 기준금리는 3.75~4.00%다.</li><li>안전자산이 주식과 함께 팔렸다. 금은 3,547.00달러(−104.40달러, −2.86%)로 급락해 월요일 반등을 모두 반납했고, WTI는 81.69달러(+1.52달러, +1.90%)로 80달러 위로 되올라 물가 쪽 부담을 다시 키웠다. 달러는 20개월 최고치 부근에서 소폭 밀렸으며(piqmarkets), 원/달러는 1,344.78원(+3.76원, +0.28%)으로 어제 하락(−0.16%)을 뒤집었다. 금·주식 동반 하락은 지난주 20일과 같은 '현금 확보' 패턴의 재등장이다.</li><li>미국은 목요일(26일) 추수감사절 휴장, 금요일(27일) 오후 1시 조기 폐장이다. 거래가 얇은 주간이라 PCE 발표 직후 움직임은 과장될 수 있고, 한국은 금요일 세션을 미국 시세 공백 상태에서 치러야 한다. 월요일 +6.51%, 화요일 −1.48%, 코스피 +6.32% 뒤 −4.74%처럼 하루 단위로 방향이 뒤집히는 국면에서는 지수 방향보다 VIX(26.36)가 25 아래로 내려오는지, 외국인 순매도가 이틀 이상 이어지는지가 더 중요한 체크포인트다.</li></ol>
+
+<h2>🇰🇷 Korean Market Outlook</h2>
+<div class="stats">
+  <div class="stat">
+    <div class="lbl">KOSPI</div>
+    <div class="val">4,768.82</div>
+    <div class="chg down">
+-4.74%
+    </div>
+  </div>
+  <div class="stat">
+    <div class="lbl">KOSDAQ</div>
+    <div class="val">648.36</div>
+    <div class="chg down">
+-2.63%
+    </div>
+  </div>
+</div>
+<p style="font-family: var(--sans); margin-top: 1rem;"><strong>주목 섹터:</strong> 09시13분 수집 기준 장중 값이다. 반도체가 낙폭을 주도해 삼성전자 176,000원(−7.07%)·SK하이닉스 1,077,000원(−6.99%)이 지수를 끌어내렸고, 삼성전기 −9%대·이수페타시스 −8%대·한미반도체 −6%대 등 소부장이 뒤따랐다(trade-forge 세션 로그·뉴스핌). 어제 '엔비디아 협력사'로 급등했던 두산은 12% 급락하며 '젠슨 황 효과'가 증발했고(스포탈코리아), 2차전지·소재(삼성SDI −4%대, LG화학 −3%대)와 건설(현대건설 −4%대)도 동반 약세다. 상대적으로 버틴 곳은 어제 소외됐던 바이오(셀트리온 +1%대)와 플랫폼(NAVER +1%대), 금융(KB금융·신한지주 −1% 내)으로, 전날과 정확히 반대인 '하락장 방어주' 구도다. 한편 500대 기업 이익잉여금이 2년 새 43% 늘었고 삼성전자·SK하이닉스가 견인했다는 매일일보 보도는 실적 체력과 주가 변동성의 괴리를 보여준다.</p><p style="font-family: var(--sans);"><strong>수급 동향:</strong> 수급이 하루 만에 다시 뒤집혔다. 어제 8거래일 만에 순매수(장중 6,000억원대)로 돌아섰던 외국인이 오늘 장 초반 2,528억~4,206억원 순매도(09시22분 기준 4,206억원, 이투데이)로 돌아섰고, 기관도 54억원 순매수에서 554억원 순매도로 전환했다. 개인만 2,360억원 순매수로 받아냈다(서울신문). 코스닥은 외국인 410억~777억원·기관 52억~80억원 순매도, 개인 445억~857억원 순매수(시점별 상이). 09시08분 매도 사이드카(코스피200 선물 −5.12%)는 23일 이후 2거래일 만이며 올해 코스피 62회째다. 원/달러 1,344.78원(+0.28%) 상승은 외국인 이탈과 방향이 일치한다. 증안펀드는 여전히 '준비' 상태이고 자사주 일일 매수한도 완화(24일 시행)는 지수 급락을 막지 못했다. 장 마감 확정 수급은 종가 이후 확인이 필요하다.</p>
+
+<h2>🔍 Watchlist</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Ticker</th><th>Name</th><th class="num">Close</th><th class="num">Change</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>TSLA</td>
+      <td>Tesla</td>
+      <td class="num">$385.46</td>
+      <td class="num up">
++11.46%      </td>
+      <td>⚠ JSON 데이터 기준일 11/23(월) 종가 — 화요일(11/24) 시세 미수집. 월요일은 FSD v15 얼리액세스에 AI 랠리가 겹쳐 2025년 4월 이후 최대 상승. 화요일은 메르세데스-벤츠 자율주행 경쟁 참전 소식에 약세(Barron's). 테슬라·SpaceX가 합병 협상 이사 5명(테슬라 3·SpaceX 2) 지정(FT·IBD), 로이터 '합병 시 SpaceX S&P 500 편입 자격·패시브 매수 약 10%' 전망</td>
+    </tr>
+    <tr>
+      <td>NVDA</td>
+      <td>NVIDIA</td>
+      <td class="num">$165.05</td>
+      <td class="num up">
++31.48%      </td>
+      <td>⚠ JSON 데이터 기준일 11/23(월) 종가 — 화요일(11/24) 시세 미수집. 뉴스 기준 화요일 약 6% 하락(CNBC·Yahoo, 로이터 종가 155.38달러·−5.86%)으로 시총 2,400억달러 반납. 젠슨 황 '가족·직원에게 사과, 치료 중' 메시지(Yahoo Finance). 12월 1일 하원 비공개 인터뷰·12월 3일 상원 증언 예정. 모의계좌 진입 제외 유지</td>
+    </tr>
+    <tr>
+      <td>005930</td>
+      <td>삼성전자</td>
+      <td class="num">₩176,000</td>
+      <td class="num down">
+-7.07%      </td>
+      <td>09시13분 장중 기준. 시가 178,500원·고가 179,900원에서 저가 175,100원까지 밀린 뒤 17만6천원대. 거래량 505만 주. 전날 +7.77%(종가 189,400원)를 하루 만에 반납. 미 반도체지수 −7.88%·마이크론 −11% 여파. 20일선 역배열(−12.8%) 지속으로 모의계좌 진입 금지 유지</td>
+    </tr>
+    <tr>
+      <td>000660</td>
+      <td>SK하이닉스</td>
+      <td class="num">₩1,077,000</td>
+      <td class="num down">
+-6.99%      </td>
+      <td>09시13분 장중 기준. 시가 1,094,000원·고가 1,097,000원·저가 1,071,000원. 거래량 64만 주. 전날 +8.02%(종가 1,158,000원) 반납. 비즈니스포스트 '메모리 가격 2027년 중반부터 하락' 전망, 조선일보 'HBM 몸값 내년 2배·빅테크 참전'으로 장기 재료는 엇갈림. 20일 변동성 percentile 99.7, 모의계좌 진입 금지 유지</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>⚡ Today's Takeaways</h2>
+<blockquote class="takeaway">월요일 랠리는 '추세 전환'이 아니라 '되돌림'이었음이 하루 만에 확인됐다. 반도체지수가 하루 +9%p 초과 성과를 낸 다음 날 −7.88%로 반납했고, 코스피는 +6.32% 뒤 −4.74%다. 하루 6% 오르는 시장은 하루 5% 빠지는 시장이라는 어제의 경고가 그대로 현실이 됐다. 방향 베팅보다 변동성이 식기를 기다리는 것이 여전히 순서다.</blockquote>
+<blockquote class="takeaway">다우 50,000 돌파와 나스닥 −1.48%의 동시 발생은 돈이 시장을 떠난 게 아니라 '기술주 → 가치주'로 옮겼다는 신호다. 10년물 4.904%(−0.014%p)로 금리도 흔들리지 않았다. 지수 전체가 아니라 AI 밸류에이션 한 곳에 압력이 집중된 구조이며, Anthropic이 공모가(83달러)를 깬 것이 그 상징이다.</blockquote>
+<blockquote class="takeaway">반도체 투톱은 이틀 연속 ±7%대를 오갔다. 삼성전자 189,400원→176,000원, SK하이닉스 1,158,000원→1,077,000원이다. 20일 변동성 percentile 99.7(SK하이닉스)인 종목은 손절폭이 15%대로 벌어져 기계적 진입이 불가능한 구간이다. '선반영돼 추가 하락 제한'이라는 증권가 시각도 있지만, 이 변동성에서는 맞아도 버티기 어렵다.</blockquote>
+<blockquote class="takeaway">오늘 밤 10시30분 PCE가 이번 주 분기점이다. 근원 3.2% 전망을 웃돌면 윌리엄스가 선 그은 0.5%p 인상론이 되살아나고, 안이면 12월 0.25%p로 끝나는 시나리오가 굳어진다. 목요일 미 휴장·금요일 조기 폐장으로 거래가 얇아 발표 직후 반응은 과장될 수 있다.</blockquote>
+<blockquote class="takeaway">금 3,547.00달러(−2.86%)와 주식이 함께 빠지고 유가는 81.69달러(+1.90%)로 올랐다. 안전자산이 헤지가 되지 않는 '현금 확보' 국면은 지난주 20일과 같은 패턴이다. 모의계좌가 양 시장 현금 100%로 이틀 연속 급변동을 피한 것은 운이 아니라 체제 규칙의 결과이며, 재진입 3조건(VIX 25 미만·20일선 위 2세션·외국인 순매수)은 오늘 모두 뒤로 밀렸다.</blockquote>
+
+<h2>📚 오늘의 공부</h2>
+<div class="lesson-card">
+  <div class="lesson-title">필라델피아 반도체지수(SOX) — 한국 반도체주가 밤새 받아보는 성적표</div>
+  <div class="lesson-body">오늘 아침 삼성전자가 −7.07%, SK하이닉스가 −6.99%로 출발했어요. 두 회사가 밤사이 나쁜 소식을 낸 건 아닌데, 뉴스는 '미국 반도체주 급락 여파'라고 했죠. 그 '미국 반도체주'를 숫자 하나로 묶어 보여주는 것이 필라델피아 반도체지수(SOX)예요.
+
+SOX는 미국에 상장된 반도체 회사 30개의 주가를 모아 만든 지수(여러 주식의 평균 점수표)예요. 엔비디아, 마이크론, AMD, 브로드컴이 들어 있어요. 화요일 밤 이 지수는 8,832.50으로 7.88% 떨어졌고, 마이크론은 11.01%나 빠졌어요. 월요일엔 2000년 이후 네 번째로 좋은 하루였던 지수가 하루 만에 뒤집힌 거예요.
+
+왜 한국 주식이 따라갈까요? 삼성전자와 SK하이닉스가 만드는 메모리는 엔비디아 같은 미국 회사의 AI 서버에 들어가요. 그래서 '미국 반도체가 안 팔릴 것 같다'는 걱정은 곧 '한국 메모리도 덜 팔릴 것 같다'로 번역돼요. 어제 코스피가 6.32% 오른 것도 월요일 밤 SOX 급등 덕분이었어요.
+
+이게 나에게 중요한 이유는, 한국 반도체주의 하루는 전날 밤 미국에서 절반쯤 정해진다는 거예요. 아침에 호가창을 열기 전 SOX가 몇 퍼센트로 끝났는지 먼저 보면, 왜 갭(어제 종가와 다른 가격)으로 출발하는지 이해할 수 있어요.</div>
+</div>
+
+<details class="glossary">
+<summary>📖 용어 빠르게 찾기 (초보자용 치트시트)</summary>
+<dl>
+  <dt>VIX (공포지수)</dt><dd>S&P 500의 향후 30일 변동성 예측. 20↓ 안정, 20~25 보통, 25↑ 긴장, 35↑ 위기.</dd>
+  <dt>10Y Treasury</dt><dd>미국 10년물 국채 수익률. 장기 금리 + 인플레 기대의 기준점. 오르면 기술주 부담, 은행주 수혜.</dd>
+  <dt>USD/KRW</dt><dd>원/달러 환율. 올라가면 원화 약세 = 수출주(삼전, 현대차) 유리 / 수입품/여행 부담.</dd>
+  <dt>S&P 500</dt><dd>미국 대형주 500개 평균. 미 증시 '대표선수' 지수.</dd>
+  <dt>NASDAQ</dt><dd>기술주 중심 미국 지수. AI·빅테크 비중 큼.</dd>
+  <dt>KOSPI / KOSDAQ</dt><dd>KOSPI = 한국 대형주, KOSDAQ = 한국 중소형/기술주.</dd>
+  <dt>bp (basis point)</dt><dd>0.01%. 금리 이야기할 때 쓰는 단위 (예: +3bp = +0.03%).</dd>
+  <dt>RISK ON / OFF</dt><dd>시장 심리. RISK ON = 위험자산(주식) 선호, RISK OFF = 안전자산(금·국채) 회피 이동.</dd>
+  <dt>외국인·기관 수급</dt><dd>누가 사고 누가 파는지. 외국인 순매수 = 한국 주식 긍정적 신호.</dd>
+  <dt>HBM</dt><dd>고대역폭 메모리. AI 칩에 들어가는 고급 메모리 — SK하이닉스·삼성전자 주력 상품.</dd>
+</dl>
+</details>
+
+<footer>⏰ Generated at 09:22 KST · Source: yfinance + Naver Finance · 투자 참고용이며 투자 판단의 책임은 본인에게 있습니다.</footer>
+
+</article>
+</div>
