@@ -1,0 +1,130 @@
+---
+title: Weekly Paper Brief
+author: "Written by Claude"
+date: "2026-11-25"
+layout: post
+categories: Research
+tags: [Papers, Weekly]
+series: paper
+---
+
+<style>
+.paper-brief {--bg:#faf9f6;--fg:#1a1a1a;--muted:#6b6b6b;--line:#e3e0d8;--accent:#1f6f54;--card:#ffffff;
+      --a:#1f6f54;--b:#8a6d1f;--c:#6d4fa3;--m:#2c6e9e;--sans:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;--serif:Georgia,"Noto Serif KR",serif}
+
+@media (prefers-color-scheme:dark){.paper-brief{--bg:#161614;--fg:#eceae4;--muted:#9a9890;--line:#33322d;--accent:#5fb893;--card:#1f1f1c;--a:#5fb893;--b:#d4b356;--c:#a98fd6;--m:#6aa9d8}
+.paper-brief {margin:0;background:var(--bg);color:var(--fg);font-family:var(--serif);line-height:1.65}
+.paper-brief .wrap {max-width:760px;margin:0 auto;padding:2rem 16px 4rem}
+.paper-brief .kicker {font-family:var(--sans);font-size:.8rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
+.paper-brief h1 {font-size:1.7rem;line-height:1.3;margin:.3rem 0 .2rem}
+.paper-brief .meta {font-family:var(--sans);color:var(--muted);font-size:.85rem;margin-bottom:1.6rem}
+.paper-brief h2 {font-family:var(--sans);font-size:1.05rem;margin:2.2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+.paper-brief .flow {font-size:1.02rem}
+.paper-brief .paper {background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:.9rem 0}
+.paper-brief .ptitle {font-family:var(--sans);font-weight:700;line-height:1.45}
+.paper-brief .ptitle a {color:var(--fg);text-decoration:none;border-bottom:1px dotted var(--muted)}
+.paper-brief .pvenue {font-family:var(--sans);font-size:.78rem;color:var(--muted);margin:.15rem 0 .6rem}
+.paper-brief .tag {display:inline-block;font-family:var(--sans);font-size:.68rem;padding:.1rem .45rem;border-radius:99px;color:#fff;margin-right:.3rem;vertical-align:1px}
+.paper-brief .tag.A {background:var(--a)}
+.paper-brief .tag.B {background:var(--b)}
+.paper-brief .tag.C {background:var(--c)}
+.paper-brief .tag.M {background:var(--m)}
+.paper-brief .paper ol {margin:.2rem 0 .6rem 1.2rem;padding:0;font-size:.95rem}
+.paper-brief .paper ol li {margin:.25rem 0}
+.paper-brief .rel {font-family:var(--sans);font-size:.88rem;background:color-mix(in srgb,var(--accent) 9%,transparent);border-left:3px solid var(--accent);padding:.5rem .7rem;border-radius:0 6px 6px 0}
+.paper-brief .one {margin:.55rem 0;font-size:.95rem}
+.paper-brief .one .pvenue {display:inline;margin-left:.4rem}
+.paper-brief .lev {color:var(--muted);font-family:var(--sans);font-size:.85rem;margin:.15rem 0 0 1.1rem}
+.paper-brief .foot {margin-top:3rem;font-family:var(--sans);font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:.8rem}
+</style>
+
+<div class="paper-brief">
+<div class="wrap">
+<div class="kicker">Weekly Paper Brief</div>
+<h1>PRS 재보정과 단백체 플랫폼 비교가 주도한 한 주</h1>
+<div class="meta">2026.11.25 (수) · 수집 창 2026-11-18 ~ 2026-11-25 · 후보 50편 (원천 667편)</div>
+
+<h2>이번 주 흐름</h2><p class="flow">이번 주는 PRS를 '완성된 점수'가 아니라 '현장에서 다시 조정하는 모델'로 보는 흐름이 뚜렷했다. Nat Genet의 요약통계 기반 앙상블 PRS와 Nat Commun의 로컬 데이터 재보정 PRS가 같은 주에 나왔고, 같은 PGS가 익명 유전체 재식별에 얼마나 쓰일 수 있는지 평가한 논문까지 더해져 PRS의 활용과 위험을 양쪽에서 재는 모양새다. 단백체에서는 SomaScan11K·Olink Explore HT·MS 세 플랫폼의 직접 비교, SomaScan↔Olink 교차 플랫폼 imputation, 두 플랫폼을 함께 쓴 심근경색 바이오마커 연구가 동시에 나와 '플랫폼 간 불일치를 어떻게 다룰 것인가'가 핵심 질문으로 떠올랐다. 그 밖에 아랍에미리트·마우스 집단 특화 팬게놈과 프랑스령 폴리네시아 코호트가 참조 유전체의 지역화 추세를 이어갔고, LLM 변이 해석 벤치마크·MCP 기반 분석 프레임워크·자율 에이전트 등 생성형 AI의 분석 파이프라인 진입도 계속됐다.</p>
+
+
+<h2>📌 필독 3편</h2>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag M">도구</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/43052484/">Regularized ensemble polygenic risk prediction with GWAS summary statistics.</a></div>
+  <div class="pvenue">Nat Genet</div>
+  <ol><li>개인 수준 유전형 없이 GWAS 요약통계만으로 다수의 후보 PRS 모델을 정규화 앙상블로 결합하는 통계 프레임워크를 개발했다.</li><li>여러 형질과 집단에서 기존 최신 PRS 방법들과 비교해 조상 집단 내부와 집단 간 모두에서 일관되게 더 높은 예측 성능을 보였다.</li><li>지금까지 다조상 PRS의 마지막 단계인 앙상블 학습은 개인 수준 데이터가 필수였는데, 그 제약을 없애 유전체 샘플이 부족한 비유럽 집단에도 앙상블 PRS를 적용할 길을 열었다.</li></ol>
+  <div class="rel">🔗 GWAS 요약통계만 확보 가능한 환경에서 PRS를 구축·갱신하는 작업에 바로 연결된다. 새 PRS 방법이 나올 때마다 기존 모델에 덧붙여 결합할 수 있는 구조여서, PRS 파이프라인을 모델 단위로 누적 관리하는 방식으로 재설계할 근거가 된다.</div>
+</div>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/43040434/">Comparison of high-throughput plasma proteomic platforms in a multi-ethnic Asian cohort.</a></div>
+  <div class="pvenue">Genome Biol</div>
+  <ol><li>SomaScan11K, Olink Explore HT, Orbitrap Astral+Seer Proteograph(MS-Seer) 세 플랫폼을 다민족 아시아 코호트에서 직접 비교해, 총 12,825개 단백질 중 세 플랫폼이 공통으로 정량한 것은 1,740개에 그치고 상관계수도 0.34~0.10으로 낮음을 보였다.</li><li>SomaScan은 결측률 1% 미만·CV 10% 미만으로 가장 안정적이었고, Olink Explore HT는 결측 51%·CV 23%로 높았는데 이는 Explore3072에 없던 신규 어세이가 주로 끌어올린 것이었으며, cis-pQTL 수는 Olink와 SomaScan이 비슷했다.</li><li>단백체 결과가 플랫폼 선택과 정규화 방식에 크게 좌우된다는 점을 수치로 보였고, 특히 SomaScan의 ANML 정규화가 생물학적으로 의미 있는 연관을 약화시킬 수 있음을 지적했다.</li></ol>
+  <div class="rel">🔗 SomaScan 데이터를 다루는 독자에게 가장 직접적인 논문이다. 배경을 풀면, 어피니티 기반 플랫폼(SomaScan은 압타머, Olink는 항체쌍)은 같은 단백질이라도 서로 다른 결합 부위를 측정하므로 값이 어긋날 수 있고, 질량분석(MS)은 또 다른 원리여서 세 플랫폼 간 상관이 낮게 나온 것이다. 실무적으로는 ANML 정규화를 기본값으로 적용한 뒤 연관 신호가 약해지지 않았는지 비정규화 데이터와 비교 점검할 필요가 있고, 인종 간 단백질 수준 차이가 SomaScan에서 더 많이 잡혔다는 점도 다민족 분석 시 공변량 설계에 참고할 만하다.</div>
+</div>
+
+<div class="paper">
+  <div><span class="tag A">업무</span><span class="tag M">도구</span><span class="tag C">기회레이더</span><span class="tag B">트렌드</span></div>
+  <div class="ptitle"><a href="https://pubmed.ncbi.nlm.nih.gov/43058116/">Fine-tuning of polygenic score to local data improves risk prediction and clinical implementation.</a></div>
+  <div class="pvenue">Nat Commun</div>
+  <ol><li>외부에서 만들어진 여러 공개 PRS를 가져와 대상 코호트의 예측 성능에 따라 기계학습으로 재가중하는 '사후 로컬 최적화' 프레임워크를 제안했다.</li><li>MGB Biobank에서 관상동맥질환·유방암·전립선암에 적용해 C-통계량이 평균 19.8%·8.3%·9.4% 개선됐고, 관상동맥질환 환자 포착률은 최고 성능 단일 PRS의 17.8%에서 27.7%로 올랐다.</li><li>새 GWAS나 복잡한 상위 알고리즘 없이도 PRS의 집단 간 이전성 문제를 완화할 수 있어, 각 의료기관이 자기 데이터로 PRS를 조정해 쓰는 임상 도입 청사진을 제시한다.</li></ol>
+  <div class="rel">🔗 앞의 앙상블 PRS 논문과 짝을 이루는 흐름으로, 독자가 보유한 코호트에 공개 PRS를 적용할 때 '그대로 쓰기'보다 '여러 PRS를 받아 로컬에서 재가중하기'가 표준이 될 가능성을 보여준다. imputation 품질이 PRS 재가중의 입력 품질을 결정하므로 두 작업의 연결고리도 명확하다.</div>
+</div>
+
+
+
+
+<h2>👀 주목</h2>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/43064779/" style="color:inherit">Multiancestry genome-wide association and integrative multiomics analyses implicate key pathways in endometriosis.</a><span class="pvenue">Nat Genet</span><br>GBMI 100만 명 이상(비유럽 32%) 다조상 GWAS로 자궁내막증 58개 영역(27개 신규)을 찾고 다중오믹스로 314개 유전자를 지목했으며, 아프리카·혼합 아메리카 집단 고유 좌위도 포함됐다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.05.05.723059" style="color:inherit">Machine learning cross-platform proteomic imputation enables protein quality scoring and replication of epidemiological associations</a><span class="pvenue">biorxiv (bioinformatics)</span><br>MESA 5,325명의 SomaScan·Olink 쌍 데이터로 양방향 교차 플랫폼 imputation 모델을 만들어 단백질별 신뢰도 지표를 산출하고, UKB의 Olink 데이터에서 SomaScan 전용 신호를 복원하는 데 활용했다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/43043107/" style="color:inherit">Machine learning-based proteomics analysis identified 23 protein biomarkers for enhanced risk prediction of myocardial infarction in Chinese and Europeans.</a><span class="pvenue">Gigascience</span><br>중국인 4,000명에서 Olink와 SomaScan을 함께 측정해 Boruta로 뽑은 23개 단백질 점수가 기존 위험인자·PGS보다 심근경색 예측을 개선했고(상·하위 20% 간 10년 발생률 3.3배 차이), UKB 37,187명에서도 재현됐다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/43073306/" style="color:inherit">Evaluating anonymized genome re-identification using polygenic predictions and its implications for data privacy.</a><span class="pvenue">Nat Commun</span><br>PGS로 예측한 형질과 실제 형질을 대조해 익명 유전체를 재식별하는 공격을 확률 모델로 정량화한 결과, 사전확률 50%에서는 정밀도 99%를 넘지만 현실적 사전확률에서는 0.13% 미만으로 떨어져 실질 위험은 제한적이라고 결론지었다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/43045849/" style="color:inherit">Integrated QTL mapping and CRISPR screening in pooled iPSC-derived microglia reveals genetic drivers of neurodegenerative risk.</a><span class="pvenue">Nat Genet</span><br>261개 iPSC 라인을 풀로 미세아교세포로 분화시켜 eQTL 7,121개 유전자와 신경퇴행 GWAS 4종 대비 79개 공위치화를 찾고, CRISPR 스크린으로 TREM2의 식세포작용 역할을 확인하는 'QTL+기능검증' 통합 설계를 보였다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag B">트렌드</span><a href="https://pubmed.ncbi.nlm.nih.gov/43052272/" style="color:inherit">The Emirati pangenome featuring a diploid chromosome-level reference.</a><span class="pvenue">Nat Commun</span><br>트리오 기반 이배체 참조와 57개 HiFi 조립체로 아랍에미리트 집단 특화 팬게놈 그래프를 만들어, 단일 리드 유전형 분석에서 GWAS 변이와 LD에 있는 구조변이를 찾아내는 등 지역 참조의 가치를 보였다.</div>
+
+<div class="one"><span class="tag A">업무</span><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.11.18.26364966" style="color:inherit">Prospective multi-omic profiling identifies predictive and genetically supported molecular determinants of incident epilepsy</a><span class="pvenue">medrxiv (genetic and genomic medicine)</span><br>UKB 약 53,000명의 혈장 단백질 2,923개로 뇌전증 발생 전 최대 15년을 추적해 NEFL·GDF15를 포함한 116개 단백질을 찾고, 32개 단백질 위험점수(AUC 0.70)와 cis-pQTL 멘델 무작위화로 OGA 등 12개 인과 후보를 제시했다.</div>
+
+
+
+
+<h2>🔧 분석 도구·방법론</h2>
+
+<div class="one"><span class="tag M">도구</span><a href="https://pubmed.ncbi.nlm.nih.gov/43054624/" style="color:inherit">DreamAI2: an imputation tool for data-independent acquisition proteomics data.</a><span class="pvenue">Bioinform Adv</span><br>흑색종 162예의 DIA와 TMT-DDA 쌍 데이터를 외부 기준으로 삼아 7개 imputation 알고리즘과 4개 앙상블을 벤치마크하고, 그 결과를 바탕으로 DIA 최적화 앙상블 DreamAI2가 가장 우수함을 보였다.
+<div class="lev">⚙️ SomaScan은 결측이 거의 없어 직접 쓸 일은 적지만, MS 기반 DIA 단백체 데이터를 다루게 되면 결측 처리의 기본 선택지가 된다. 벤치마크 설계(쌍 측정을 외부 기준으로 사용) 자체가 독자가 자체 imputation 품질을 검증할 때 참고할 틀이다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://pubmed.ncbi.nlm.nih.gov/43039908/" style="color:inherit">Accounting for longitudinal peak quality metrics with MSstats+ enhances differential analysis in proteomic experiments with data-independent acquisition.</a><span class="pvenue">Nat Commun</span><br>Spectronaut·DIA-NN의 피크 강도뿐 아니라 피크 형태·보존시간 등 품질 지표와 런 순서 추이를 하나의 품질 점수로 합쳐 저품질 측정을 하향 가중하는 DIA 차등분석 워크플로로, R/Bioconductor MSstats 패밀리로 제공된다.
+<div class="lev">⚙️ '측정 품질 지표를 통계 모델의 가중치로 넣는다'는 접근은 단백체 QC 일반에 적용 가능하다. SomaScan에서도 플레이트·런 순서에 따른 배치 효과를 공변량으로만 보정하는 대신 신호 품질 가중으로 다루는 설계를 검토할 근거가 된다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://pubmed.ncbi.nlm.nih.gov/43043948/" style="color:inherit">GapCNV: A comprehensive framework for CNV detection in low-input DNA sequencing data.</a><span class="pvenue">PLoS Comput Biol</span><br>저입력·단일세포 시퀀싱에서 세포 군집화와 공유 CNV 프로파일로 빈 단위 '카피 중립 의사 참조'를 만들어 정규화하는 CNV 검출 프레임워크로, 시뮬레이션과 P. falciparum·유방암·흑색종 데이터에서 짧고 흔한 CNV 검출에 강점을 보였다.
+<div class="lev">⚙️ 어레이 CNV 콜링에서도 참조 샘플에 흔한 CNV가 섞이면 진짜 신호가 상쇄되는 문제가 똑같이 생긴다. 참조를 고정하지 않고 빈별로 카피 중립 샘플을 골라 기준선을 만드는 아이디어는 어레이 참조 집합 구성에 바로 응용할 수 있다.</div></div>
+
+<div class="one"><span class="tag M">도구</span><a href="https://doi.org/10.64898/2026.11.17.766419" style="color:inherit">Domain-informed effector gene assignment exposes training-data dependence of drug target prioritisation from GWAS</a><span class="pvenue">biorxiv (genetics)</span><br>GWAS 좌위의 효과 유전자 지정 방법들을 세 독립 평가 세트로 벤치마크한 결과 같은 방법도 평가 도메인에 따라 AUPRC가 0.91에서 0.46까지 흔들렸고, 다섯 도메인 모델 간 지정 일치율은 17.1~31.8%에 그쳤다. 큐레이션 가정을 명시하는 DEFA 프레임워크를 공개했다.
+<div class="lev">⚙️ GWAS 후처리에서 Open Targets L2G 같은 효과 유전자 점수를 그대로 신뢰하기보다, 어떤 학습 데이터에 기반했는지 확인하고 복수 모델의 교집합·합집합을 함께 보는 습관이 필요하다는 근거다. 변이-유전자 거리 가중이 결과를 좌우한다는 점도 해석 시 염두에 둘 부분이다.</div></div>
+
+
+
+
+<h2>🛰 기회 레이더</h2>
+
+<div class="one"><span class="tag C">기회</span><a href="https://pubmed.ncbi.nlm.nih.gov/43053088/" style="color:inherit">Benchmarking generative AI tools for literature retrieval and summarization in genomic variant interpretation.</a><span class="pvenue">Genome Biol</span><br>체세포·생식세포 변이 40개에 대해 ChatGPT·MistralAI·VarChat·Perplexity·ScholarAI의 문헌 요약을 전문가가 블라인드 평가한 결과 VarChat이 1위, GPT-4o가 2위였고, 문헌이 적은 변이에서는 모든 도구가 취약했다.
+<div class="lev">💡 LLM 변이 해석은 이미 '쓸 만하지만 전문가 검증이 필수'인 단계에 와 있어, 생성 결과를 검증하고 도메인 특화로 조정할 수 있는 유전체 전문가의 역할이 오히려 더 명확해진다.</div></div>
+
+<div class="one"><span class="tag C">기회</span><a href="https://pubmed.ncbi.nlm.nih.gov/43054786/" style="color:inherit">A model context protocol-enabled framework for LLM-driven somatic mutation analysis.</a><span class="pvenue">Bioinform Adv</span><br>R 패키지 Maftools를 Model Context Protocol(MCP)로 감싸 자연어 요청을 구조화된 도구 호출로 바꾸는 Maftools-MCP를 만들고, 상용·로컬 LLM 5종에서 세 가지 사용 사례를 반복 실행해 검증했다.
+<div class="lev">💡 기존 분석 패키지를 MCP 서버로 노출하는 작업이 생물정보 도구 개발의 새 표준 레이어가 되고 있어, 자기 파이프라인(CNV·GWAS·단백체)을 에이전트가 호출 가능하게 만드는 능력이 차별화 요소가 된다.</div></div>
+
+<div class="one"><span class="tag C">기회</span><a href="https://doi.org/10.64898/2026.11.17.767465" style="color:inherit">MicroBioAgent: an AI agent for automated microbiome analysis</a><span class="pvenue">biorxiv (bioinformatics)</span><br>고수준 생물학 질문을 16S·샷건·조립 기반 메타지노믹스 파이프라인으로 자동 변환하고 중간 산출물을 점검해 다음 단계를 조정하는 폐루프 에이전트로, 비동기 작업 관리로 LLM 토큰 소비를 50% 이상 줄였다.
+<div class="lev">💡 정적 파이프라인 템플릿에서 '결과를 보고 스스로 조정하는 에이전트'로 넘어가는 흐름이 분야를 가리지 않고 확산 중이어서, 파이프라인 설계보다 에이전트 평가·검증 벤치마크 설계 역량의 가치가 커진다.</div></div>
+
+
+
+<div class="foot">bioRxiv · medRxiv · PubMed 최근 7일 — 키워드 3트랙 자동 수집 후 Claude 선별 · PaperBrief</div>
+</div>
+</div>
